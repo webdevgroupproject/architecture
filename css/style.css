@@ -1,0 +1,57 @@
+body {
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    color: #404040;
+}
+
+h1{
+  font-size: 3.2em;
+  text-align: center;
+}
+h2{
+  font-size: 2.2em;
+  text-align: left;
+}
+.width10{
+  box-sizing: border-box;
+  width: 10%;
+}
+.width20{
+  box-sizing: border-box;
+  width: 20%;
+}
+.width30{
+  box-sizing: border-box;
+  width: 30%;
+}
+.width40{
+  box-sizing: border-box;
+  width: 40%;
+}
+.width50{
+  box-sizing: border-box;
+  width: 50%;
+}
+.width60{
+  box-sizing: border-box;
+  width: 60%;
+}
+.width70{
+  box-sizing: border-box;
+  width: 70%;
+}
+.width80{
+  box-sizing: border-box;
+  width: 80%;
+}
+.width90{
+  box-sizing: border-box;
+  width: 90%;
+}
+.width100{
+  box-sizing: border-box;
+  width: 100%;
+}
