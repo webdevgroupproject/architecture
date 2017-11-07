@@ -14,6 +14,7 @@ body {
 header{
   padding: 1em;
   overflow: hidden;
+  padding-bottom: 0;
   width: 100%;
   box-sizing: border-box;
 }
@@ -77,7 +78,6 @@ ul{
 }
 .header-nav{
   float: left;
-  width: 61%;
   margin-top: 2em;
 }
 .header-nav li{
@@ -142,16 +142,13 @@ margin-top: 14px;
   width: 100%;
   float:left;
 }
-.pages-nav{
-  float: left;
-}
-.pages-nav a{
+.header-nav a{
   font-size: 1.5em;
 text-decoration: none;
 line-height: 2.8;
 color: #404040;
 }
-.pages-nav a:hover{
+.header-nav a:hover{
   color: #2DC3E7;
 }
 .user-nav span{
@@ -160,7 +157,7 @@ color: #404040;
 }
 .user-nav a{
 text-decoration: none;
-line-height: 3.8;
+line-height:4.2;
 color: #404040;
 }
 .user-nav a:hover{
@@ -239,7 +236,9 @@ margin: 0;
   padding-left: 1em;
 }
 .user-nav{
-  float: left;
+  float: right;
+  margin-top: 2em;
+  margin-right: 1em;
 }
 /*.imageThirdContain:first-child{
   width: 33.33%;
