@@ -10,6 +10,7 @@ body {
 .wrapper{
   padding: 0;
   float: left;
+  width:100%;
 }
 header{
   padding: 1em;
