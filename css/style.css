@@ -13,7 +13,7 @@ body {
 }
 header{
   padding: 1em;
-  float: left;
+  overflow: hidden;
   width: 100%;
   box-sizing: border-box;
 }
@@ -168,25 +168,58 @@ color: #404040;
 }
 .imageThirdContain{
   width: 33.33%;
-  padding: 5%;
-  padding-bottom: 0;
+  padding: 2.5%;
+  padding-bottom: 2em;
   padding-top: 0;
   box-sizing: border-box;
   float:left;
   margin-top: 20px;
   position: relative;
 }
-.imageThirdContain h1{
+
+.attendance-info-banner{
+  font-size: 0.7em;
+position: absolute;
+top: 0;
+width: 100%;
+color: #eaeaea;
+background-color: rgb(45, 195, 231);
+background-color: rgb(45, 195, 231, 0.9);
+padding: 0.5em;
+box-sizing: border-box;
+margin: 0;
+left: 0;
+font-weight: bold;
+}
+
+.number-attending{
+  float: left;
+}
+.spaces-left{
+  float: right;
+}
+
+.image-text{
   font-size: 1.3em;
-  position: absolute;
-  bottom: calc(0px + 4px);
-  width: 70%;
-  color: #eaeaea;
-  background-color: rgb(64, 64, 64);
-  background-color: rgb(64, 64, 64, 0.6);
-  padding: 0.5em;
-  box-sizing: border-box;
-  margin: 0;
+position: absolute;
+bottom: calc(0px + 4px);
+width: 100%;
+color: #eaeaea;
+background-color: rgb(64, 64, 64);
+background-color: rgb(64, 64, 64, 0.6);
+padding: 0.5em;
+box-sizing: border-box;
+margin: 0;
+left: 0;
+text-align: left;
+}
+.image-text p{
+font-size: 0.7em;
+margin: 0;
+}
+.image-with-text{
+  position: relative;
+  width: 100%
 }
 .imageFourContain{
   width: 25%;
