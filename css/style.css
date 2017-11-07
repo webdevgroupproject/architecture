@@ -29,6 +29,11 @@ main{
   overflow: hidden;
   background-color: #EAEAEA;
 }
+
+.main-white {
+  overflow: hidden;
+  background-color: white;
+}
 .button {
     background-color: #2DC3E7;
     border: none;
@@ -259,3 +264,19 @@ margin: 0;
   box-sizing: border-box;
   float:left;
 }*/
+form {
+  text-align: center;
+  margin: 0 auto;
+
+}
+
+form input {
+  width:500px;
+  height:30px;
+  margin:0 auto;
+}
+
+form label {
+  margin:0 auto;
+
+}
