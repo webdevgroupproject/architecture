@@ -1,28 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Title</title>
-</head>
-<body>
-  <div class="wrapper">
-    <header>
-      <div class="logo-contain">
-      <a href="index.html"><img src="images/logo-test.png" alt="Blueprint company logo"></a>
-      </div>
-      <nav class="header-nav">
-          <ul>
-            <li><a href="#">Join the community</a></li>
-          </ul>
-      </nav>
-      <nav class="user-nav">
-        <span class="user-conrol-links">
-          <a href="#">Sign up</a> | <a href="login.html">Log in</a>
-        </span>
-      </nav>
-    </header>
-    <main>
+<?php
+require_once ('scripts/functions.php');
+echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
+echo makeHeader();
+?>
     <h1>Upcoming events</h1>
     <div class="images-container">
     <div class="imageThirdContain">
@@ -153,14 +133,8 @@
                   </div>
                   </a>
                 </div>
-
-
     </div>
     <a href="#" style="margin-left:2.5%;">See previous events</a>
-    </main>
-    <footer>
-<h1>The footer</h1>
-    </footer>
-  </div>
-</body>
-</html>
+<?php
+echo makePageFooter();
+?>
