@@ -8,7 +8,7 @@ body {
     margin: 0;
     padding: 0;
     font-size: 100%;
-    color: #404040;
+    background-color: #efefef;
     display: flex;
     flex-direction: column;
      height: 100vh;
@@ -24,24 +24,21 @@ header{
   padding-bottom: 0;
   width: 100%;
   box-sizing: border-box;
+  background-color: #fff;
 }
 footer{
   background-color: #404040;
   float: left;
   width: 100%;
-  color: #EAEAEA;
+  color: #efefef;
   flex-shrink: 0;
 }
 main{
   overflow: hidden;
-  background-color: #EAEAEA;
+  background-color: #f9f9f9;
   flex: 1 0 auto;
 }
 
-.main-white {
-  overflow: hidden;
-  background-color: white;
-}
 .button {
     background-color: #2DC3E7;
     border: none;
@@ -97,10 +94,11 @@ a:hover{
 }
 ul{
   list-style-type: none;
+  margin: 0;
 }
 .header-nav{
   float: left;
-  margin-top: 2em;
+  margin-top: 15px;
 }
 .header-nav li{
   float: left;
@@ -171,7 +169,6 @@ margin-top: 14px;
 .header-nav a{
   font-size: 1.5em;
 text-decoration: none;
-line-height: 2.8;
 color: #404040;
 }
 .header-nav a:hover{
@@ -183,7 +180,6 @@ color: #404040;
 }
 .user-nav a{
 text-decoration: none;
-line-height:4.2;
 color: #404040;
 }
 .user-nav a:hover{
@@ -262,8 +258,8 @@ margin: 0;
   padding-left: 1em;
 }
 .user-nav{
+  margin-top: 15px;
   float: right;
-  margin-top: 2em;
   margin-right: 1em;
 }
 /*.imageThirdContain:first-child{
