@@ -42,7 +42,7 @@ echo makeHeader();
                   <span class="spaces-left">11 spaces left</span>
                 </div>
                 <div class="image-text">
-                  3D modeling seminar
+                  3 modeling seminar
                   <p>14th March 2018 | Newcastle University | 10:30 AM</p>
                 </div>
               </div>
@@ -82,7 +82,7 @@ echo makeHeader();
               </a>
             </div>
         </div>
-        <a href="events.html" style="margin-left: 2.5%;">See all events</a>
+        <a href="events.php" style="margin-left: 2.5%;">See all events</a>
       </div>
 <?php
 echo makePageFooter();
