@@ -43,7 +43,7 @@ HEADER;
 function makePageFooter(){
     $makePageFooter = <<<FOOTER
     </main>
-    <footer>
+    <footer style="position: absolute; bottom:0">
         <h1>The footer</h1>
     </footer>
   </div><!--end wrapper -->
