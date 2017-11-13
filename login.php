@@ -6,9 +6,9 @@ echo makeHeader();
 ?>
 
 
-      <h1>Sign into your account</h1>
+      <br/><br/><h1>Sign into your account</h1>
         <div class="form-container">
-            <form method="get" action="#">
+            <form method="get" action="loginAction.php">
                 <label>Email / Username: </label>
                 <input type="text" name="email">
                 <label>Password: </label>
