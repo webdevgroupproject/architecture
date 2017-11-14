@@ -1,0 +1,11 @@
+.sass-cache
+.DS_Store
+.start.pid
+.port.tmp
+govuk_modules
+node_modules/*
+.idea/
+target/
+public/
+ *.log
+npm-debug.log
