@@ -10,15 +10,15 @@ body {
     padding: 0;
     font-size: 100%;
     background-color: #f9f9f9;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+    position: relative;
 }
 
 .wrapper {
     padding: 0;
-    float: left;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 header {
@@ -31,17 +31,15 @@ header {
 }
 
 footer {
-    background-color: #404040;
-    float: left;
-    width: 100%;
-    color: #efefef;
-    flex-shrink: 0;
+  background-color: #404040;
+float: left;
+width: 100%;
+color: #efefef;
 }
-
 main {
     overflow: hidden;
     background-color: #f9f9f9;
-    flex: 1 0 auto;
+    flex: 1;
 }
 
 .button {
@@ -65,6 +63,7 @@ main {
 .home-banner {
     position: relative;
     background-color: #EAEAEA;
+    float: left;
 }
 
 .banner-text {
@@ -143,6 +142,7 @@ ul {
 .community-events-section {
     padding-bottom: 1em;
     background-color: #fff;
+    float: left;
 }
 
 .width10 {
@@ -342,4 +342,47 @@ form input {
 
 .submit-wrap {
     text-align: center;
+}
+
+
+
+
+
+.Site {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* 1, 3 */
+}
+
+.Site-header,
+.Site-footer {
+  flex: none; /* 2 */
+}
+
+.Site-content {
+  flex: 1 0 auto; /* 2 */
+  padding: var(--space) var(--space) 0;
+  width: 100%;
+}
+.Site-content::after {
+  content: '\00a0'; /* &nbsp; */
+  display: block;
+  margin-top: var(--space);
+  height: 0px;
+  visibility: hidden;
+}
+@media (--break-lg) {
+  .Site-content {
+    padding-top: var(--space-lg);
+  }
+  .Site-content::after {
+    margin-top: var(--space-lg);
+  }
+}
+
+.Site-content--full {
+  padding: 0;
+}
+.Site-content--full::after {
+  content: none;
 }
