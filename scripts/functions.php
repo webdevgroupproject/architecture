@@ -43,9 +43,9 @@ HEADER;
 function makePageFooter(){
     $makePageFooter = <<<FOOTER
     </main>
-    <footer>
-        <h1>The footer</h1>
-    </footer>
+		<footer>
+				<h1>The footer</h1>
+		</footer>
   </div><!--end wrapper -->
 </body>
 </html>
