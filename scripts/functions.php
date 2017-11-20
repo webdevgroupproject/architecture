@@ -23,16 +23,24 @@ function makeHeader(){
     <div class="logo-contain">
     <a href="index.php"><img src="images/logo-test.png" alt="Blueprint company logo"></a>
     </div>
-    <nav class="header-nav">
-        <ul>
-          <li><a href="#">Join the community</a></li>
-        </ul>
-    </nav>
-    <nav class="user-nav">
-      <span class="user-conrol-links">
-        <a href="#">Sign up</a> | <a href="login.php">Log in</a>
-      </span>
-    </nav>
+    <div class="menu-wrap">
+        <nav class="header-nav">
+            <ul class="clearfix">
+              <li><a href="community.php">Join the community<span class="arrow"> &#9660;</span></a>
+                <ul class="dropdown">
+                    <li><a href="events.php">Events</a></li>
+                    <li><a href="Forum.php">Discussion board</a></li>
+                 </ul>
+              </li>
+            </ul>
+        </nav>
+        <nav class="user-nav">
+          <span class="user-conrol-links">
+            <a href="#">Sign up</a> | <a href="login.php">Log in</a>
+          </span>
+        </nav>
+    </div>
+    
   </header>
   <main>
 HEADER;
