@@ -1,17 +1,25 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.10
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Nov 14, 2017 at 05:47 PM
--- Server version: 5.5.42
--- PHP Version: 7.0.0
+-- Host: 127.0.0.1
+-- Generation Time: Nov 20, 2017 at 03:35 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `blueprint`
+-- Database: `blueprint_db`
 --
 
 -- --------------------------------------------------------
@@ -39,14 +47,15 @@ CREATE TABLE `bp_events` (
   `eventPlace` varchar(100) NOT NULL,
   `eventSpaces` int(4) NOT NULL,
   `eventImage` varchar(200) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bp_events`
 --
 
 INSERT INTO `bp_events` (`eventId`, `eventName`, `eventDate`, `eventTime`, `eventPlace`, `eventSpaces`, `eventImage`) VALUES
-(1, 'test1', '2017-11-13', '18:00:00', 'newcastle', 1000, 'images/url.jpg');
+(1, 'test1', '2017-11-13', '18:00:00', 'newcastle', 1000, 'images/url.jpg'),
+(2, 'Learn to Blueprint', '2018-03-02', '18:30:00', 'Newcastle university', 30, '');
 
 -- --------------------------------------------------------
 
@@ -58,7 +67,7 @@ CREATE TABLE `bp_event_signup` (
   `eventSignupId` int(11) NOT NULL,
   `eventId` int(11) NOT NULL,
   `userId` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bp_event_signup`
@@ -178,6 +187,14 @@ CREATE TABLE `bp_thread` (
   `datePosted` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `bp_thread`
+--
+
+INSERT INTO `bp_thread` (`threadId`, `userId`, `threadTitle`, `threadInfo`, `timePosted`, `datePosted`) VALUES
+(1, 3, 'Planning permission', 'I need to know how to go about gaining planning permission and if it will cost me anything.', '09:23:00', '2017-11-10'),
+(2, 3, 'How to blueprint', 'I need to draw up some blue prints but dont know where to start', '08:00:00', '2017-11-23');
+
 -- --------------------------------------------------------
 
 --
@@ -192,6 +209,13 @@ CREATE TABLE `bp_thread_message` (
   `datePosted` date NOT NULL,
   `timePosted` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bp_thread_message`
+--
+
+INSERT INTO `bp_thread_message` (`threadMessId`, `threadID`, `userId`, `message`, `datePosted`, `timePosted`) VALUES
+(1, 1, 3, 'a message', '2017-11-22', '15:00:00');
 
 -- --------------------------------------------------------
 
@@ -212,14 +236,14 @@ CREATE TABLE `bp_user` (
   `organisation` varchar(100) NOT NULL,
   `websiteLink` varchar(500) NOT NULL,
   `userRole` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bp_user`
 --
 
 INSERT INTO `bp_user` (`userId`, `forename`, `surname`, `email`, `username`, `password`, `pro`, `image`, `overview`, `organisation`, `websiteLink`, `userRole`) VALUES
-(3, 'Ross', 'Brown', 'ross.brown@xample.com', 'rossbrown', 'password', 0, NULL, 'example overview', 'organisation', 'www.example.com', 'freelancer');
+(3, 'Ross', 'Brown', 'ross.brown@xample.com', 'rossbrown', '$2y$10$yv9So026F3u0JLxDymEpm.d8KZpZCzUsbfyzLMOtElsVFbYHZIZ6O', 0, NULL, 'example overview', 'organisation', 'www.example.com', 'freelancer');
 
 --
 -- Indexes for dumped tables
@@ -334,12 +358,12 @@ ALTER TABLE `bp_conversation`
 -- AUTO_INCREMENT for table `bp_events`
 --
 ALTER TABLE `bp_events`
-  MODIFY `eventId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `eventId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `bp_event_signup`
 --
 ALTER TABLE `bp_event_signup`
-  MODIFY `eventSignupId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `eventSignupId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `bp_job_accept`
 --
@@ -379,17 +403,17 @@ ALTER TABLE `bp_skill_type`
 -- AUTO_INCREMENT for table `bp_thread`
 --
 ALTER TABLE `bp_thread`
-  MODIFY `threadId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `threadId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `bp_thread_message`
 --
 ALTER TABLE `bp_thread_message`
-  MODIFY `threadMessId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `threadMessId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `bp_user`
 --
 ALTER TABLE `bp_user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
@@ -417,8 +441,8 @@ ALTER TABLE `bp_job_accept`
 -- Constraints for table `bp_job_offer`
 --
 ALTER TABLE `bp_job_offer`
-  ADD CONSTRAINT `bp_job_offer_ibfk_2` FOREIGN KEY (`jobPostId`) REFERENCES `bp_job_post` (`jobPostID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `bp_job_offer_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `bp_user` (`userId`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `bp_job_offer_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `bp_user` (`userId`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `bp_job_offer_ibfk_2` FOREIGN KEY (`jobPostId`) REFERENCES `bp_job_post` (`jobPostID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `bp_job_post`
@@ -430,24 +454,24 @@ ALTER TABLE `bp_job_post`
 -- Constraints for table `bp_message`
 --
 ALTER TABLE `bp_message`
-  ADD CONSTRAINT `bp_message_ibfk_2` FOREIGN KEY (`convorsationID`) REFERENCES `bp_conversation` (`conversationID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `bp_message_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `bp_user` (`userId`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `bp_message_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `bp_user` (`userId`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `bp_message_ibfk_2` FOREIGN KEY (`convorsationID`) REFERENCES `bp_conversation` (`conversationID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `bp_notification`
 --
 ALTER TABLE `bp_notification`
-  ADD CONSTRAINT `bp_notification_ibfk_4` FOREIGN KEY (`messageID`) REFERENCES `bp_message` (`messageID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `bp_notification_ibfk_1` FOREIGN KEY (`jobAcceptID`) REFERENCES `bp_job_accept` (`jobAcceptID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `bp_notification_ibfk_2` FOREIGN KEY (`jobOfferID`) REFERENCES `bp_job_offer` (`jobOfferId`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `bp_notification_ibfk_3` FOREIGN KEY (`userID`) REFERENCES `bp_user` (`userId`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `bp_notification_ibfk_3` FOREIGN KEY (`userID`) REFERENCES `bp_user` (`userId`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `bp_notification_ibfk_4` FOREIGN KEY (`messageID`) REFERENCES `bp_message` (`messageID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `bp_skills`
 --
 ALTER TABLE `bp_skills`
-  ADD CONSTRAINT `bp_skills_ibfk_2` FOREIGN KEY (`skillTypeId`) REFERENCES `bp_skill_type` (`skillTypeId`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `bp_skills_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `bp_user` (`userId`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `bp_skills_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `bp_user` (`userId`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `bp_skills_ibfk_2` FOREIGN KEY (`skillTypeId`) REFERENCES `bp_skill_type` (`skillTypeId`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `bp_thread`
@@ -461,3 +485,8 @@ ALTER TABLE `bp_thread`
 ALTER TABLE `bp_thread_message`
   ADD CONSTRAINT `bp_thread_message_ibfk_1` FOREIGN KEY (`threadID`) REFERENCES `bp_thread` (`threadId`) ON UPDATE CASCADE,
   ADD CONSTRAINT `bp_thread_message_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `bp_user` (`userId`) ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
