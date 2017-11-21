@@ -1,5 +1,6 @@
 <?php
 require_once ('scripts/functions.php');
+require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
 echo makeHeader();
 ?>
@@ -32,55 +33,34 @@ echo makeHeader();
         <div class="images-container">
           <h1>Community events</h1>
           <p class="tagline">Sign up for one of our many events and get involved with the community.</p>
+            <?php
+            $dbConn = databaseConn::getConnection();
 
-            <div class="imageThirdContain">
-              <a href="#">
-              <div class="image-with-text">
-                <img src="images/event-img-1.jpeg" alt="image of a 3d model house">
-                <div class="attendance-info-banner">
-                  <span class="number-attending">9 attending</span>
-                  <span class="spaces-left">11 spaces left</span>
-                </div>
-                <div class="image-text">
-                  3 modeling seminar
-                  <p>14th March 2018 | Newcastle University | 10:30 AM</p>
-                </div>
+            $eventSQL = 'select *
+             from bp_events
+             order by eventDate
+             LIMIT 3';
+
+            $stmt = $dbConn->query($eventSQL);
+            while ( $event = $stmt->fetchObject()) {
+
+
+                echo "<div class=\"imageThirdContain\">
+            <a href=\"eventPage.php?eventid=" . $event->eventId . "\">
+            <div class=\"image-with-text\">
+              <img src=\"images/event-img-1.jpeg\" alt=\"image of a 3d model house\">
+              <div class=\"attendance-info-banner\">
+                <span class=\"number-attending\">9 attending</span>
+                <span class=\"spaces-left\">11 spaces left</span>
               </div>
-              </a>
-            </div>
-
-
-            <div class="imageThirdContain">
-              <a href="#">
-              <div class="image-with-text">
-                <img src="images/event-img-2.jpeg" alt="image of a blueprint">
-                <div class="attendance-info-banner">
-                  <span class="number-attending">30 attending</span>
-                  <span class="spaces-left">20 spaces left</span>
-                </div>
-                <div class="image-text">
-                  Learn to Blueprint
-                  <p>17th March 2018 | Sage Newcastle | 07:00 PM</p>
-                </div>
+              <div class=\"image-text\">" . $event->eventName . "<p>" . $event->eventDate . " | " . $event->eventPlace . " | " . $event->eventTime . "</p>
               </div>
-              </a>
             </div>
+            </a>
+          </div>";
+            }
 
-            <div class="imageThirdContain">
-              <a href="#">
-              <div class="image-with-text">
-                <img src="images/event-img-3.jpeg" alt="building a h">
-                <div class="attendance-info-banner">
-                  <span class="number-attending">79 attending</span>
-                  <span class="spaces-left">21 spaces left</span>
-                </div>
-                <div class="image-text">
-                  Charity home build
-                  <p>10th April 2018 | Newcastle Civic Center | 09:00 AM</p>
-                </div>
-              </div>
-              </a>
-            </div>
+            ?>
         </div>
         <a href="events.php" style="margin-left: 2.5%;">See all events</a>
       </div>

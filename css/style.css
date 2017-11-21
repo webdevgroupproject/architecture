@@ -456,3 +456,13 @@ form input {
 .thread a:hover p{
     color: #000;
 }
+.postThread{
+    padding-left: 2.5%;
+}
+#postThreadForm{
+    margin: 0;
+}
+#postThreadForm .button{
+    float: left;
+    margin-left: 0;
+}
