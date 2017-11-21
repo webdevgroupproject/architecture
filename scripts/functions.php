@@ -73,4 +73,7 @@ FOOTER;
     return $makePageFooter;
 };
 
-
+function startSession(){
+    ini_set("session.save_path", "/xampp1/sessionData");
+    session_start();
+};
