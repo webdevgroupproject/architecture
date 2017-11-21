@@ -1,10 +1,11 @@
 <?php
 
-ini_set("session.save_path", "/Applications/MAMP/sessionData");
-session_start();
+//ini_set("session.save_path", "/xampp1/sessionData");
+//session_start();
 ?>
 <?php
 require_once('scripts/functions.php');
+echo startSession();
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Admin");
 echo makeHeader();
 

@@ -1,10 +1,11 @@
 <?php
-error_reporting(E_ALL); ini_set('display_errors', 'On');
-ini_set("session.save_path", "/Applications/MAMP/sessionData");
-session_start();
+//error_reporting(E_ALL); ini_set('display_errors', 'On');
+//ini_set("session.save_path", "/xampp1/sessionData");
+//session_start();
 
 require_once('scripts/functions.php');
 require_once ('classes/databaseConn.php');
+echo startSession();
 
 $dbConn = databaseConn::getConnection();
 
