@@ -18,32 +18,43 @@ PAGESTART;
 };
 
 function makeHeader(){
-  $headerContent = <<<HEADER
-  <header>
-    <div class="logo-contain">
-    <a href="index.php"><img src="images/logo-test.png" alt="Blueprint company logo"></a>
+  $headerContent =
+  "<header>
+    <div class=\"logo-contain\">
+    <a href=\"index.php\"><img src=\"images/logo-test.png\" alt=\"Blueprint company logo\"></a>
     </div>
-    <div class="menu-wrap">
-        <nav class="header-nav">
-            <ul class="clearfix">
-              <li><a href="community.php">Join the community<span class="arrow"> &#9660;</span></a>
-                <ul class="dropdown">
-                    <li><a href="events.php">Events</a></li>
-                    <li><a href="Forum.php">Discussion board</a></li>
+    <div class=\"menu-wrap\">
+        <nav class=\"header-nav\">
+            <ul class=\"clearfix\">
+              <li><a href=\"community.php\">Join the community<span class=\"arrow\"> &#9660;</span></a>
+                <ul class=\"dropdown\">
+                    <li><a href=\"events.php\">Events</a></li>
+                    <li><a href=\"Forum.php\">Discussion board</a></li>
                  </ul>
               </li>
             </ul>
-        </nav>
-        <nav class="user-nav">
-          <span class="user-conrol-links">
-            <a href="#">Sign up</a> | <a href="login.php">Log in</a>
+        </nav>";
+        if (isset($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+            $headerContent .= "<nav class=\"user-nav\">
+          <span class=\"user-conrol-links\">
+            Welcome $username | <a href=\"logout.php\">Log out</a>
           </span>
-        </nav>
-    </div>
+        </nav>";
+        } else {
+            $headerContent .= "<nav class=\"user-nav\">
+          <span class=\"user-conrol-links\">
+            <a href=\"#\">Sign up</a> | <a href=\"login.php\">Log in</a>
+          </span>
+        </nav>";
+        }
+
+
+    $headerContent .= "</div>
     
   </header>
-  <main>
-HEADER;
+  <main>";
+
     $headerContent .="\n";
     return $headerContent;
 };
@@ -61,3 +72,5 @@ FOOTER;
     $makePageFooter .="\n";
     return $makePageFooter;
 };
+
+
