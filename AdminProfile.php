@@ -13,19 +13,19 @@ $username = $_SESSION['username'];
 
 if (isset($_SESSION['username']) && ($userType == "admin")) {
 
-    echo "<h1> Admin statistics</h1><br/><br/><br/><br/><br/>";
+    echo "<br><h1> Admin statistics</h1><br/> ";
     echo "<div class=\"thread\" style='background-color: #CFCFCF'>
             <div class=\"images-container\">
               <div class=\"imageThirdContain\">
-              <img src='images/userIcon.png' style='width: 100px; position: relative; bottom:90px; left: 210px;'> <br/><br/>
+                <img src='images/userIcon.png' style='width: 100px; margin-left:38%;'> <br><br><br><br><br><br><br>
                 <p style='text-align: center'><b>Total website users <br/> 40</b></p>
               </div>
               <div class=\"imageThirdContain\">
-              <img src='images/jobIcon.png' style='width: 100px; position: relative; bottom:90px; left: 210px;'> <br/><br/>
+              <img src='images/jobIcon.png' style='width: 100px; margin-left:38%;'> <br><br><br><br><br><br><br>
                 <p style='text-align: center' ><b>Total active jobs <br/> 40</b></p>
               </div>
               <div class=\"imageThirdContain\">
-              <img src='images/premium.png' style='width: 100px; position: relative; bottom:90px; left: 210px;'> <br/><br/>
+              <img src='images/premium.png' style='width: 100px; margin-left:38%;'> <br><br><br><br><br><br><br>
                 <p style='text-align: center'><b>Total premium users <br/> 40</b></p>
               </div>
             </div>

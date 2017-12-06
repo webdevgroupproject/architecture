@@ -391,11 +391,16 @@ ul {
   box-sizing: border-box;
   float:left;
 }*/
+form#test {
+    width: 60%;
+    margin: 0 auto;
+}
+
 form {
     width: 33%;
     margin: 0 auto;
-
 }
+
 
 form input[type="submit"] {
     width: 130px;
@@ -408,7 +413,7 @@ form input[type="submit"] {
 }
 
 form input {
-
+    border: 1px solid;
     width: 100%;
     height: 30px;
     margin: 0 auto;
@@ -494,4 +499,27 @@ form input {
     width: 95%;
     margin-left: 2.5%;
     float: left;
+}
+
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #404040;
+    color: white;
 }
