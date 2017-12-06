@@ -49,16 +49,10 @@ if (!empty($errors)) {
     $sql = "SELECT password from bp_user where username = :username";
 
     $query = $dbConn->prepare( $sql );
-    //$stmt = mysqli_prepare($conn, $sql);
-
-//  mysqli_stmt_bind_param($stmt, "s", $username);
 
     $query->execute( array( ':username'=>$username ) );
-    //mysqli_stmt_execute($stmt);
 
     $results = $query->fetchAll( PDO::FETCH_ASSOC );
-
-    //mysqli_stmt_bind_result($stmt, $password_hash);
 
     foreach( $results as $row ){
         if(password_verify($pwd, $row['password'])){

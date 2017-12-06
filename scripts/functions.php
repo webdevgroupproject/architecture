@@ -31,8 +31,18 @@ function makeHeader(){
                     <li><a href=\"events.php\">Events</a></li>
                     <li><a href=\"Forum.php\">Discussion board</a></li>
                  </ul>
-              </li>
-            </ul>
+              </li>";
+                // this will change to check for user role rather than by username as there would be more than 1 admin user.
+              if (isset($_SESSION['username']) && $_SESSION['username'] ==  "rossbrown") {
+                 $headerContent .= "<li><a href=\"#\">Admin Features<span class=\"arrow\"> &#9660;</span></a>
+                                        <ul class=\"dropdown\">
+                                            <li><a href=\"#\">Freelancer statistics</a></li>
+                                            <li><a href=\"#\">Client statistics</a></li>
+                                            <li><a href=\"#\">Maintain roles</a></li>
+                                         </ul>
+                                      </li>";
+                                      }
+            $headerContent.= "</ul>
         </nav>";
         if (isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
@@ -74,6 +84,6 @@ FOOTER;
 };
 
 function startSession(){
-    ini_set("session.save_path", "/xampp1/sessionData");
+    ini_set("session.save_path", "/Applications/MAMP/sessionData");
     session_start();
 };
