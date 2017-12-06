@@ -35,11 +35,11 @@ function makeHeader(){
                  </ul>
               </li>";
               if (isset($_SESSION['username']) && ($userType == "admin")){
-                 $headerContent .= "<li><a href=\"#\">Admin Features<span class=\"arrow\"> &#9660;</span></a>
+                 $headerContent .= "<li><a href=\"adminProfile.php\">Admin Features<span class=\"arrow\"> &#9660;</span></a>
                                         <ul class=\"dropdown\">
                                             <li><a href=\"#\">Freelancer statistics</a></li>
                                             <li><a href=\"#\">Client statistics</a></li>
-                                            <li><a href=\"#\">Maintain roles</a></li>
+                                            <li><a href=\"maintain-roles.php\">Maintain roles</a></li>
                                          </ul>
                                       </li>";
               }
