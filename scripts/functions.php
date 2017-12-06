@@ -77,3 +77,25 @@ function startSession(){
     ini_set("session.save_path", "/xampp1/sessionData");
     session_start();
 };
+
+function checkUserType(){
+    require_once ('classes/databaseConn.php');
+    $dbConn = databaseConn::getConnection();
+    if(isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == true){
+
+        $username = $_SESSION['username'];
+        $userTypeSQL = "select userRole
+                        from bp_user
+                        WHERE username = '$username'";
+        $stmt = $dbConn->query($userTypeSQL);
+        while ( $result = $stmt->fetchObject()) {
+           $_SESSION['userType'] = $result->userRole;
+        }
+
+    }
+    else{
+        $_SESSION['userType'] = 'notLoggedIn';
+    };
+    $userType = $_SESSION['userType'];
+    return $userType;
+}
