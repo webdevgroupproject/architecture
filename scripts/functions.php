@@ -1,4 +1,5 @@
 <?php
+
 //function to set up the html and the start of the page
 function makePageStart($metaName, $metaContent, $pageTitle) {
 	$pageStartContent = <<<PAGESTART
@@ -18,6 +19,7 @@ PAGESTART;
 };
 
 function makeHeader(){
+    $userType = checkUserType();
   $headerContent =
   "<header>
     <div class=\"logo-contain\">
@@ -31,14 +33,23 @@ function makeHeader(){
                     <li><a href=\"events.php\">Events</a></li>
                     <li><a href=\"Forum.php\">Discussion board</a></li>
                  </ul>
-              </li>
-            </ul>
+              </li>";
+              if (isset($_SESSION['username']) && ($userType == "admin")){
+                 $headerContent .= "<li><a href=\"#\">Admin Features<span class=\"arrow\"> &#9660;</span></a>
+                                        <ul class=\"dropdown\">
+                                            <li><a href=\"#\">Freelancer statistics</a></li>
+                                            <li><a href=\"#\">Client statistics</a></li>
+                                            <li><a href=\"#\">Maintain roles</a></li>
+                                         </ul>
+                                      </li>";
+              }
+            $headerContent.= "</ul>
         </nav>";
         if (isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
             $headerContent .= "<nav class=\"user-nav\">
           <span class=\"user-conrol-links\">
-            Welcome $username | <a href=\"logout.php\">Log out</a>
+            <a href='#'> $username</a> | <a href=\"logout.php\">Log out</a>
           </span>
         </nav>";
         } else {
@@ -74,7 +85,7 @@ FOOTER;
 };
 
 function startSession(){
-    ini_set("session.save_path", "/xampp1/sessionData");
+    ini_set("session.save_path", "/Applications/MAMP/sessionData");
     session_start();
 };
 
