@@ -1,4 +1,5 @@
 <?php
+
 //function to set up the html and the start of the page
 function makePageStart($metaName, $metaContent, $pageTitle) {
 	$pageStartContent = <<<PAGESTART
@@ -18,6 +19,7 @@ PAGESTART;
 };
 
 function makeHeader(){
+    $userType = checkUserType();
   $headerContent =
   "<header>
     <div class=\"logo-contain\">
@@ -32,8 +34,7 @@ function makeHeader(){
                     <li><a href=\"Forum.php\">Discussion board</a></li>
                  </ul>
               </li>";
-                // this will change to check for user role rather than by username as there would be more than 1 admin user.
-              if (isset($_SESSION['username']) && $_SESSION['username'] ==  "rossbrown") {
+              if (isset($_SESSION['username']) && ($userType == "admin")){
                  $headerContent .= "<li><a href=\"#\">Admin Features<span class=\"arrow\"> &#9660;</span></a>
                                         <ul class=\"dropdown\">
                                             <li><a href=\"#\">Freelancer statistics</a></li>
@@ -41,14 +42,14 @@ function makeHeader(){
                                             <li><a href=\"#\">Maintain roles</a></li>
                                          </ul>
                                       </li>";
-                                      }
+              }
             $headerContent.= "</ul>
         </nav>";
         if (isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
             $headerContent .= "<nav class=\"user-nav\">
           <span class=\"user-conrol-links\">
-            Welcome $username | <a href=\"logout.php\">Log out</a>
+            <a href='#'> $username</a> | <a href=\"logout.php\">Log out</a>
           </span>
         </nav>";
         } else {
@@ -87,3 +88,25 @@ function startSession(){
     ini_set("session.save_path", "/Applications/MAMP/sessionData");
     session_start();
 };
+
+function checkUserType(){
+    require_once ('classes/databaseConn.php');
+    $dbConn = databaseConn::getConnection();
+    if(isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == true){
+
+        $username = $_SESSION['username'];
+        $userTypeSQL = "select userRole
+                        from bp_user
+                        WHERE username = '$username'";
+        $stmt = $dbConn->query($userTypeSQL);
+        while ( $result = $stmt->fetchObject()) {
+           $_SESSION['userType'] = $result->userRole;
+        }
+
+    }
+    else{
+        $_SESSION['userType'] = 'notLoggedIn';
+    };
+    $userType = $_SESSION['userType'];
+    return $userType;
+}

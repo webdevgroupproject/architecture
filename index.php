@@ -3,10 +3,11 @@ require_once ('scripts/functions.php');
 require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
 echo makeHeader();
+echo startSession();
 ?>
       <div class="home-banner">
         <div class="banner-text">
-          <h2>Welcome to the uk's leading architecture community</h2>
+          <h2>Welcome to the UK's leading architecture community</h2>
           <p class="tagline" style="text-align: left;">Post your projects and search for freelancers or accept jobs as a freelancer.</p>
           <a href="#" class="button">Get started</a>
         </div>

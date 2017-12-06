@@ -4,8 +4,16 @@ echo startSession();
 require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
 echo makeHeader();
+$userType = checkUserType();
 echo "<h1>Upcoming events</h1>
-      <div class=\"images-container\">";
+<div class='filterBar'>";
+
+if ($userType == "admin"){
+    echo "<a href='#' class='button' id='addEventButton'>Add an event</a>";
+}
+
+echo"</div>
+<div class=\"images-container\">";
 $dbConn = databaseConn::getConnection();
 
 $eventSQL = 'select *
@@ -20,7 +28,7 @@ $stmt = $dbConn->query($eventSQL);
       echo "<div class=\"imageThirdContain\">
             <a href=\"eventPage.php?eventid=" . $event->eventId . "\">
             <div class=\"image-with-text\">
-              <img src=\"images/event-img-1.jpeg\" alt=\"image of a 3d model house\">
+              <img src=\"images/". $event->eventImage ."\" alt=\"image of a 3d model house\">
               <div class=\"attendance-info-banner\">
                 <span class=\"number-attending\">9 attending</span>
                 <span class=\"spaces-left\">11 spaces left</span>
@@ -31,6 +39,5 @@ $stmt = $dbConn->query($eventSQL);
             </a>
           </div>";
 }
-echo "  </div>
-  <a href=\"#\" style=\"margin-left:2.5%;\">See previous events</a>";
+echo "  </div>";
 echo makePageFooter();
