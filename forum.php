@@ -23,17 +23,18 @@ $stmt = $dbConn->query($forumSQL);
 echo "<h1>Discussion board</h1>";
 if(isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == true){
     echo "<div class=\"postThread\">
+            <div class='showThreadButton'></div>
             <div class=\"form-container\">
-        <form method=\"get\" action=\"#\" id='postThreadForm'>
-            <label for='title'>Thread title: </label>
-            <input type=\"text\" name=\"title\" id='title'>
-            <label for='postThread'>Thread information (optional): </label><br/>
-            <textarea style=\"max-width: 100%; width: 100%;\" name=\"username\" id='postThread'></textarea>
-            <div class=\"submit-wrap\">
-                <input type=\"submit\" value=\"Post\" class=\"button\">
-            </div>
-        </form>
-    </div>  
+                <form method=\"get\" action=\"#\" id='postThreadForm'>
+                    <label for='title'>Thread title: </label>
+                    <input type=\"text\" name=\"title\" id='title'>
+                    <label for='postThread'>Thread information (optional): </label><br/>
+                    <textarea style=\"max-width: 100%; width: 100%;\" name=\"username\" id='postThread'></textarea>
+                    <div class=\"submit-wrap\">
+                        <input type=\"submit\" value=\"Post\" class=\"button\">
+                    </div>
+                </form>
+            </div>  
           </div>";
 }
 else{
