@@ -55,14 +55,14 @@ function makeHeader(){
         } else {
             $headerContent .= "<nav class=\"user-nav\">
           <span class=\"user-conrol-links\">
-            <a href=\"#\">Sign up</a> | <a href=\"login.php\">Log in</a>
+            <a href=\"create-account-page-1.php\">Sign up</a> | <a href=\"login.php\">Log in</a>
           </span>
         </nav>";
         }
 
 
     $headerContent .= "</div>
-    
+
   </header>
   <main>";
 
@@ -85,7 +85,7 @@ FOOTER;
 };
 
 function startSession(){
-    ini_set("session.save_path", "/xampp1/sessionData");
+    ini_set("session.save_path", "/Applications/MAMP/sessionData");
     session_start();
 };
 

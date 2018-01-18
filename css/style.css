@@ -57,7 +57,8 @@ main {
 }
 
 .button:hover {
-    color: #fff
+    color: #FFF;
+    background-color: #28afcf;
 }
 
 .home-banner {
@@ -101,7 +102,7 @@ img {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: underline;
     color: #404040;
 }
 
@@ -522,4 +523,9 @@ form input {
     text-align: left;
     background-color: #404040;
     color: white;
+}
+
+.termsandcondbox {
+  float: left;
+
 }
