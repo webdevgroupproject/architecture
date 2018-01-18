@@ -9,6 +9,7 @@ function makePageStart($metaName, $metaContent, $pageTitle) {
       <meta charset="UTF-8">
       <meta name="$metaName" content="$metaContent">
       <link rel="stylesheet" type="text/css" href="css/style.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <title>$pageTitle</title>
   </head>
   <body>
@@ -95,12 +96,13 @@ function checkUserType(){
     if(isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == true){
 
         $username = $_SESSION['username'];
-        $userTypeSQL = "select userRole
+        $userTypeSQL = "select *
                         from bp_user
                         WHERE username = '$username'";
         $stmt = $dbConn->query($userTypeSQL);
         while ( $result = $stmt->fetchObject()) {
            $_SESSION['userType'] = $result->userRole;
+           $_SESSION['userId'] = $result->userId;
         }
 
     }

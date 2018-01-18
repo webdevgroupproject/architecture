@@ -5,11 +5,21 @@ require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
 echo makeHeader();
 $userType = checkUserType();
-echo "<h1>Upcoming events</h1>
-<div class='filterBar'>";
+echo "
+<h1>Upcoming events</h1>
+<div class='filterBar'>
+    <form id='orderEventsForm' action='#'>
+		    <label>Order by: </label>
+			<select class='dropdown' name=\"searchBy\">
+			    <option value=\"date\" selected>Date</option>
+				<option value=\"location\">Location</option>
+				<option value=\"attending\">people attending</option>
+			</select>
+    </form>";
+
 
 if ($userType == "admin"){
-    echo "<a href='#' class='button' id='addEventButton'>Add an event</a>";
+    echo "<a href='addEventForm.php' class='button' id='addEventButton'>Add an event</a>";
 }
 
 echo"</div>
@@ -20,6 +30,7 @@ $eventSQL = 'select *
              from bp_events
              order by eventDate';
 
+
 $stmt = $dbConn->query($eventSQL);
     // output data of each row
     while ( $event = $stmt->fetchObject()) {
@@ -29,15 +40,32 @@ $stmt = $dbConn->query($eventSQL);
             <a href=\"eventPage.php?eventid=" . $event->eventId . "\">
             <div class=\"image-with-text\">
               <img src=\"images/". $event->eventImage ."\" alt=\"image of a 3d model house\">
+              </a>
               <div class=\"attendance-info-banner\">
                 <span class=\"number-attending\">9 attending</span>
                 <span class=\"spaces-left\">11 spaces left</span>
               </div>
-              <div class=\"image-text\">" . $event->eventName . "<p>" . $event->eventDate . " | " . $event->eventPlace . " | " . $event->eventTime . "</p>
+              <div class=\"image-text\"><p class='imageTextTitle'>" . $event->eventName . "</p>";
+                                         if ($userType == "admin") {
+                                             echo "<a href = 'deleteEventAction.php?eventid=" . $event->eventId . "' class='button'>Delete</a>";
+                                             }
+                                         echo"<p>" . $event->eventDate . " | " . $event->eventPlace . " | " . $event->eventTime . "</p>
               </div>
             </div>
-            </a>
+            
           </div>";
 }
-echo "  </div>";
+
+echo "  </div>";?>
+
+<script>
+    $(document).ready(function(){
+        $(".dropdown").change(function(){
+            $("#orderEventsForm").submit();
+        });
+    });
+</script>
+<?php
+
 echo makePageFooter();
+?>
