@@ -85,7 +85,7 @@ FOOTER;
 };
 
 function startSession(){
-    ini_set("session.save_path", "/Applications/MAMP/sessionData");
+    ini_set("session.save_path", "/applications/MAMP/sessionData");
     session_start();
 };
 
