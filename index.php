@@ -12,7 +12,7 @@ echo makeHeader();
           <p class="tagline" style="text-align: left;">Post your projects and search for freelancers or accept jobs as a freelancer.</p>
           <a href="#" class="button">Get started</a>
         </div>
-        <img src="images/blueprint-paper-banner.jpeg" alt="image of a blue print">
+        <img src="images/banner.jpeg" alt="image of a blue print">
       </div>
       <div class="how-it-works-section">
         <div class="images-container">

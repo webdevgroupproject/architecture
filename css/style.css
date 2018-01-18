@@ -57,7 +57,8 @@ main {
 }
 
 .button:hover {
-    color: #fff
+    color: #FFF;
+    background-color: #28afcf;
 }
 
 .home-banner {
@@ -101,7 +102,7 @@ img {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: underline;
     color: #404040;
 }
 
@@ -526,6 +527,7 @@ form input {
     background-color: #404040;
     color: white;
 }
+
 fieldset{
     border: 2px solid;
     margin-bottom: 20px;
@@ -550,3 +552,18 @@ legend{
 #orderEventsForm{
     float: left;
 }
+
+.termsandcondbox {
+  float: left;
+
+}
+
+.ErrorMessages {
+    background-position: 8px 8px;
+    background-repeat: no-repeat;
+    border: 1px solid;
+    margin: 6px 0;
+    padding: 10px 10px 10px 50px;
+    background-color: #ebcccc;
+}
+
