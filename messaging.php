@@ -103,7 +103,6 @@
   #message-text {
     width: 90%;
   }
-
   .convo-panel {
     width: 30%;
     border-right: 1px solid #CCC;
