@@ -9,6 +9,7 @@ function makePageStart($metaName, $metaContent, $pageTitle) {
       <meta charset="UTF-8">
       <meta name="$metaName" content="$metaContent">
       <link rel="stylesheet" type="text/css" href="css/style.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <title>$pageTitle</title>
   </head>
   <body>
@@ -37,8 +38,8 @@ function makeHeader(){
               if (isset($_SESSION['username']) && ($userType == "admin")){
                  $headerContent .= "<li><a href=\"adminProfile.php\">Admin Features<span class=\"arrow\"> &#9660;</span></a>
                                         <ul class=\"dropdown\">
-                                            <li><a href=\"#\">Freelancer statistics</a></li>
-                                            <li><a href=\"#\">Client statistics</a></li>
+                                            <li><a href=\"admin-freelancer-statistics.php\">Freelancer statistics</a></li>
+                                            <li><a href=\"admin-client-statistics.php\">Client statistics</a></li>
                                             <li><a href=\"maintain-roles.php\">Maintain roles</a></li>
                                          </ul>
                                       </li>";
@@ -55,14 +56,14 @@ function makeHeader(){
         } else {
             $headerContent .= "<nav class=\"user-nav\">
           <span class=\"user-conrol-links\">
-            <a href=\"#\">Sign up</a> | <a href=\"login.php\">Log in</a>
+            <a href=\"create-account-page-1.php\">Sign up</a> | <a href=\"login.php\">Log in</a>
           </span>
         </nav>";
         }
 
 
     $headerContent .= "</div>
-    
+
   </header>
   <main>";
 
@@ -85,7 +86,9 @@ FOOTER;
 };
 
 function startSession(){
-    ini_set("session.save_path", "/xampp1/sessionData");
+
+    ini_set("session.save_path", "/applications/MAMP/sessionData");
+
     session_start();
 };
 
@@ -95,12 +98,13 @@ function checkUserType(){
     if(isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == true){
 
         $username = $_SESSION['username'];
-        $userTypeSQL = "select userRole
+        $userTypeSQL = "select *
                         from bp_user
-                        WHERE username = '$username'";
+                        WHERE username = '$username' or email = '$username'";
         $stmt = $dbConn->query($userTypeSQL);
         while ( $result = $stmt->fetchObject()) {
            $_SESSION['userType'] = $result->userRole;
+           $_SESSION['userId'] = $result->userId;
         }
 
     }
