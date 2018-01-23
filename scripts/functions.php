@@ -106,7 +106,6 @@ function checkUserType(){
            $_SESSION['userType'] = $result->userRole;
            $_SESSION['userId'] = $result->userId;
         }
-
     }
     else{
         $_SESSION['userType'] = 'notLoggedIn';
