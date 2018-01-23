@@ -81,7 +81,7 @@ echo makeHeader();
     </form>
 </div>
 <br>
-<p style="text-align: center">Already have an account? <a href="#">Click here</a></p>
+<p style="text-align: center">Already have an account? <a href="login.php">Click here</a></p>
 <br>
 <br>
 <br>

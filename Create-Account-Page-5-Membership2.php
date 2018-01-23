@@ -6,9 +6,9 @@ echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint 
 echo makeHeader();
 ?>
 
-<br/><br/><h1>Choose your plan</h1>
+<br/><br/><h1>Payment Details</h1>
 <div class="form-container">
-    <form method="get" action="Create-Account-Page-5-Membership2.php">
+    <form method="get" action="profilePage.php">
       <div class="submit-wrap">
           <br>
           <br>
