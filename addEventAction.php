@@ -63,8 +63,8 @@ if (!empty($errors)) {
     try {
         $dbConn = databaseConn::getConnection();
         $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $addEventSql = "    INSERT INTO bp_events (eventName, eventDate, eventTime, eventPlace, eventSpaces, eventImage, eventInfo)
-                        VALUES ('$name', '$date', '$time', '$address1', '$spaces', '$image', '$info' )";
+        $addEventSql = "    INSERT INTO bp_events (eventName, eventDate, eventTime, eventPlace, eventAddress2, eventCity, eventPostcode, eventSpaces, eventImage, eventInfo)
+                        VALUES ('$name', '$date', '$time', '$address1', '$address2', '$city', '$postcode', '$spaces', '$image', '$info' )";
         // use exec() because no results are returned
         $dbConn->exec($addEventSql);
         echo "<p>$name Added successfully</p>" .

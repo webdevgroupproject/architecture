@@ -8,7 +8,7 @@ $userType = checkUserType();
 echo "
 <h1>Upcoming events</h1>
 <div class='filterBar'>
-    <form id='orderEventsForm' action='#'>
+    <form id='orderEventsForm' action='#' onchange=\"sortBy(this.value)\">
 		    <label>Order by: </label>
 			<select class='dropdown' name=\"searchBy\">
 			    <option value=\"date\" selected>Date</option>
@@ -16,26 +16,26 @@ echo "
 				<option value=\"attending\">people attending</option>
 			</select>
     </form>";
+    if ($userType == "admin"){
+        echo "<a href='addEventForm.php' class='button' id='addEventButton'>Add an event</a>";
+    };
+echo"
+
+</div>
+<div class=\"images-container\">
 
 
-if ($userType == "admin"){
-    echo "<a href='addEventForm.php' class='button' id='addEventButton'>Add an event</a>";
-}
+";
 
-echo"</div>
-<div class=\"images-container\">";
 $dbConn = databaseConn::getConnection();
 
 $eventSQL = 'select *
              from bp_events
              order by eventDate';
 
-
 $stmt = $dbConn->query($eventSQL);
     // output data of each row
     while ( $event = $stmt->fetchObject()) {
-
-
       echo "<div class=\"imageThirdContain\">
             <a href=\"eventPage.php?eventid=" . $event->eventId . "\">
             <div class=\"image-with-text\">
@@ -55,7 +55,6 @@ $stmt = $dbConn->query($eventSQL);
             
           </div>";
 }
-
 echo "  </div>";?>
 
 <script>

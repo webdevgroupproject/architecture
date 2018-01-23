@@ -22,7 +22,7 @@ class databaseConn {
      * @return object (PDO)
      * @access public
      */
-    public static function getConnection($dsn='mysql:host=localhost;dbname=blueprint_db', $username='root', $password='root') {
+    public static function getConnection($dsn='mysql:host=localhost;dbname=blueprint_db', $username='root', $password='') {
         // if there isn't a connection already then create one
         if ( !self::$dbConnection ) {
             try {
