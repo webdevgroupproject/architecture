@@ -17,7 +17,7 @@ echo makeHeader();
         <input type="password" name="password">
         <br>
         <br>
-        <p style="text-align: center" class="skipthisstep"><a href="#">Skip this step </a>- You can always add this information later from inside your Account Settings Page!</p>
+        <p style="text-align: center" class="skipthisstep"><a href="Create-Account-Page-4-Membership1.php">Skip this step </a>- You can always add this information later from inside your Account Settings Page!</p>
         <div class="submit-wrap">
           <br>
             <input type="submit" value="Next" class="button">

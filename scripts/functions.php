@@ -29,14 +29,11 @@ function makeHeader(){
     <div class=\"menu-wrap\">
         <nav class=\"header-nav\">
             <ul class=\"clearfix\">
-              <li><a href=\"community.php\">Join the community<span class=\"arrow\"> &#9660;</span></a>
-                <ul class=\"dropdown\">
-                    <li><a href=\"events.php\">Events</a></li>
-                    <li><a href=\"Forum.php\">Discussion board</a></li>
-                 </ul>
-              </li>";
+            <li><a href=\"events.php\">Events</a></li>
+                    <li><a href=\"Forum.php\">Forum</a></li>
+              ";
               if (isset($_SESSION['username']) && ($userType == "admin")){
-                 $headerContent .= "<li><a href=\"adminProfile.php\">Admin Features<span class=\"arrow\"> &#9660;</span></a>
+                 $headerContent .= "<li><a href=\"adminProfile.php\">Admin<span class=\"arrow\"> &#9660;</span></a>
                                         <ul class=\"dropdown\">
                                             <li><a href=\"admin-freelancer-statistics.php\">Freelancer statistics</a></li>
                                             <li><a href=\"admin-client-statistics.php\">Client statistics</a></li>
@@ -87,7 +84,7 @@ FOOTER;
 
 function startSession(){
 
-    ini_set("session.save_path", "/applications/MAMP/sessionData");
+    ini_set("session.save_path", "/xampp1/sessionData");
 
     session_start();
 };
