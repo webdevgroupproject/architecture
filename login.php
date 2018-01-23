@@ -69,7 +69,7 @@ if (isset($_POST['loginProcess'])) {
     }
 } ?>
 
-    <br/><br/><h1>Login to your account</h1>
+    <br/><br/><h1>Log in to your account</h1>
     <div class=\"form-container\"><br><br>
         <form method="post" action="login.php">
             <label>Email / Username: </label>

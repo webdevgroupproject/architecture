@@ -32,12 +32,7 @@ $result = $dbConn->prepare($sql);
 $result->execute();
 $proUsersClient = $result->fetchColumn();
 // ----------------------------------------------------//
-//// ----------- latest new client jobs list ----------//
-//$sql = "SELECT ";
-//$result = $dbConn->prepare($sql);
-//$result->execute();
-//$proUsersClient = $result->fetchColumn();
-//// ----------------------------------------------------//
+
 if (isset($_SESSION['username']) && ($userType == "admin")) {
 
     echo "<br><h1> Client statistics</h1><br/> ";
@@ -57,46 +52,33 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
               </div>
             </div>
         </div>";
+
     echo "<div class=\"images-container\">
             <div class=\"imageHalfContain\">
-            <h2>Lastest new client jobs created</h2>
-               <table id=\"customers\">
+                <h2>Latest new client jobs created</h2>
+                <table id=\"customers\">
                   <tr>
                     <th>Job title</th>
                     <th>Job description</th>
                    
-                  </tr>
-                  <tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr>
-                  <tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr>
-                </table>
-            </div>
+                  </tr>";
+
+
+                $query = "SELECT jobName, jobDesc FROM bp_job_post ";
+                $result = $dbConn->prepare($query);
+                $result->execute();
+                $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                foreach ($recordSet as $row) {
+
+                echo "<tr>
+                        <td>$row[jobName]</td>
+                        <td>$row[jobDesc]</td>
+                      </tr>";
+                }
+
+           echo" </table>
+                </div>
 
             <div class=\"imageHalfContain\">
                 <h2>Daily statistics</h2>
