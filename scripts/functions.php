@@ -89,12 +89,8 @@ FOOTER;
 
 function startSession(){
 
-<<<<<<< HEAD
-    ini_set("session.save_path", "/Applications/MAMP/sessionData");
-=======
     ini_set("session.save_path", "/Applications/MAMP/sessionData"
 );
->>>>>>> master
 
     session_start();
 };
@@ -113,6 +109,7 @@ function checkUserType(){
            $_SESSION['userType'] = $result->userRole;
            $_SESSION['userId'] = $result->userId;
         }
+
     }
     else{
         $_SESSION['userType'] = 'notLoggedIn';
