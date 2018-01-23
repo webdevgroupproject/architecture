@@ -1,9 +1,9 @@
 <?php
   require_once ('scripts/functions.php');
-  //echo startSession();
-  //require_once ('classes/databaseConn.php');
+  echo startSession();
+  require_once ('classes/databaseConn.php');
   echo makePageStart("viewport", "width=device-width, inital-scale=1", "Notification");
- // echo makeHeader();
+  echo makeHeader();
 
 ?>
 <style type="text/css">
@@ -96,5 +96,5 @@
   </div>
 
 <?php
- // echo makePageFooter();
+  echo makePageFooter();
 ?>
