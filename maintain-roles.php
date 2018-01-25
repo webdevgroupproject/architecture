@@ -1,85 +1,69 @@
-
+<script type="text/javascript">
+    function confirm_delete() {
+        return confirm('are you sure you would like to delete?');
+    }
+</script>
 <?php
 require_once('scripts/functions.php');
 echo startSession();
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Admin");
 echo makeHeader();
+
+$dbConn = databaseConn::getConnection();
 $userType = checkUserType();
 $username = $_SESSION['username'];
 
 if (isset($_SESSION['username']) && ($userType == "admin")) {
 
-    echo "<h1> Maintain roles</h1> ";
+//    echo "
+//            <div id=\"myModal\" class=\"modal\">
+//
+//              <!-- Modal content -->
+//              <div class=\"modal-content\">
+//                <div class=\"modal-header\">
+//                  <span class=\"close\">&times;</span>
+//                  <h1>Delete user</h1>
+//                </div>
+//                <div class=\"modal-body\">
+//                  <p>Are you sure you would like to delete this user? Once you confirm, this action can not be undone</p>
+//                </div>
+//                <div class='modal-footer'>
+//                    <a href='deleteU.php?userId=$userID' class='button'>Confirm</a>&nbsp &nbsp &nbsp<a href='#' class='cancel'>Cancel</a>
+//                </div>
+//              </div>
+//
+//            </div>";
+
+    echo "<h1> Maintain user roles</h1> ";
 
     echo "<div class=\"images-container\">
             <div class=\"imageHalfContain\">
-             <table id=\"customers\">
+                <table id=\"customers\">
                   <tr>
                     <th>Username</th>
-                    <th>User type</th>
+                    <th>User role</th>
                     <th>Delete</th>
                     <th>Suspend</th>
-                  </tr>
-                  <tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Delete\" class=\"button\"></td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Suspend\" class=\"button\"></td>
-                  </tr>
-                  <tr>
-                    <td>Username 2</td>
-                    <td>Client</td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Delete\" class=\"button\"></td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Suspend\" class=\"button\"></td>
-                  </tr>
-                  <tr>
-                    <td>Username 3</td>
-                    <td>Freelancer</td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Delete\" class=\"button\"></td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Suspend\" class=\"button\"></td>
-                  </tr>
-                  <tr>
-                    <td>Username 4</td>
-                    <td>Admin</td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Delete\" class=\"button\"></td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Suspend\" class=\"button\"></td>
-                  </tr>
-                  <tr>
-                    <td>Username 5</td>
-                    <td>Client</td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Delete\" class=\"button\"></td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Suspend\" class=\"button\"></td>
-                  </tr>
-                  <tr>
-                    <td>Username 6</td>
-                    <td>Freelancer</td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Delete\" class=\"button\"></td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Suspend\" class=\"button\"></td>
-                  </tr>
-                    <td>Username 7</td>
-                    <td>Freelancer</td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Delete\" class=\"button\"></td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Suspend\" class=\"button\"></td>
-                  <tr>
-                    <td>Username 8</td>
-                    <td>Client</td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Delete\" class=\"button\"></td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Suspend\" class=\"button\"></td>
-                  </tr>
-                  <tr>
-                    <td>Username 9</td>
-                    <td>Client</td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Delete\" class=\"button\"></td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Suspend\" class=\"button\"></td>
-                  </tr>
-                  <tr>
-                    <td>Username 10</td>
-                    <td>Admin</td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Delete\" class=\"button\"></td>
-                    <td><input style='margin: 0'; type=\"submit\" value=\"Suspend\" class=\"button\"></td>
-                  </tr>
-                </table>
-            </div>
+                   
+                  </tr>";
+
+                $query = "SELECT userId, username, userRole FROM bp_user order by username";
+                $result = $dbConn->prepare($query);
+                $result->execute();
+                $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                foreach ($recordSet as $row) {
+                $userID = $row['userId'];
+                echo "<tr>
+                        <td>$row[username]</td>
+                        <td>$row[userRole]</td>
+                        <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
+                        <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
+                      </tr>";
+                }
+
+           echo" </table>
+                </div>
 
             <div class=\"imageHalfContain\">
                 <h2 style='text-align: center; margin: 0;'>Create a new admin account</h2>
@@ -106,3 +90,36 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
 }
 
 echo makePageFooter();
+
+?>
+<!---->
+<!--<script> //Get the modal-->
+<!--    var modal = document.getElementById('myModal');-->
+<!---->
+<!--    // Get the button that opens the modal-->
+<!--    var btn = document.getElementById("modalButton");-->
+<!---->
+<!--    // Get the <span> element that closes the modal-->
+<!--    var close = document.getElementsByClassName("close")[0];-->
+<!--    var cancel = document.getElementsByClassName("cancel")[0];-->
+<!---->
+<!--    // When the user clicks the button, open the modal-->
+<!--    btn.onclick = function() {-->
+<!--        modal.style.display = "block";-->
+<!--    };-->
+<!---->
+<!--    // When the user clicks on <span> (x), close the modal-->
+<!--    close.onclick = function() {-->
+<!--        modal.style.display = "none";-->
+<!--    };-->
+<!--    cancel.onclick = function() {-->
+<!--        modal.style.display = "none";-->
+<!--    };-->
+<!---->
+<!--    // When the user clicks anywhere outside of the modal, close it-->
+<!--    window.onclick = function(event) {-->
+<!--        if (event.target == modal) {-->
+<!--            modal.style.display = "none";-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
