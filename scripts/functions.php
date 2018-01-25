@@ -128,11 +128,11 @@ function removeNotif($notifID){
     require_once ('classes/databaseConn.php');
     $dbConn = databaseConn::getConnection();
 
-    $notifDLT = "DELETE FROM `bp_notification` 
+    $notifDLT = "DELETE FROM `bp_notification`
     WHERE `bp_notification`.`notificationID` = $notifID";
 
     if ($dbConn->query($notifDLT) === TRUE) {
-      
+
     } else {
       echo "Error deleting record: " . $conn->error;
     }

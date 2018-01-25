@@ -37,6 +37,7 @@ float: left;
 width: 100%;
 color: #efefef;
 }
+
 main {
     overflow: hidden;
     background-color: #f9f9f9;
@@ -94,6 +95,12 @@ h1 {
 h2 {
     font-size: 2.2em;
     text-align: left;
+}
+
+h3 {
+    font-size: 1.2em;
+    text-align: center;
+    margin: 15px 0;
 }
 
 img {
@@ -413,6 +420,10 @@ form input[type="submit"] {
 
 .form-container {
     margin-top: 45px;
+}
+
+.form-containermemconfirm {
+    margin-top: 15px;
 }
 
 form input {
@@ -763,4 +774,3 @@ legend{
     font-size: 14px;
     margin: auto;
   }
-
