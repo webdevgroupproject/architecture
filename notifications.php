@@ -1,10 +1,59 @@
 <?php
-  require_once ('scripts/functions.php');
-  echo startSession();
-  require_once ('classes/databaseConn.php');
-  echo makePageStart("viewport", "width=device-width, inital-scale=1", "Notification");
-  echo makeHeader();
+    require_once ('scripts/functions.php');
+    echo startSession();
+    require_once ('classes/databaseConn.php');
+    echo makePageStart("viewport", "width=device-width, inital-scale=1", "Notification");
+    echo makeHeader();
 
+    echo "<h1>Notifications</h1>";
+
+        $dbConn = databaseConn::getConnection();
+            if (isset($_SESSION['username'])) {
+                $userId = $_SESSION['userId'];
+
+                $notifSQL = "SELECT *
+                            FROM bp_notification
+                            WHERE userID = '$userId'";
+
+                $stmt = $dbConn->query($notifSQL);
+
+                while ($notif = $stmt->fetchObject()) {
+                    echo "
+                        <div class=\"notif\"> <!--The whole notifications section -->
+                            <div class=\"notif-box\"> <!--single notification-->
+                                <div class=\"notif-box-unread\"> <!--unread notification-->
+                                    <p>" . $event->time ."</p>
+                                </div>
+                                <div class=\"notif-box-content\">
+                                    <h2 class=\"notif-box-header\">Bob Jones has sent you a job offer</h2>
+                                    <a href=\"" . $event->link ."\">Click here to see the offer</a>
+                                </div>
+                                <div class=\"notif-box-dismiss\">
+                                    <a href=\"#\">Dismiss</a>
+                                </div>
+                            </div>
+                        </div>
+                    ";
+                }
+            };
+         
+
+        
+        <div class=\"notif\"> <!--The whole notifications section -->
+            <div class=\"notif-box\"> <!--single notification-->
+                <div class=\"notif-box-unread\"> <!--unread notification-->
+                    <p>16:33</p>
+                </div>
+                <div class=\"notif-box-content\">
+                    <h2 class=\"notif-box-header\">Bob Jones has sent you a job offer</h2>
+                    <a href=\"#\">Click here to see the offer</a>
+                </div>
+                <div class=\"notif-box-dismiss\">
+                    <a href=\"#\">Dismiss</a>
+                </div>
+            </div>
+        </div>
+    "
 ?>
 <style type="text/css">
   
@@ -57,7 +106,7 @@
   }
 
   .notif-box-header {
-    font-size: 18px; 
+    font-size: 18px;
   }
 
   .notif-box-dismiss {
