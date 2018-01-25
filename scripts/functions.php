@@ -24,7 +24,7 @@ function makeHeader(){
   $headerContent =
   "<header>
     <div class=\"logo-contain\">
-    <a href=\"index.php\"><img src=\"images/logo-test.png\" alt=\"Blueprint company logo\"></a>
+    <a href=\"index.php\"><img src=\"images/logo-test.png\" alt=\"Blueprint company logo\" id='logoImg'></a>
     </div>
     <div class=\"menu-wrap\">
         <nav class=\"header-nav\">
@@ -45,9 +45,14 @@ function makeHeader(){
         </nav>";
         if (isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
-            $headerContent .= "<nav class=\"user-nav\">
-          <span class=\"user-conrol-links\">
-            <a href='#'> $username</a> | <a href=\"logout.php\">Log out</a>
+            $headerContent .= "
+            <nav class=\"header-nav\" id='user-nav'>
+            <ul class=\"clearfix\"><li><a href='#'>$username<span class=\"arrow\"> &#9660; </span></a>
+                                        <ul class=\"dropdown\">
+                                            <li><a href=\"#\">Messages</a></li>
+                                         </ul>
+                                      </li>
+                                      <li><a href=\"logout.php\">| Log out</a></li></ul></nav>
           </span>
         </nav>";
         } else {
@@ -84,7 +89,13 @@ FOOTER;
 
 function startSession(){
 
+<<<<<<< HEAD
     ini_set("session.save_path", "/xampp/sessionData");
+=======
+
+    ini_set("session.save_path", "/Applications/MAMP/sessionData");
+
+>>>>>>> master
 
     session_start();
 };
@@ -103,7 +114,6 @@ function checkUserType(){
            $_SESSION['userType'] = $result->userRole;
            $_SESSION['userId'] = $result->userId;
         }
-
     }
     else{
         $_SESSION['userType'] = 'notLoggedIn';

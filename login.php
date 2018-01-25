@@ -69,8 +69,8 @@ if (isset($_POST['loginProcess'])) {
     }
 } ?>
 
-    <br/><br/><h1>Sign into your account</h1>
-    <div class=\"form-container\">
+    <br/><br/><h1>Log in to your account</h1>
+    <div class=\"form-container\"><br><br>
         <form method="post" action="login.php">
             <label>Email / Username: </label>
             <input type="text" name="username">
@@ -80,8 +80,8 @@ if (isset($_POST['loginProcess'])) {
                 <input type="submit" value="Login" class="button" name="loginProcess">
             </div>
         </form>
-    </div>
-    <p style="text-align: center"><a href="#">Sign up</a> | <a href="forgotPasswordOptions.php">Forgot password</a></p>
+    </div><br>
+    <p style="text-align: center"><a href="Create-Account-Page-1.php">Sign up</a> | <a href="forgotPasswordOptions.php">Forgot password</a></p>
 
 
 <?php
