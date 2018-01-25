@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     color: #404040;
     width: 100%;
+    /*margin-top: 50px;*/
 }
 
 body {
@@ -29,6 +30,13 @@ header {
     width: 100%;
     box-sizing: border-box;
     background-color: #fff;
+    box-shadow: 5px 1px 5px #ccc;
+    margin-bottom: 5px;
+    /*position: fixed;
+    top: 0;
+    height: 72px;
+    overflow: hidden;
+    z-index: 2;*/
 }
 
 footer {
@@ -55,6 +63,7 @@ main {
     font-size: 1em;
     margin: 25px 0 0 0;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .button:hover {
@@ -67,6 +76,13 @@ main {
     background-color: #EAEAEA;
     float: left;
     width: 100%;
+}
+
+#banner {
+  height: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
 }
 
 .banner-text {
@@ -96,6 +112,12 @@ h2 {
     text-align: left;
 }
 
+h3 {
+   font-size: 1.2em;
+   text-align: center;
+   margin: 15px 0;
+}
+
 img {
     width: 100%;
     max-width: 100%;
@@ -118,7 +140,7 @@ ul {
 
 .header-nav {
     float: left;
-    margin-top: 10px;
+    width: 80%;
 }
 
 .menu-wrap {
@@ -127,16 +149,18 @@ ul {
 
 .header-nav .arrow {
     font-size:12px;
-    line-height:0%;
+    line-height:0;
+    padding-right: 10px;
 }
 
 .clearfix{
     list-style: none;
     margin-bottom: 10px;
     float: left; /* Clear floats */
-    width: 100%;
+    width: 40%;
     position: relative;
     z-index: 5;
+    padding: 0 10px;
 }
 
 .clearfix a {
@@ -194,7 +218,7 @@ ul {
 }
 
 .tagline {
-    font-size: 145%;
+    font-size: 110%;
     text-align: center;
     margin-top: 14px;
 }
@@ -267,23 +291,35 @@ ul {
 }
 
 .header-nav a {
-    font-size: 20px;
+    font-size: 16px;
     text-decoration: none;
     color: #404040;
+    margin-top: 10px;
 }
 
 .header-nav a:hover {
     color: #2DC3E7;
 }
 
-.user-nav span {
-    font-size: 1.2em;
-    float: right;
+.user-nav {
+  width: 40%;
+  float: right;
+}
+
+.user-nav .button {
+  margin: 0 !important;
+  color: #FFF;
+}
+
+.user-nav div {
+    font-size: 16px;
 }
 
 .user-nav a {
     text-decoration: none;
     color: #404040;
+    margin-right: 15px;
+    float: right;
 }
 
 .user-nav a:hover {
@@ -378,14 +414,8 @@ ul {
 
 .logo-contain {
     float: left;
-    width: auto;
-    padding-left: 1em;
-}
-
-#user-nav {
-    margin-top: 10px;
-    float: right;
-    margin-right: 1em;
+    width: 15%;
+    padding-left: 10px;
 }
 
 /*.imageThirdContain:first-child{
@@ -704,39 +734,25 @@ legend{
     color: #404040;
     float: left;
 }
-  .notif {
-    /*background-color: #404040;*/
-    padding: 20px;
-    width: 50%;
-    margin: auto;
-  }
 
-  .notif-box {
-    -webkit-box-shadow: 3px 3px 4px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-    -moz-box-shadow:    3px 3px 4px 2px #ccc;  /* Firefox 3.5 - 3.6 */
-    box-shadow:         3px 3px 4px 2px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
-    border: 1px solid #CCC;
-    background-color: #f9f9f9;
-    width: 75%;
-    margin: 20px auto;
-    height: 90px;
-    display: flex;
-    border-radius: 20px;
-  }
+.modal:target {
+    display: block;
+    pointer-events: auto;
+}
 
-  .notif-box-unread {
-    background-color: rgb(45, 195, 231);
-    float: left;
-    padding: 0 20px;
-    color: #FFF;
-    line-height: 90px;
-    font-size: 14px;
-    margin-right: 5%;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-  }
+.notif-box-unread {
+background-color: rgb(45, 195, 231);
+float: left;
+padding: 0 20px;
+color: #FFF;
+line-height: 90px;
+font-size: 14px;
+margin-right: 5%;
+border-top-left-radius: 20px;
+border-bottom-left-radius: 20px;
+}
 
-  .notif-box-read {
+.notif-box-read {
     background-color: #f9f9f9;
     float: left;
     padding: 0 20px;
@@ -745,18 +761,18 @@ legend{
     margin-right: 5%;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
-  }
+}
 
-  .notif-box-header {
+.notif-box-header {
     font-size: 18px;
-  }
+}
 
-  .notif-box-dismiss {
+.notif-box-dismiss {
     float: left;
     line-height: 90px;
     font-size: 14px;
     margin: auto;
-  }
+}
 
   h2 {
   font-size: 18px;
@@ -777,15 +793,14 @@ legend{
   border: 1px solid #CCC;
 }
 
-.messages {
+.notif {
   /*background-color: #404040;*/
-  padding: 0 4.95%;
-  width: 60%;
-  height: 400px;
-  overflow-y: scroll;
+  padding: 20px;
+  width: 50%;
+  margin: auto;
 }
 
-.chat {
+.notif-box {
   -webkit-box-shadow: 3px 3px 4px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
   -moz-box-shadow:    3px 3px 4px 2px #ccc;  /* Firefox 3.5 - 3.6 */
   box-shadow:         3px 3px 4px 2px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
@@ -897,3 +912,128 @@ legend{
   font-size: 12px;
   float: right;
 }
+
+.messages {
+    /*background-color: #404040;*/
+    padding: 0 4.95%;
+    width: 60%;
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.chat {
+  background-color: #f9f9f9;
+  width: 75%;
+  margin: 20px auto;
+  height: 90px;
+  display: flex;
+  border-radius: 20px;
+}
+
+.form-containermemconfirm {
+    margin-top: 15px;
+}
+
+/*-----Client-----*/
+
+/* Client Form Styling */
+
+input[type=radio] {
+  position: absolute;
+  visibility: hidden;
+  display: none;
+}
+
+label {
+   color: #404040;
+  display: inline-block;
+   cursor: pointer;
+   padding: 5px 0;
+   width: 50%;
+   box-sizing: border-box;
+   float: left;
+
+}
+
+input[type=radio]:checked + label{
+   color: #efefef;
+   background: #675f6b;
+   font-weight: bold;
+}
+
+label + input[type=radio] + label {
+   border-left: solid 3px #332f35;
+}
+
+.radio-group {
+   border: solid 2px #675f6b;
+  display: inline-block;
+   overflow: hidden;
+   margin-left:15%;
+   width: 100%;
+   float: right;
+   margin-top: 15px;
+   margin-bottom: 15px;
+}
+/*----------*/
+/* Membership Confirmation Page */
+
+#memberconfirmp {
+ text-align: center;
+}
+
+#memberconfirmtick {
+ display: block;
+margin: 0 auto;
+ width: 30%;
+ height: 30%;
+}
+/*----------*/
+/* Client Profile Page */
+
+.profilewrapper {
+ width: 100%;
+ position: relative;
+}
+
+.profilebg {
+ width: 100%;
+ height: 100%;
+ opacity: 0.2;
+ position: absolute;
+ filter: grayscale(100%);
+}
+
+.profilebgcontent {
+ position: relative;
+ z-index: 1;
+ padding: 30px 0;
+}
+
+#profilepicture {
+ border: solid 2px black;
+ height: 37%;
+ width: 14%;
+ display: block;
+ margin: auto;
+}
+
+.profilepagename {
+ font-size: 2.2em;
+ text-align: center;
+ margin: auto 0;
+ padding-top: 7px;
+}
+
+.profilepagelocation {
+ text-align: center;
+ margin-top: 0.5em;
+}
+
+.form-container-profile {
+ text-align: center;
+}
+
+#activejobtitle {
+   padding-top: 10px;
+ }

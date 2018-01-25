@@ -17,6 +17,13 @@ $spaces = filter_has_var(INPUT_GET, 'spaces') ? $_GET['spaces'] : null;
 $info = filter_has_var(INPUT_GET, 'info') ? $_GET['info'] : null;
 $image = filter_has_var(INPUT_GET, 'image') ? $_GET['image'] : null;
 
+$address1 = filter_var($address1, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+$address2 = filter_var($address2, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+$city = filter_var($city, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+$postcode = filter_var($postcode, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+$name = filter_var($name, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+$info = filter_var($info, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+
 $errors = array();
 
 if (empty($address1)) {
