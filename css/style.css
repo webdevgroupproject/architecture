@@ -704,6 +704,12 @@ legend{
     color: #404040;
     float: left;
 }
+
+.modal:target {
+    display: block;
+    pointer-events: auto;
+}
+
   .notif {
     /*background-color: #404040;*/
     padding: 20px;
@@ -757,3 +763,4 @@ legend{
     font-size: 14px;
     margin: auto;
   }
+
