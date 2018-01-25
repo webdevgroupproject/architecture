@@ -23,7 +23,7 @@ class databaseConn {
      * @access public
      */
 
-    public static function getConnection($dsn='mysql:host=localhost;dbname=blueprint', $username='root', $password='root') {
+    public static function getConnection($dsn='mysql:host=localhost;dbname=blueprint_db', $username='root', $password='root') {
 
 
         // if there isn't a connection already then create one
