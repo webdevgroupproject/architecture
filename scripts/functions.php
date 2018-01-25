@@ -50,7 +50,8 @@ function makeHeader(){
             <nav class=\"header-nav\" id='user-nav'>
             <ul class=\"clearfix\"><li style='margin: 0; padding: 0;'><a href='#'>$username<span class=\"arrow\"> &#9660; </span></a>
                                         <ul class=\"dropdown\">
-                                            <li><a href=\"#\">Messages</a></li>
+                                            <li><a href=\"notifications.php\">Notifications</a></li>
+                                            <li><a href=\"messaging.php\">Messages</a></li>
                                             <li><a href=\"logout.php\">Log out</a></li>
                                          </ul>
                                       </li>
@@ -92,6 +93,7 @@ FOOTER;
 function startSession(){
 
 
+
     ini_set("session.save_path", "/Applications/MAMP/sessionData");
 
 
@@ -119,3 +121,22 @@ function checkUserType(){
     $userType = $_SESSION['userType'];
     return $userType;
 }
+
+function notLoggedRedirect(){
+
+    header('Location: http://localhost/architecture/index.php');
+};
+
+function removeNotif($notifID){
+    require_once ('classes/databaseConn.php');
+    $dbConn = databaseConn::getConnection();
+
+    $notifDLT = "DELETE FROM `bp_notification`
+    WHERE `bp_notification`.`notificationID` = $notifID";
+
+    if ($dbConn->query($notifDLT) === TRUE) {
+
+    } else {
+      echo "Error deleting record: " . $conn->error;
+    }
+};

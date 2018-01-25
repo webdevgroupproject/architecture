@@ -37,6 +37,7 @@ float: left;
 width: 100%;
 color: #efefef;
 }
+
 main {
     overflow: hidden;
     background-color: #f9f9f9;
@@ -94,6 +95,12 @@ h1 {
 h2 {
     font-size: 2.2em;
     text-align: left;
+}
+
+h3 {
+    font-size: 1.2em;
+    text-align: center;
+    margin: 15px 0;
 }
 
 img {
@@ -415,6 +422,10 @@ form input[type="submit"] {
     margin-top: 45px;
 }
 
+.form-containermemconfirm {
+    margin-top: 15px;
+}
+
 form input {
     border: 1px solid;
     width: 100%;
@@ -704,3 +715,62 @@ legend{
     color: #404040;
     float: left;
 }
+
+.modal:target {
+    display: block;
+    pointer-events: auto;
+}
+
+  .notif {
+    /*background-color: #404040;*/
+    padding: 20px;
+    width: 50%;
+    margin: auto;
+  }
+
+  .notif-box {
+    -webkit-box-shadow: 3px 3px 4px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 4px 2px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 4px 2px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+    border: 1px solid #CCC;
+    background-color: #f9f9f9;
+    width: 75%;
+    margin: 20px auto;
+    height: 90px;
+    display: flex;
+    border-radius: 20px;
+  }
+
+  .notif-box-unread {
+    background-color: rgb(45, 195, 231);
+    float: left;
+    padding: 0 20px;
+    color: #FFF;
+    line-height: 90px;
+    font-size: 14px;
+    margin-right: 5%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+
+  .notif-box-read {
+    background-color: #f9f9f9;
+    float: left;
+    padding: 0 20px;
+    line-height: 90px;
+    font-size: 14px;
+    margin-right: 5%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+
+  .notif-box-header {
+    font-size: 18px;
+  }
+
+  .notif-box-dismiss {
+    float: left;
+    line-height: 90px;
+    font-size: 14px;
+    margin: auto;
+  }
