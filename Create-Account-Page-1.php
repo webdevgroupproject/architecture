@@ -5,53 +5,6 @@ require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
 echo makeHeader();
 ?>
-
-<style>
-
-    body {
-
-    }
-
-    input[type=radio] {
-        position: absolute;
-        visibility: hidden;
-        display: none;
-    }
-
-    label {
-        color: #404040;
-        display: inline-block;
-        cursor: pointer;
-        padding: 5px 20px;
-        width: 50%;
-        box-sizing: border-box;
-        float: left;
-
-    }
-
-    input[type=radio]:checked + label{
-        color: #efefef;
-        background: #675f6b;
-        font-weight: bold;
-    }
-
-    label + input[type=radio] + label {
-        border-left: solid 3px #332f35;
-    }
-
-    .radio-group {
-        border: solid 2px #675f6b;
-        display: inline-block;
-        overflow: hidden;
-        margin-left:15%;
-        width: 100%;
-        float: right;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-
-</style>
-
 <br/><br/><h1>Create your account</h1>
 <div class="form-container">
     <form method="get" action="Create-Account-Page-2-Client.php">
