@@ -704,3 +704,7 @@ legend{
     color: #404040;
     float: left;
 }
+.modal:target {
+    display: block;
+    pointer-events: auto;
+}
