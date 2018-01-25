@@ -1,9 +1,9 @@
 <?php
   require_once ('scripts/functions.php');
-  //echo startSession();
-  //require_once ('classes/databaseConn.php');
+  echo startSession();
+  require_once ('classes/databaseConn.php');
   echo makePageStart("viewport", "width=device-width, inital-scale=1", "Messaging");
- // echo makeHeader();
+  echo makeHeader();
 
 ?>
 <style type="text/css">
@@ -103,7 +103,6 @@
   #message-text {
     width: 90%;
   }
-
   .convo-panel {
     width: 30%;
     border-right: 1px solid #CCC;
@@ -240,5 +239,5 @@
   </div>
 
 <?php
- // echo makePageFooter();
+  echo makePageFooter();
 ?>
