@@ -89,13 +89,7 @@ FOOTER;
 
 function startSession(){
 
-<<<<<<< HEAD
     ini_set("session.save_path", "/xampp/sessionData");
-=======
-
-    ini_set("session.save_path", "/Applications/MAMP/sessionData");
-
->>>>>>> master
 
     session_start();
 };
