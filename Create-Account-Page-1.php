@@ -5,7 +5,6 @@ require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
 echo makeHeader();
 ?>
-
 <br/><br/><h1>Create your account</h1>
 <div class="form-container">
     <form method="get" action="Create-Account-Page-2-Client.php">
