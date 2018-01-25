@@ -10,6 +10,7 @@ function makePageStart($metaName, $metaContent, $pageTitle) {
       <meta name="$metaName" content="$metaContent">
       <link rel="stylesheet" type="text/css" href="css/style.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="scripts/createModal.js"></script>
       <title>$pageTitle</title>
   </head>
   <body>
@@ -47,9 +48,11 @@ function makeHeader(){
             $username = $_SESSION['username'];
             $headerContent .= "
             <nav class=\"header-nav\" id='user-nav'>
-            <ul class=\"clearfix\"><li><a href='#'>$username<span class=\"arrow\"> &#9660; </span></a>
+            <ul class=\"clearfix\"><li style='margin: 0; padding: 0;'><a href='#'>$username<span class=\"arrow\"> &#9660; </span></a>
                                         <ul class=\"dropdown\">
-                                            <li><a href=\"#\">Messages</a></li>
+                                            <li><a href=\"notifications.php\">Notifications</a></li>
+                                            <li><a href=\"messaging.php\">Messages</a></li>
+                                            <li><a href=\"logout.php\">Log out</a></li>
                                          </ul>
                                       </li>
                                       <li><a href=\"logout.php\">| Log out</a></li></ul></nav>
@@ -115,3 +118,22 @@ function checkUserType(){
     $userType = $_SESSION['userType'];
     return $userType;
 }
+
+function notLoggedRedirect(){
+
+    header('Location: http://localhost/architecture/index.php');
+};
+
+function removeNotif($notifID){
+    require_once ('classes/databaseConn.php');
+    $dbConn = databaseConn::getConnection();
+
+    $notifDLT = "DELETE FROM `bp_notification` 
+    WHERE `bp_notification`.`notificationID` = $notifID";
+
+    if ($dbConn->query($notifDLT) === TRUE) {
+      
+    } else {
+      echo "Error deleting record: " . $conn->error;
+    }
+};
