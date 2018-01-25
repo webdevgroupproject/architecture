@@ -47,6 +47,10 @@ if (empty($spaces)) {
     $errors[] = "<p>Please choose how many spaces are available</p>";
 }
 
+if (empty($image)) {
+    $image = "defaultEventImg.jpeg";
+}
+
 if (!empty($errors)) {
     foreach ($errors as $currentError) {
         echo $currentError;
@@ -71,7 +75,7 @@ if (!empty($errors)) {
                 "<a href='events.php'>Back to events</a>";
     }
     catch(PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
+        echo $addEventSql . "<br>" . $e->getMessage();
     }
 
 }

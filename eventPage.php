@@ -14,6 +14,7 @@ $stmt = $dbConn->query($indvEventSQL);
 // output data of each row
 
 while ($indvEvent = $stmt->fetchObject()) {
+    $name = $indvEvent->eventName;
     $date = $indvEvent->eventDate;
     $dateString = strtotime($date);
     $formatDate = date("l, jS F Y", $dateString);
@@ -24,6 +25,7 @@ while ($indvEvent = $stmt->fetchObject()) {
     $address2 = $indvEvent->eventAddress2;
     $city = $indvEvent->eventCity;
     $postcode = $indvEvent->eventPostcode;
+    $image = $indvEvent->eventImage;
     $noSignedUpSQL = "select * 
                       from bp_event_signup
                       WHERE eventId = '$eventId'";
@@ -39,13 +41,31 @@ while ($indvEvent = $stmt->fetchObject()) {
     $spacesLeft = $noSpaces - $noAttending;
 
     echo "
+            <div id=\"myModal\" class=\"modal\">
+
+  <!-- Modal content -->
+  <div class=\"modal-content\">
+    <div class=\"modal-header\">
+      <span class=\"close\">&times;</span>
+      <h1>Confirm registration for $name</h1>
+    </div>
+    <div class=\"modal-body\">
+      <p>Some text in the Modal Body</p>
+      <p>Some other text...</p>
+    </div>
+    <div class='modal-footer'>
+        <a href='registerAction.php?eventid=$eventId' class='button'>Confirm</a><a href='#' class='cancel'>Cancel</a>
+    </div>
+  </div>
+
+</div>
             <div class=\"home-banner\" id='eventPageBanner'>
                 <div class='EventTitle'>
-                    <h1>" . $indvEvent->eventName . "</h1>
+                    <h1>$name</h1>
                     <p class='tagline'>$formatDate at $formatTime</p>
                     <p class='tagline'>$city</p>
                 </div>
-                <img src=\"images/event-img-1.jpeg\" alt=\"image of a blue print\">
+                <img src=\"images/$image\" alt=\"image of a blue print\">
             </div>    
             <div class='eventInfo'>
                 <div class='infoBox'>
@@ -63,6 +83,9 @@ while ($indvEvent = $stmt->fetchObject()) {
                         if ($checkSignedUpRes) {
                             /* Check the number of rows that match the SELECT statement */
                             if ($checkSignedUpRes->fetchColumn() > 0) {
+                                echo "<div style='margin-bottom: 25px;'><p class='registeredText'>You are registered to attend this event</p>
+                                       <span>(check your email for ticket information) </span><a href='dropOutAction.php?eventid=" . $indvEvent->eventId . "'>Drop out</a></div>";
+
                                 if ($noAttending <= 1){
                                     echo "<p>No one else has signed up for this event yet</p>";
                                 }
@@ -72,12 +95,13 @@ while ($indvEvent = $stmt->fetchObject()) {
                                 else{
                                     echo "<p>".($noAttending -1)." people are registered for this event</p>";
                                 }
-                                echo "<a href='dropOutAction.php?eventid=" . $indvEvent->eventId . "' class='button'>Drop out</a> ";
+
                             }
                             /* No rows matched -- do something else */
                             else {
-                                echo "<p>$spacesLeft<span> spaces left</span></p>";
-                                echo "<a href='registerAction.php?eventid=" . $indvEvent->eventId . "' class='button'>Register</a> ";
+
+                                echo "<a href='#' class='button' id=\"modalButton\">Register</a> ";
+                                echo "<p style='margin-top: 5px;'>$spacesLeft<span> spaces left</span></p>";
                             }
 
                         }
@@ -85,8 +109,6 @@ while ($indvEvent = $stmt->fetchObject()) {
                     }
                     else{
                         echo "<div style='font-size: 1.2em;'><a href='login.php'>Log in</a><span> to register</span></div>";
-                        $noAttending = $noSignedUpstmt->rowCount();
-                        echo $noAttending;
                     };
 
     echo"       </div>
@@ -135,6 +157,36 @@ echo"<script>
         });
     }
     window.onload = codeAddress;
+</script>
+<script> //Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById(\"modalButton\");
+
+// Get the <span> element that closes the modal
+var close = document.getElementsByClassName(\"close\")[0];
+var cancel = document.getElementsByClassName(\"cancel\")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = \"block\";
+}
+
+// When the user clicks on <span> (x), close the modal
+close.onclick = function() {
+    modal.style.display = \"none\";
+}
+cancel.onclick = function() {
+    modal.style.display = \"none\";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = \"none\";
+    }
+}
 </script>
 <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyBzchtixjwkdocwfYPZYd26c-bYbAXvI3c&callback=myMap\"></script>";
 }
