@@ -36,24 +36,29 @@ $eventSQL = 'select *
 $stmt = $dbConn->query($eventSQL);
     // output data of each row
     while ( $event = $stmt->fetchObject()) {
+      $eventImage = $event->eventImage;
+      $defaultImage = "defaultEventImg.jpeg";
       echo "<div class=\"imageThirdContain\">
             <a href=\"eventPage.php?eventid=" . $event->eventId . "\">
             <div class=\"image-with-text\">
-              <img src=\"images/". $event->eventImage ."\" alt=\"image of a 3d model house\">
+              <img src=\"images/";
+            echo $eventImage;
+              echo"\" alt=\"Event image\">
               </a>
               <div class=\"attendance-info-banner\">
-                <span class=\"number-attending\">9 attending</span>
+                <span class=\"number-attending\">9 attending $eventImage</span>
                 <span class=\"spaces-left\">11 spaces left</span>
               </div>
               <div class=\"image-text\"><p class='imageTextTitle'>" . $event->eventName . "</p>";
                                          if ($userType == "admin") {
-                                             echo "<a href = 'deleteEventAction.php?eventid=" . $event->eventId . "' class='button'>Delete</a>";
+                                             echo "<a href = 'ManageEventForm.php?eventid=" . $event->eventId . "' class='button'>Manage</a>";
                                              }
                                          echo"<p>" . $event->eventDate . " | " . $event->eventPlace . " | " . $event->eventTime . "</p>
               </div>
             </div>
             
           </div>";
+
 }
 echo "  </div>";?>
 

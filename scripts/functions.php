@@ -10,6 +10,7 @@ function makePageStart($metaName, $metaContent, $pageTitle) {
       <meta name="$metaName" content="$metaContent">
       <link rel="stylesheet" type="text/css" href="css/style.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="scripts/createModal.js"></script>
       <title>$pageTitle</title>
   </head>
   <body>
@@ -47,9 +48,10 @@ function makeHeader(){
             $username = $_SESSION['username'];
             $headerContent .= "
             <nav class=\"header-nav\" id='user-nav'>
-            <ul class=\"clearfix\"><li><a href='#'>$username<span class=\"arrow\"> &#9660; </span></a>
+            <ul class=\"clearfix\"><li style='margin: 0; padding: 0;'><a href='#'>$username<span class=\"arrow\"> &#9660; </span></a>
                                         <ul class=\"dropdown\">
                                             <li><a href=\"#\">Messages</a></li>
+                                            <li><a href=\"logout.php\">Log out</a></li>
                                          </ul>
                                       </li>
                                       <li><a href=\"logout.php\">| Log out</a></li></ul></nav>
@@ -90,7 +92,7 @@ FOOTER;
 function startSession(){
 
 
-    ini_set("session.save_path", "/Applications/MAMP/sessionData");
+    ini_set("session.save_path", "/xampp1/sessionData");
 
 
     session_start();
