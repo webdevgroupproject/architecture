@@ -15,7 +15,7 @@ $dbConn = databaseConn::getConnection();
 $sql = "SELECT count(userId) FROM bp_user";
 $result = $dbConn->prepare($sql);
 $result->execute();
-$totalNumberUsers = $result->fetchColumn();
+    $totalNumberUsers = $result->fetchColumn();
 // ----------------------------------------------------//
 
 // ----------- Total Number of jobs function ----------//
@@ -33,7 +33,6 @@ $proUsers = $result->fetchColumn();
 // ----------------------------------------------------//
 
 
-
 // ----------- Total Number of users function ----------//
 $sql = "SELECT count(userId) FROM bp_user where dateAdded = CURDATE()";
 $result = $dbConn->prepare($sql);
@@ -41,12 +40,19 @@ $result->execute();
 $numberOfUserstoday = $result->fetchColumn();
 // ----------------------------------------------------//
 
-// ----------- Total Number of users function ----------//
-$sql = "SELECT count(userId) FROM bp_user where dateAdded = CURDATE() - INTERVAL 7 DAY";
-$result = $dbConn->prepare($sql);
-$result->execute();
-$numOfUsersWeek = $result->fetchColumn();
-// ----------------------------------------------------//
+//// ----------- Total Number of users function ----------//
+//$sql = "SELECT count(userId) FROM bp_user where dateAdded = DATE_ADD(CURDATE(), INTERVAL - 7 DAY); ";
+//$result = $dbConn->prepare($sql);
+//$result->execute();
+//$numOfUsersWeek = $result->fetchColumn();
+//// ----------------------------------------------------//
+
+//// ----------- Total Number of users function ----------//
+//$sql = "SELECT count(userId) FROM bp_user where dateAdded = DATE_ADD(CURDATE(), INTERVAL - 1 MONTH); ";
+//$result = $dbConn->prepare($sql);
+//$result->execute();
+//$numOfUsersMonth = $result->fetchColumn();
+//// ----------------------------------------------------//
 
 
 if (isset($_SESSION['username']) && ($userType == "admin")) {
@@ -85,8 +91,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit
 
 </p>
 
-<input type=\"submit\" value=\"Client statistics\" class=\"button\">
-<input type=\"submit\" value=\"Freelancer statistics\" class=\"button\">
+<a href='admin-client-statistics.php' class='button'>Client statistics</a>
+<a href='admin-freelancer-statistics.php' class='button'>Freelancer statistics</a>
+
             </div>
 
             <div class=\"imageHalfContain\">
@@ -94,37 +101,37 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>New users</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>$numberOfUserstoday <br/> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'>$numberOfUserstoday <br/><b> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' ><b>$numOfUsersWeek <br/> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' >10 <br/> <b>This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'>10 <br/> <b>This month</b></p>
                   </div>
                 </div>
                 <div class=\"statistics-container\" style='border-style: solid;'>
-                    <h3 style='text-align: center'>New premium users</h3>
+                    <h3 style='text-align: center'>Jobs accepted</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'>10 <br/> <b>Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' ><b>10 <br/> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' >10 <br/><b> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\"> 
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'>10 <br/><b> This month</b></p>
                   </div>
                 </div>
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>New jobs created</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'>10 <br/><b> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' ><b>10 <br/> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' >10 <br/><b> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'>10 <br/><b> This month</b></p>
                   </div>
                 </div>
             </div>";
