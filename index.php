@@ -8,13 +8,13 @@ echo makeHeader();
 ?>
       <div class="home-banner">
         <div class="banner-text">
-          <h2>Welcome to the UK's leading architecture community</h2>
+          <h2>Join the UK's Leading Arhcitecture Community</h2>
           <p class="tagline" style="text-align: left;">Post your projects and search for freelancers or accept jobs as a freelancer.</p>
           <a href="#" class="button">Get started</a>
         </div>
-        <img src="images/blueprint-paper-banner.jpeg" alt="image of a blue print">
+        <img id="banner"src="images/banner.jpg" alt="image of a blue print">
       </div>
-      <div class="how-it-works-section">
+      <div id="howitworks" class="how-it-works-section">
         <div class="images-container">
           <h1>How it works</h1>
           <div class="imageFourContain">

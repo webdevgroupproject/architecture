@@ -60,21 +60,46 @@ if (!empty($errors)) {
 
     $query->execute();
 
+    $sqlUpdate = "UPDATE bp_user set suspended = true where userId = $userID')";
+
+    $query2 = $dbConn->prepare($sqlUpdate);
+
+    $query2->execute();
+
     echo "User has been suspended. They will receieve a email to confirm the reasons for their suspension and when they will be able to use the website again";
 
-    $message = "Dear user, we are emailing you to let you know that your account has been suspended by admin staff at Blueprint. 
-    The reasons for your suspension are $reason. You will be able to log back into your account after the $suspendEndDate. If you
-    would like any more information regarding your suspension, please email suspensions@blueprint.com.";
-    mail($userEmail, "Account suspended", $message, "From: doNotReply@blueprint.com");
+    $to = $userEmail;
+
+    // Subject
+    $subject = 'Birthday Reminders for August';
+
+    // Message
+    $message = "
+    <html>
+    <head>
+      <title>Suspended user account</title>
+    </head>
+    <body>
+      <p>Dear $userEmail, <br/> we are emailing you to let you know that your account has been suspended by admin staff at Blueprint.</p>
+      <p>The reasons for your suspension are <b>$reason.</b></p>
+      <p>You will be able to log back into your account after the: <b>$suspendEndDate</b>.</p>
+      <p>If you would like any more information regarding your suspension, please email suspensions@blueprint.com.</p>
+      <p>Kind regards, Blueprint</p>
+    </body>
+    </html>
+    ";
+
+    // To send HTML mail, the Content-type header must be set
+    $headers[] = 'MIME-Version: 1.0';
+    $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+
+    // Additional headers
+    $headers[] = 'To: $userEmail';
+    $headers[] = 'From: doNotReply@blueprint.com';
+
+    // Mail it
+    mail($to, $subject, $message, implode("\r\n", $headers));
 
 }
-
-
-
-//put user into the suspended users table
-
-//mail a email to the user
-
-
 
 echo makePageFooter();

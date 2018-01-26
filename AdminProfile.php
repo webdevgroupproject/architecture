@@ -15,7 +15,7 @@ $dbConn = databaseConn::getConnection();
 $sql = "SELECT count(userId) FROM bp_user";
 $result = $dbConn->prepare($sql);
 $result->execute();
-$totalNumberUsers = $result->fetchColumn();
+    $totalNumberUsers = $result->fetchColumn();
 // ----------------------------------------------------//
 
 // ----------- Total Number of jobs function ----------//
