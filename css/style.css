@@ -864,7 +864,7 @@ label + input[type=radio] + label {
  display: block;
 margin: 0 auto;
  width: 30%;
- height 30%;
+ height: 30%;
 }
 /*----------*/
 /* Client Profile Page */
