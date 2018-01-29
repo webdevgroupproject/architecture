@@ -1,6 +1,3 @@
-<style type="text/css">
-
-</style>
 <?php
     require_once ('scripts/functions.php');
     echo startSession();
