@@ -21,59 +21,80 @@ PAGESTART;
 };
 
 function makeHeader(){
-    $userType = checkUserType();
-  $headerContent =
-  "<header>
-    <div class=\"logo-contain\">
-    <a href=\"index.php\"><img src=\"images/logo-test.png\" alt=\"Blueprint company logo\" id='logoImg'></a>
-    </div>
-    <div class=\"menu-wrap\">
-        <nav class=\"header-nav\">
-            <ul class=\"clearfix\">
-            <li><a href=\"events.php\">Events</a></li>
-                    <li><a href=\"Forum.php\">Forum</a></li>
-              ";
-              if (isset($_SESSION['username']) && ($userType == "admin")){
-                 $headerContent .= "<li><a href=\"adminProfile.php\">Admin<span class=\"arrow\"> &#9660;</span></a>
-                                        <ul class=\"dropdown\">
-                                            <li><a href=\"admin-freelancer-statistics.php\">Freelancer statistics</a></li>
-                                            <li><a href=\"admin-client-statistics.php\">Client statistics</a></li>
-                                            <li><a href=\"maintain-roles.php\">Maintain roles</a></li>
-                                         </ul>
-                                      </li>";
-              }
-            $headerContent.= "</ul>
-        </nav>";
-        if (isset($_SESSION['username'])) {
-            $username = $_SESSION['username'];
-            $headerContent .= "
-            <nav class=\"header-nav\" id='user-nav'>
-            <ul class=\"clearfix\"><li style='margin: 0; padding: 0;'><a href='#'>$username<span class=\"arrow\"> &#9660; </span></a>
-                                        <ul class=\"dropdown\">
-                                            <li><a href=\"notifications.php\">Notifications</a></li>
-                                            <li><a href=\"messaging.php\">Messages</a></li>
-                                            <li><a href=\"logout.php\">Log out</a></li>
-                                         </ul>
-                                      </li>
-                                      <li><a href=\"logout.php\">| Log out</a></li></ul></nav>
-          </span>
-        </nav>";
-        } else {
-            $headerContent .= "<nav class=\"user-nav\">
-          <span class=\"user-conrol-links\">
-            <a href=\"create-account-page-1.php\">Sign up</a> | <a href=\"login.php\">Log in</a>
-          </span>
-        </nav>";
-        }
+	$userType = checkUserType();
+  $headerContent ="
+		<header class\"navbar-fixed-top\">
+	    <div class=\"menu-wrap\">
+				<div class=\"logo-contain\">
+					<a href=\"index.php\"><img src=\"images/logo-test.png\" alt=\"Blueprint company logo\" id='logoImg'></a>
+				</div>
+	    	<nav class=\"header-nav\">
+	        <ul class=\"clearfix\">
+	          <li>
+							<a href=\"events.php\">Events</a>
+						</li>
+	          <li>
+							<a href=\"Forum.php\">Forum</a>
+						</li>
+						<li>
+							<a href=\"index.php#howitworks\">How It Works</a>
+						</li>
+  					";
+            if (isset($_SESSION['username']) && ($userType == "admin")){
+            	$headerContent .= "
+								<li><a href=\"adminProfile.php\">Admin<span class=\"arrow\"> &#9660;</span></a>
+	                <ul class=\"dropdown\">
+	                    <li><a href=\"admin-freelancer-statistics.php\">Freelancer statistics</a></li>
+	                    <li><a href=\"admin-client-statistics.php\">Client statistics</a></li>
+	                    <li><a href=\"maintain-roles.php\">Maintain roles</a></li>
+	                 </ul>
+	              </li>
+							";
+            }
+            $headerContent.= "
+							</ul>
 
-
-    $headerContent .= "</div>
-
-  </header>
-  <main>";
-
-    $headerContent .="\n";
-    return $headerContent;
+						";
+						//</nav>
+        		if (isset($_SESSION['username'])) {
+          		$username = $_SESSION['username'];
+          		$headerContent .= "
+          			<div class=\"header-nav\" id='user-nav' style='float: right; width: 40%;'>
+          				<ul class=\"clearfix\" style='float: right; width: auto;'>
+										<li style='margin: 0; padding: 0;'>
+											<a href='#'>$username<span class=\"arrow\"> &#9660;</span></a>
+                    	<ul class=\"dropdown\">
+                       <li><a href=\"notifications.php\">Notifications</a></li>
+                       <li><a href=\"messaging.php\">Messages</a></li>
+                     	</ul>
+                  	</li>
+										<li>
+											<a href=\"logout.php\">Log out</a>
+										</li>
+									</ul>
+								</div>
+          		";
+        		} else {
+            	$headerContent .= "
+								<div class=\"user-nav\">
+          				<div class=\"user-conrol-links\">
+									<div>
+										<a href=\"#\" class=\"button\">Post a Project</a>
+										</div>
+				            <a href=\"create-account-page-1.php\">Sign up</a>
+											<a href=\"login.php\">Log in</a>
+				          </div>
+				        </div>
+							";
+        		}
+    				$headerContent .= "
+							</nav>
+							</div>
+						</header>
+						<main>
+						";
+    				$headerContent .="\n";
+    				return $headerContent;
 };
 
 function makePageFooter(){

@@ -27,6 +27,19 @@ if (isset($_POST['loginProcess'])) {
         $errors[] = "You have not entered a password";
     }
 
+    $CheckSuspension = "select suspended from bp_user where username = '$username'";
+
+    $queryCheck = $dbConn->prepare($CheckSuspension);
+
+    $queryCheck->execute();
+
+    $userSuspended = $queryCheck->fetchColumn();
+
+    if ($userSuspended) {
+        $errors [] = "You have been suspended. You can't log into your account until your suspension date is over.
+                      For more information, contact suspensions@blueprint.com";
+    }
+
     if (!empty($errors)) {
         echo"<div class=\"ErrorMessages\">";
         echo"<b>The following errors occurred:</b> ";
@@ -57,7 +70,7 @@ if (isset($_POST['loginProcess'])) {
             if (password_verify($pwd, $row['password'])) {
                 $_SESSION['username'] = $username;
                 $_SESSION['logged-in'] = true;
-                header('Location: AdminProfile.php');
+                header('Location: index.php');
                 exit();
             } else {
                 echo '<div class="ErrorMessages">

@@ -5,6 +5,30 @@ echo makePageStart("viewport", "width=device-width, inital-scale=1", "Admin");
 echo makeHeader();
 $userType = checkUserType();
 $username = $_SESSION['username'];
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+$dbConn = databaseConn::getConnection();
+// ----------- Total Number of users function ----------//
+$sql = "SELECT count(userId) FROM bp_user where userRole = 'freelancer'";
+$result = $dbConn->prepare($sql);
+$result->execute();
+$freelancerUsers = $result->fetchColumn();
+// ----------------------------------------------------//
+
+// ----------- Total Number of jobs function ----------//
+$sql = "SELECT count(jobAcceptID) FROM bp_job_accept";
+$result = $dbConn->prepare($sql);
+$result->execute();
+$numFreelancerJobsAccepted = $result->fetchColumn();
+// ----------------------------------------------------//
+
+// ----------- Total Number of pro users function ----------//
+$sql = "SELECT count(userId) FROM bp_user where pro = 1 and userRole = 'freelancer'";
+$result = $dbConn->prepare($sql);
+$result->execute();
+$proUsersFreelancer = $result->fetchColumn();
+// ----------------------------------------------------//
 
 if (isset($_SESSION['username']) && ($userType == "admin")) {
 
@@ -12,59 +36,47 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
     echo "<div class=\"thread\" style='background-color: #CFCFCF'>
             <div class=\"images-container\">
               <div class=\"imageThirdContain\">
-                <img src='images/userIcon.png' style='width: 100px; margin-left:38%;'> <br><br><br><br><br><br><br>
-                <p style='text-align: center'><b>Total freelancer users <br/> 40</b></p>
+                <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
+                <p style='text-align: center'><b>Total freelancer users <br/> $freelancerUsers</b></p>
               </div>
               <div class=\"imageThirdContain\">
-              <img src='images/jobIcon.png' style='width: 100px; margin-left:38%;'> <br><br><br><br><br><br><br>
-                <p style='text-align: center' ><b>Total freelancer jobs <br/> 40</b></p>
+              <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
+                <p style='text-align: center' ><b>Total freelancer jobs accepted <br/> $numFreelancerJobsAccepted</b></p>
               </div>
               <div class=\"imageThirdContain\">
-              <img src='images/premium.png' style='width: 100px; margin-left:38%;'> <br><br><br><br><br><br><br>
-                <p style='text-align: center'><b>Total premium freelancer users <br/> 40</b></p>
+              <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
+                <p style='text-align: center'><b>Total premium freelancer users <br/> $proUsersFreelancer</b></p>
               </div>
             </div>
         </div>";
+
+
     echo "<div class=\"images-container\">
             <div class=\"imageHalfContain\">
-            <h2>List of latest accepted jobs </h2>
-               <table id=\"customers\">
+                <h2>Lastest freelancer jobs accepted</h2>
+                <table id=\"customers\">
                   <tr>
                     <th>Job title</th>
                     <th>Job description</th>
                    
-                  </tr>
-                  <tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr>
-                  <tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr><tr>
-                    <td>Username 1</td>
-                    <td>Freelancer</td>
-                  </tr>
-                </table>
-            </div>
+                  </tr>";
+
+
+    $query = "SELECT jobName, jobDesc from bp_job_post inner join bp_job_offer on bp_job_post.jobPostID = bp_job_offer.jobPostId inner join bp_job_accept on bp_job_offer.jobOfferId = bp_job_accept.jobOfferID LIMIT 3 ";
+    $result = $dbConn->prepare($query);
+    $result->execute();
+    $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($recordSet as $row) {
+
+        echo "<tr>
+                        <td>$row[jobName]</td>
+                        <td>$row[jobDesc]</td>
+                      </tr>";
+    }
+
+    echo" </table>
+                </div>
 
             <div class=\"imageHalfContain\">
                 <h2>Daily statistics</h2>

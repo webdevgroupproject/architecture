@@ -22,6 +22,6 @@ echo makeHeader();
 
 <h3 id="activejobtitle">My Active Job Posts</h3>
 
-<?php
+<?php 
 echo makePageFooter();
 ?>
