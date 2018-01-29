@@ -6,16 +6,19 @@
 <?php
 require_once('scripts/functions.php');
 echo startSession();
-echo makePageStart("viewport", "width=device-width, inital-scale=1", "Admin");
+echo makePageStart("viewport", "width=device-width, inital-scale=1", "Suspend user form");
 echo makeHeader();
-
 $dbConn = databaseConn::getConnection();
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $userType = checkUserType();
 $username = $_SESSION['username'];
 
 if (isset($_SESSION['username']) && ($userType == "admin")) {
 
-    $dbConn = databaseConn::getConnection();
     $userID = $_GET['userId'];
     $sql = "SELECT username FROM bp_user where userId = $userID";
     $result = $dbConn->prepare($sql);
@@ -25,12 +28,12 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
     echo "
         <h1> Suspension Details</h1> 
         <div class=\"form-container\">
-            <form method=\"post\" action=\"suspendUser.php\">
+            <form method=\"post\" action=\"suspendUser.php?userId=$userID\">
                  <p><b>Username: </b> $userName</p> <br>
                  
                  <b>Suspended until:</b> <input style=\"width: 150px;\" type=\"date\" name=\"date\"><br>
                  
-                 <b>Reason for suspension:</b> <br><textarea name=\"Text1\" cols=\"76\" rows=\"8\"></textarea>
+                 <b>Reason for suspension:</b> <br><textarea name=\"reason\" cols=\"76\" rows=\"8\"></textarea>
 
                 <div class=\"submit-wrap\">
                     <input type=\"submit\" value=\"Submit\" class=\"button\" name=\"suspendScript\">
