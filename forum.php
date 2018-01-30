@@ -16,7 +16,7 @@ $forumSQL = 'select *
              from bp_thread 
              left join bp_user 
              on bp_thread.userId=bp_user.userId
-             order by datePosted';
+             order by datePosted DESC ';
 
 $stmt = $dbConn->query($forumSQL);
 
@@ -25,11 +25,11 @@ if(isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == true){
     echo "<div class=\"postThread\">
             <div class='showThreadButton'></div>
             <div class=\"form-container\">
-                <form method=\"get\" action=\"#\" id='postThreadForm'>
+                <form method=\"get\" action=\"addThread.php\" id='postThreadForm'>
                     <label for='title'>Thread title: </label>
-                    <input type=\"text\" name=\"title\" id='title'>
-                    <label for='postThread'>Thread information (optional): </label><br/>
-                    <textarea style=\"max-width: 100%; width: 100%;\" name=\"username\" id='postThread'></textarea>
+                    <input type=\"text\" name=\"threadTitle\" id='title'>
+                    <label for='postThread'>Thread information</label><br/>
+                    <textarea style=\"max-width: 100%; width: 100%;\" name=\"threadInfo\" id='postThread'></textarea>
                     <div class=\"submit-wrap\">
                         <input type=\"submit\" value=\"Post\" class=\"button\">
                     </div>
