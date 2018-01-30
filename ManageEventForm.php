@@ -24,7 +24,7 @@ while ($event = $eventQuery->fetchObject()) {
     echo "<h1>Manage $name</h1>
           <div class=\"form-container\">
         <form method=\"get\" action=\"updateEventAction.php\">
-            <input type='text' value='$id' name='eventid' readonly>
+            <input style='display: none' type='text' value='$id' name='eventid' readonly>
             <fieldset>
                 <legend>Where</legend>
                 <label>Address line 1: </label>
