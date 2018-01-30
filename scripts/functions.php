@@ -66,6 +66,7 @@ function makeHeader(){
                     	<ul class=\"dropdown\">
                        <li><a href=\"notifications.php\">Notifications</a></li>
                        <li><a href=\"messaging.php\">Messages</a></li>
+                       <li><a href=\"editPofile.php\">Edit profile</a></li>
                      	</ul>
                   	</li>
 										<li>

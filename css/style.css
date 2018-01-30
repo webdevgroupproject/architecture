@@ -754,7 +754,7 @@ legend{
   border: 1px solid #CCC;
   background-color: #f9f9f9;
   width: 75%;
-  margin: 20px auto;
+  margin: auto;
   height: 90px;
   display: flex;
   border-radius: 20px;
@@ -794,7 +794,7 @@ legend{
   margin: auto;
 }
 
-h2 {
+.notif-box-content h2 {
   font-size: 18px;
 }
 
