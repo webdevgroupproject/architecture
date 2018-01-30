@@ -33,6 +33,7 @@ header {
     background-color: #fff;
     box-shadow: 5px 1px 5px #ccc;
     margin-bottom: 5px;
+
     position: fixed;
     top: 0;
     z-index: 1;
@@ -430,6 +431,7 @@ ul {
   box-sizing: border-box;
   float:left;
 }*/
+
 form#test {
     width: 60%;
     margin: 0 auto;
@@ -824,7 +826,6 @@ label {
    padding: 5px 0px;
    box-sizing: border-box;
    float: left;
-
 }
 
 input[type=radio]:checked + label{
@@ -910,7 +911,10 @@ margin: 0 auto;
    padding-top: 10px;
  }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 #rcorners1 {
   margin-left: 120px;
   margin-bottom: 20px;
@@ -937,7 +941,6 @@ margin: 0 auto;
   text-align: center;
   color: white;
   float: right;
-}
 
 #howitworks ul{
     list-style-type: disc;
@@ -1017,4 +1020,3 @@ margin: 0 auto;
 .media-box img{
     width: 100%;
 }
-
