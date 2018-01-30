@@ -17,7 +17,7 @@
 
     $convoSQL = "SELECT *
                 FROM bp_message
-                left join bp_conversation 
+                left join bp_conversation
                 on bp_message.userId=bp_conversation.userId
                 WHERE userID = '$userId'";
     echo "
@@ -89,5 +89,6 @@
     } else {
       return notLoggedRedirect();
     }
+  }
   echo makePageFooter();
-?>  
+?>
