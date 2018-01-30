@@ -23,7 +23,7 @@
                     foreach ($rows as $notif) {
                       $time = "$notif->time";
                       $timeString = strtotime($time);
-                      $formatTime = date("h:ia", $timeString);
+                      $formatTime = date("h:i", $timeString);
                       if ($notif->markRead == 0) {
                         $status = "unread";
                       } else {
@@ -49,7 +49,7 @@
                   } else {
                     echo "<p style='text-align: center;'>You have no notifications</p>";
                   }
-                }    
+                }
               } else {
                 return notLoggedRedirect();
                 echo "<p style='text-align: center;'>You shouldn't be seeing this page</p>";
