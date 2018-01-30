@@ -910,6 +910,35 @@ margin: 0 auto;
    padding-top: 10px;
  }
 
+
+#rcorners1 {
+  margin-left: 120px;
+  margin-bottom: 20px;
+  margin-right: 0;
+  border-radius: 5px;
+  background: #404040;
+  padding: 10px;
+  width: 800px;
+  height: 30px;
+  text-align: left;
+  color: white;
+  float: left;
+}
+
+#rcorners2 {
+  margin-left: 20px;
+  margin-bottom: 20px;
+  margin-right: 80px;
+  border-radius: 5px;
+  background: #404040;
+  padding: 10px;
+  width: 200px;
+  height: 30px;
+  text-align: center;
+  color: white;
+  float: right;
+}
+
 #howitworks ul{
     list-style-type: disc;
     text-align: left;
@@ -988,3 +1017,4 @@ margin: 0 auto;
 .media-box img{
     width: 100%;
 }
+
