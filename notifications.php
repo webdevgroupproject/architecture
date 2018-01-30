@@ -1,6 +1,3 @@
-<style type="text/css">
-
-</style>
 <?php
     require_once ('scripts/functions.php');
     echo startSession();
@@ -55,6 +52,7 @@
                 }    
               } else {
                 return notLoggedRedirect();
+                echo "<p style='text-align: center;'>You shouldn't be seeing this page</p>";
               }
 
   echo makePageFooter();

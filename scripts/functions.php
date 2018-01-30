@@ -62,10 +62,11 @@ function makeHeader(){
           			<div class=\"header-nav\" id='user-nav' style='float: right; width: 40%;'>
           				<ul class=\"clearfix\" style='float: right; width: auto;'>
 										<li style='margin: 0; padding: 0;'>
-											<a href='#'>$username<span class=\"arrow\"> &#9660;</span></a>
+											<a href='clientProfilepage.php'>$username<span class=\"arrow\"> &#9660;</span></a>
                     	<ul class=\"dropdown\">
                        <li><a href=\"notifications.php\">Notifications</a></li>
                        <li><a href=\"messaging.php\">Messages</a></li>
+                       <li><a href=\"editPofile.php\">Edit profile</a></li>
                      	</ul>
                   	</li>
 										<li>
@@ -113,10 +114,9 @@ FOOTER;
 
 function startSession(){
 
+    //ini_set("session.save_path", "/Applications/MAMP/sessionData");
 
-
-    ini_set("session.save_path", "/xampp1/sessionData");
-
+    ini_set("session.save_path", "/xampp/sessionData");
 
     session_start();
 };
