@@ -960,13 +960,14 @@ input[type=radio] {
   display: none;
 }
 
-label {
+.radio-group label {
    color: #404040;
   display: inline-block;
    cursor: pointer;
    padding: 5px 0px;
    box-sizing: border-box;
    float: left;
+   width: 50%;
 }
 
 input[type=radio]:checked + label{

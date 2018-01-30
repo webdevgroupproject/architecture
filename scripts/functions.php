@@ -62,7 +62,7 @@ function makeHeader(){
           			<div class=\"header-nav\" id='user-nav' style='float: right; width: 40%;'>
           				<ul class=\"clearfix\" style='float: right; width: auto;'>
 										<li style='margin: 0; padding: 0;'>
-											<a href='clientProfilepage.php'>$username<span class=\"arrow\"> &#9660;</span></a>
+											<a href='profile.php'>$username<span class=\"arrow\"> &#9660;</span></a>
                     	<ul class=\"dropdown\">
                        <li><a href=\"notifications.php\">Notifications</a></li>
                        <li><a href=\"messaging.php\">Messages</a></li>
@@ -162,4 +162,34 @@ function removeNotif($notifID){
     } else {
       echo "Error deleting record: " . $conn->error;
     }
+};
+
+//----------Sign up Functions----------//
+
+function signupPage1() {
+
+	if(isset($_POST['submit'])) {
+
+    //Retrieving the variables from the form
+		$username = $_POST['username'];
+ 		$email = $_POST['Email'];
+ 		$password = $_POST['password'];
+		$confirmPassword = $_POST['confirmPassword'];
+ 		$passwordHint = $_POST['passwordHint'];
+		$tandc = $_POST['tandc'];
+		$signupForm1 = $_POST['signupForm1'];
+
+		//Insertion SQL statement that uses the values entered into the web form via the exact attribute
+		//names defined in the database. This allows the exact information to be placed in each relevant column
+
+			if(($password == $confirmPassword) && ($tandc == true) && ($signupForm1.radio == 'freelancer' || $signupForm1.radio == 'client' )) {
+
+					$sql = "INSERT INTO bp_user (username, email, password, passwordHint)
+											 VALUES('$username',
+															'$email',
+															'$password',
+															'$passwordHint')";
+			}
+			return header('Location: http://localhost:8888/architecture/Create-Account-Page-2-Client.php');
+		}
 };
