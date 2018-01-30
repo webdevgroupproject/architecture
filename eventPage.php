@@ -5,6 +5,7 @@ require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
 echo makeHeader();
 $eventId = htmlspecialchars($_GET["eventid"]);
+$userType = checkUserType();
 $dbConn = databaseConn::getConnection();
 $indvEventSQL = "select *
                  from bp_events
@@ -124,6 +125,9 @@ while ($indvEvent = $stmt->fetchObject()) {
                             else {
 
                                 echo "<a href='#myModal' class='button' id=\"modalButton\">Register</a> ";
+                                if ($userType == "admin") {
+                                    echo "<a href = 'ManageEventForm.php?eventid=" . $eventId . "' class='button'>Manage</a>";
+                                }
                                 echo "<p style='margin-top: 5px;'>$spacesLeft<span> spaces left</span></p>";
                             }
 
@@ -134,7 +138,10 @@ while ($indvEvent = $stmt->fetchObject()) {
                         echo "<div style='font-size: 1.2em;'><a href='login.php'>Log in</a><span> to register</span></div>";
                     };
 
-    echo"       </div>
+
+    echo"       
+                
+            </div>
                 <div class='infoBox'>
                     <h2>When &amp; where</h2>
                 <div id=\"googleMap\"></div>
