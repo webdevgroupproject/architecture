@@ -20,7 +20,7 @@ $totalClients = $result->fetchColumn();
 // ----------------------------------------------------//
 
 // ----------- Total Number of jobs function ----------//
-$sql = "SELECT count(jobPostID) FROM bp_job_post inner join bp_user where userRole = 'client'and bp_user.userId = bp_job_post.userID";
+$sql = "SELECT count(jobPostID) FROM bp_job_post ";
 $result = $dbConn->prepare($sql);
 $result->execute();
 $numClientJobsCreated = $result->fetchColumn();
