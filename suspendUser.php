@@ -70,10 +70,8 @@ if (!empty($errors)) {
 
     $to = $userEmail;
 
-    // Subject
     $subject = 'Birthday Reminders for August';
 
-    // Message
     $message = "
     <html>
     <head>

@@ -49,7 +49,7 @@ $stmt = $dbConn->query($eventSQL);
 <div class=\"images - container\">
         <div class='event-contain'>
             <div class='event-date-contain'><p>$formatMonth</p><p>$formatDay</p></div>
-            <div class='event-img-contain'><img src=\"images /";echo $eventImage;echo"\" alt =\"Event image\" ></div>   
+            <div class='event-img-contain'><img src=\"images/";echo $eventImage;echo"\" alt =\"Event image\" ></div>   
             <div class='event-info-contain'>
                 <h2>$event->eventName</h2>
                 <p>$event->eventPlace, $formatTime</p>

@@ -42,7 +42,7 @@ function makeHeader(){
   					";
             if (isset($_SESSION['username']) && ($userType == "admin")){
             	$headerContent .= "
-								<li><a href=\"adminProfile.php\">Admin<span class=\"arrow\"> &#9660;</span></a>
+								<li><a href=\"profile.php\">Admin<span class=\"arrow\"> &#9660;</span></a>
 	                <ul class=\"dropdown\">
 	                    <li><a href=\"admin-freelancer-statistics.php\">Freelancer statistics</a></li>
 	                    <li><a href=\"admin-client-statistics.php\">Client statistics</a></li>
@@ -114,10 +114,10 @@ FOOTER;
 
 function startSession(){
 
-    //ini_set("session.save_path", "/Applications/MAMP/sessionData");
-
-
     ini_set("session.save_path", "/Applications/MAMP/sessionData");
+
+
+//    ini_set("session.save_path", "/xampp/sessionData");
 
 
     session_start();
