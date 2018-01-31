@@ -42,7 +42,7 @@ function makeHeader(){
   					";
             if (isset($_SESSION['username']) && ($userType == "admin")){
             	$headerContent .= "
-								<li><a href=\"adminProfile.php\">Admin<span class=\"arrow\"> &#9660;</span></a>
+								<li><a href=\"profile.php\">Admin<span class=\"arrow\"> &#9660;</span></a>
 	                <ul class=\"dropdown\">
 	                    <li><a href=\"admin-freelancer-statistics.php\">Freelancer statistics</a></li>
 	                    <li><a href=\"admin-client-statistics.php\">Client statistics</a></li>
@@ -62,7 +62,7 @@ function makeHeader(){
           			<div class=\"header-nav\" id='user-nav' style='float: right; width: 40%;'>
           				<ul class=\"clearfix\" style='float: right; width: auto;'>
 										<li style='margin: 0; padding: 0;'>
-											<a href='clientProfilepage.php'>$username<span class=\"arrow\"> &#9660;</span></a>
+											<a href='profile.php'>$username<span class=\"arrow\"> &#9660;</span></a>
                     	<ul class=\"dropdown\">
                        <li><a href=\"notifications.php\">Notifications</a></li>
                        <li><a href=\"messaging.php\">Messages</a></li>
@@ -116,7 +116,10 @@ function startSession(){
 
     //ini_set("session.save_path", "/Applications/MAMP/sessionData");
 
+
     ini_set("session.save_path", "/xampp1/sessionData");
+
+
 
     session_start();
 };

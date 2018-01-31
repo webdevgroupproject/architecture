@@ -952,13 +952,14 @@ input[type=radio] {
   display: none;
 }
 
-label {
+.radio-group label {
    color: #404040;
   display: inline-block;
    cursor: pointer;
    padding: 5px 0px;
    box-sizing: border-box;
    float: left;
+   width: 50%;
 }
 
 input[type=radio]:checked + label{
@@ -1022,6 +1023,7 @@ margin: 0 auto;
  width: 14%;
  display: block;
  margin: auto;
+ z-index: 1;
 }
 
 .profilepagename {
@@ -1059,17 +1061,17 @@ margin: 0 auto;
 }
 
 #rcorners2 {
-  margin-left: 20px;
-  margin-bottom: 20px;
-  margin-right: 80px;
-  border-radius: 5px;
-  background: #404040;
-  padding: 10px;
-  width: 200px;
-  height: 30px;
-  text-align: center;
-  color: white;
-  float: right;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-right: 80px;
+    border-radius: 5px;
+    background: #404040;
+    padding: 10px;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    color: white;
+    float: right;
 }
 
 #howitworks ul{
