@@ -1,9 +1,18 @@
+
 <?php
 ob_start();
 require_once('scripts/functions.php');
 echo startSession();
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Admin");
 echo makeHeader();
+?>
+
+<script type="text/javascript">
+    function confirm_delete() {
+        return confirm('are you sure you would like to delete?');
+    }
+</script>
+<?php
 $userType = checkUserType();
 $username = $_SESSION['username'];
 ini_set('display_errors', 1);
@@ -159,8 +168,6 @@ if (isset($_POST['AdminUser'])) {
 
         // Mail it
         mail($to, $subject, $message, implode("\r\n", $headers));
-
-        header('Location: login.php');
 
     }
 }
