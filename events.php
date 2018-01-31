@@ -27,15 +27,15 @@ echo "
 foreach ($dbConn->query($searchCitySQL) as $cityRow) {
     echo       "<option value='".$cityRow['eventCity']."'>".$cityRow['eventCity']."</option>";
 }
-       echo"</select>
+echo"</select>
     </form>";
-    if ($userType == "admin"){
-        echo "<a href='addEventForm.php' class='button' id='addEventButton'>Add an event</a> <div class='clear'></div> ";
-    }else{
-        echo"<div class='clear'></div>";
-    };
-    //end filterbar
-    echo "</div>";
+if ($userType == "admin"){
+    echo "<a href='addEventForm.php' class='button' id='addEventButton'>Add an event</a> <div class='clear'></div> ";
+}else{
+    echo"<div class='clear'></div>";
+};
+//end filterbar
+echo "</div>";
 
 
 // Pagination Code starts
