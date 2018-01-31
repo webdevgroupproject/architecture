@@ -114,10 +114,11 @@ FOOTER;
 
 function startSession(){
 
-    ini_set("session.save_path", "/Applications/MAMP/sessionData");
+    //ini_set("session.save_path", "/Applications/MAMP/sessionData");
 
 
-//    ini_set("session.save_path", "/xampp/sessionData");
+    ini_set("session.save_path", "/xampp1/sessionData");
+
 
 
     session_start();

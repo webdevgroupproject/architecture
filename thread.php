@@ -9,9 +9,7 @@ $threadId = htmlspecialchars($_GET["threadId"]);
 $dbConn = databaseConn::getConnection();
 $threadSQL = "select *
              from bp_thread 
-             left join bp_user 
-             on bp_thread.userId=bp_user.userId
-             WHERE bp_thread.userId='$threadId'
+             WHERE threadID='$threadId'
              order by datePosted";
 
 $stmt = $dbConn->query($threadSQL);
@@ -19,7 +17,7 @@ $stmt = $dbConn->query($threadSQL);
 while ( $thread = $stmt->fetchObject()) {
 
     echo "<h1>$thread->threadTitle</h1>
-<p>some text</p>";
+          <p class='tagline'>$thread->threadInfo</p>";
 }
 
 echo makePageFooter();
