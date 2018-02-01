@@ -23,7 +23,7 @@
                     foreach ($rows as $notif) {
                       $time = "$notif->time";
                       $timeString = strtotime($time);
-                      $formatTime = date("h:i", $timeString);
+                      $formatTime = date("h:ia", $timeString);
                       if ($notif->markRead == 0) {
                         $status = "unread";
                       } else {
