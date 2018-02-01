@@ -743,6 +743,8 @@ legend{
     pointer-events: auto;
 }
 
+/*-----Notification styling ------*/
+
 .notif {
   /*background-color: #404040;*/
   padding: 20px;
@@ -800,6 +802,8 @@ legend{
 .notif-box-content h2 {
   font-size: 18px;
 }
+
+/*-----Messages styling ------*/
 
 .options {
   border-bottom: 1px solid #CCC;

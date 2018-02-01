@@ -49,7 +49,7 @@
                   } else {
                     echo "<p style='text-align: center;'>You have no notifications</p>";
                   }
-                }    
+                }
               } else {
                 return notLoggedRedirect();
                 echo "<p style='text-align: center;'>You shouldn't be seeing this page</p>";
