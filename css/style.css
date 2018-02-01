@@ -142,7 +142,7 @@ ul {
 
 .header-nav {
     float: left;
-    width: 89%;
+    width: calc(100% - 163px);
     padding-left: 30px;
     box-sizing: border-box;
 }
@@ -420,17 +420,11 @@ ul {
 
 .logo-contain {
     float: left;
-    width: 11%;
+    width: 163px;
     padding-left: 10px;
     box-sizing: border-box;
+    height: 40px;
 }
-
-/*.imageThirdContain:first-child{
-  width: 33.33%;
-  padding-left: 0;
-  box-sizing: border-box;
-  float:left;
-}*/
 
 form#test {
     width: 60%;
@@ -449,10 +443,6 @@ form input[type="submit"] {
     margin: 0.5em;
 }
 
-.form-container {
-    margin-top: 45px;
-}
-
 form input {
     border: 1px solid;
     width: 100%;
@@ -460,10 +450,6 @@ form input {
     margin: 0 auto;
     margin-bottom: 1em;
     box-sizing: border-box;
-}
-
-.submit-wrap {
-    text-align: center;
 }
 
 .blueTitle{
@@ -484,19 +470,21 @@ form input {
 }
 
 .thread{
-    width:100%;
-    height:150px;
-    float: left;
-    padding: 1em;
+    width: 90%;
     background-color: #fff;
-    margin-bottom: 30px;
+    margin: 0 auto 30px auto;
+    box-shadow: 5px 5px 5px #ccc;
 }
+
 .thread img{
-    width: 10%;
+    width: 8%;
     float: left;
 }
 .thread-info{
-    padding-left: 12%;
+    float: left;
+    padding: 1em;
+    width: 90%;
+    box-sizing: border-box;
 }
 
 .thread h2, p{
@@ -506,24 +494,29 @@ form input {
 .thread h2{
     font-size: 2em;
 }
-.thread p{
-    padding-top: 0.5em;
-}
 .thread span{
     font-size: 0.8em;
 }
 .thread a:hover p{
     color: #000;
 }
-.postThread{
-    padding-left: 2.5%;
-}
+
 #postThreadForm{
     margin: 0;
 }
 #postThreadForm .button{
-    float: left;
     margin-left: 0;
+}
+.replyInfoBox{
+    float: right;
+    background-color: #2DC3E7;
+    color: #fff;
+    width: 10%;
+    font-size: 19px;
+    text-align: center;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding: 41px;
 }
 .EventTitle .tagline{
     color: #efefef;
@@ -548,7 +541,6 @@ form input {
 .filterBar{
     width: 90%;
     margin: 0 auto 30px;
-    height: 69px;
     background-color: #FFF;
     box-shadow: 5px 5px 5px #ccc;
     padding: 10px;
@@ -751,6 +743,8 @@ legend{
     pointer-events: auto;
 }
 
+/*-----Notification styling ------*/
+
 .notif {
   /*background-color: #404040;*/
   padding: 20px;
@@ -808,6 +802,8 @@ legend{
 .notif-box-content h2 {
   font-size: 18px;
 }
+
+/*-----Messages styling ------*/
 
 .options {
   border-bottom: 1px solid #CCC;
@@ -960,13 +956,14 @@ input[type=radio] {
   display: none;
 }
 
-label {
+.radio-group label {
    color: #404040;
   display: inline-block;
    cursor: pointer;
    padding: 5px 0px;
    box-sizing: border-box;
    float: left;
+   width: 50%;
 }
 
 input[type=radio]:checked + label{
@@ -1030,6 +1027,7 @@ margin: 0 auto;
  width: 14%;
  display: block;
  margin: auto;
+ z-index: 1;
 }
 
 .profilepagename {
@@ -1067,17 +1065,17 @@ margin: 0 auto;
 }
 
 #rcorners2 {
-  margin-left: 20px;
-  margin-bottom: 20px;
-  margin-right: 80px;
-  border-radius: 5px;
-  background: #404040;
-  padding: 10px;
-  width: 200px;
-  height: 30px;
-  text-align: center;
-  color: white;
-  float: right;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-right: 80px;
+    border-radius: 5px;
+    background: #404040;
+    padding: 10px;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    color: white;
+    float: right;
 }
 
 #howitworks ul{
@@ -1158,4 +1156,27 @@ margin: 0 auto;
 }
 .media-box img{
     width: 100%;
+}
+.clear{
+    clear: both;
+}
+/*pagination*/
+.pag-form{
+    float: left;
+    margin-left: 5%;
+}
+.pag-button{
+    width: 30px !important;
+    height: 30px !important;
+    border: none;
+    background-color: #f9f9f9;
+    margin: 0 0 10px 0 !important;
+    padding: 0 !important;
+}
+.pag-button:hover{
+    cursor: pointer;
+}
+.pag-button-current{
+    background-color: #2DC3E7;
+    color: #ffffff;
 }
