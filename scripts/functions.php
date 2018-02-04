@@ -47,6 +47,8 @@ function makeHeader(){
 	                    <li><a href=\"admin-freelancer-statistics.php\">Freelancer statistics</a></li>
 	                    <li><a href=\"admin-client-statistics.php\">Client statistics</a></li>
 	                    <li><a href=\"maintain-roles.php\">Maintain roles</a></li>
+	                    <li><a href=\"admin-reported-messages.php\">Reported messages</a></li>
+	                    <li><a href=\"admin-reported-forum-posts.php\">Reported forum posts</a></li>
 	                 </ul>
 	              </li>
 							";
@@ -114,10 +116,10 @@ FOOTER;
 
 function startSession(){
 
-    //ini_set("session.save_path", "/Applications/MAMP/sessionData");
+    ini_set("session.save_path", "/Applications/MAMP/sessionData");
 
 
-    ini_set("session.save_path", "/xampp1/sessionData");
+//    ini_set("session.save_path", "/xampp1/sessionData");
 
 
 
