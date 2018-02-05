@@ -22,17 +22,6 @@ if (isset($_SESSION['username'])) {
             WHERE c.startUserID = $userId
             OR c.secUserID = $userId";
 
-  $startConvoSQL = "SELECT *
-            FROM bp_user AS u
-            LEFT JOIN bp_conversation AS c
-            ON u.userId = c.startUserID
-            WHERE c.startUserID = $userId";
-
-  $secConvoSQL = "SELECT *
-            FROM bp_user AS u
-            LEFT JOIN bp_conversation AS c
-            ON u.userId = c.startUserID
-            WHERE c.secUserID = $userId";
   echo "
     <div class='options-left'>
       <input type=\"text\" name=\"message-search\" placeholder=\"Search\">
@@ -62,15 +51,20 @@ if (isset($_SESSION['username'])) {
         $cformatTime = date("h:i", $ctimeString);
 
         if ($userId == "$convo->startUserID") {
-          $result = $dbConn->query($secConvoSQL);
-          $row = $result->fetchAll(PDO::FETCH_OBJ);
-          $forename = $row->forename;
-          $surname = $row->surname;
+          $convoUserID = "$convo->secUserID";
         } elseif ($userId == "$convo->secUserID") {
-          $result = $dbConn->query($StartConvoSQL);
-          $row = $result->fetchAll(PDO::FETCH_OBJ);
-          $forename = $row->forename;
-          $surname = $row->surname;
+          $convoUserID = "$convo->startUserID";
+        } else {
+          $convoUserID = "";
+        }
+        $convoNameSQL = "SELECT *
+                  FROM bp_user
+                  WHERE userId = $convoUserID";
+        if ($convoNameStmt = $dbConn->query($convoNameSQL)) {
+          $cnRow = $convoNameStmt->fetch(PDO::FETCH_OBJ);{
+          $forename = $cnRow->forename;
+          $surname = $cnRow->surname;
+          }
         }
         if ($cnum_rows == 1) {
           $active = "convo-selected";
