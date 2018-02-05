@@ -113,6 +113,27 @@ $result->execute();
 $numberOfUsers30Days = $result->fetchColumn();
 // ----------------------------------------------------//
 
+// ----------- Total Number of jobs created function ----------//
+$sql = "SELECT count(jobPostID) FROM bp_job_post where dateAdded BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()";
+$result = $dbConn->prepare($sql);
+$result->execute();
+$numberOfjobs7daysClient = $result->fetchColumn();
+// ----------------------------------------------------//
+
+// ----------- Total Number of jobs created during the last past 7 days function ----------//
+$sql = "SELECT count(jobPostID) FROM bp_job_post WHERE dateAdded BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND CURDATE()";
+$result = $dbConn->prepare($sql);
+$result->execute();
+$numberOfjobs30daysClient = $result->fetchColumn();
+// ----------------------------------------------------//
+
+// ----------- Total Number of jobs created during the last past 30 days function ----------//
+$sql = "SELECT count(jobPostID) FROM bp_job_post WHERE dateAdded BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 year) AND CURDATE() ";
+$result = $dbConn->prepare($sql);
+$result->execute();
+$numberOfjobs1yearClient = $result->fetchColumn();
+// ----------------------------------------------------//
+
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // -------------Admin homepage SQL statements for statistics page--------------------//
@@ -158,4 +179,25 @@ $sql = "SELECT count(userId) FROM bp_user WHERE dateAdded BETWEEN DATE_SUB(CURDA
 $result = $dbConn->prepare($sql);
 $result->execute();
 $numberOfUsers30Days = $result->fetchColumn();
+// ----------------------------------------------------//
+
+// ----------- Total Number of jobs created function ----------//
+$sql = "SELECT count(jobPostID) FROM bp_job_post where dateAdded = CURDATE()";
+$result = $dbConn->prepare($sql);
+$result->execute();
+$numberOfjobstoday = $result->fetchColumn();
+// ----------------------------------------------------//
+
+// ----------- Total Number of jobs created during the last past 7 days function ----------//
+$sql = "SELECT count(jobPostID) FROM bp_job_post WHERE dateAdded BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()";
+$result = $dbConn->prepare($sql);
+$result->execute();
+$numberOfjobs7days = $result->fetchColumn();
+// ----------------------------------------------------//
+
+// ----------- Total Number of jobs created during the last past 30 days function ----------//
+$sql = "SELECT count(jobPostID) FROM bp_job_post WHERE dateAdded BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND CURDATE() ";
+$result = $dbConn->prepare($sql);
+$result->execute();
+$numberOfjobs30Days = $result->fetchColumn();
 // ----------------------------------------------------//
