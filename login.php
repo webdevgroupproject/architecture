@@ -27,7 +27,7 @@ if (isset($_POST['loginProcess'])) {
         $errors[] = "You have not entered a password";
     }
 
-    $CheckSuspension = "select suspended from bp_user where username = '$username'";
+    $CheckSuspension = "select suspended from bp_user where username = '$username' or email = '$username'";
 
     $queryCheck = $dbConn->prepare($CheckSuspension);
 
@@ -66,18 +66,31 @@ if (isset($_POST['loginProcess'])) {
 
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($results as $row) {
-            if (password_verify($pwd, $row['password'])) {
-                $_SESSION['username'] = $username;
-                $_SESSION['logged-in'] = true;
-                header('Location: index.php');
-                exit();
-            } else {
-                echo '<div class="ErrorMessages">
-                        <p><b>The following errors occurred:</b></p>
-                        <li>The username / email address or password you provided is incorrect. Please try again. </li>
-                       </div>';
+        if ($results) {
+
+            foreach ($results as $row) {
+                if (password_verify($pwd, $row['password'])) {
+                    $sql2 = "SElECT username from bp_user where email = '$username' OR username = '$username'";
+                    $stmt = $dbConn->query($sql2);
+                    $stmt->execute();
+                    $username = $stmt->fetchColumn();
+
+                    $_SESSION['username'] = $username;
+                    $_SESSION['logged-in'] = true;
+                    header('Location: index.php');
+                    exit();
+                } else {
+                    echo '<div class="ErrorMessages">
+                            <p><b>The following errors occurred:</b></p>
+                            <li>The username / email address or password you provided is incorrect. Please try again. </li>
+                           </div>';
+                }
             }
+        } else {
+            echo '<div class="ErrorMessages">
+                            <p><b>The following errors occurred:</b></p>
+                            <li>We couldnt match the username or email to the password which you have provided. Please try again. </li>
+                           </div>';
         }
     }
 } ?>

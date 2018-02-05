@@ -62,21 +62,22 @@ if ($userType == "client") {
         </div>";
     echo "<div class=\"images-container\">
             <div class=\"imageHalfContain\">
-            <h2>Heading</h2>
-               <p style='text-align:justify'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-
+            <h2>Admin functionality</h2>
+               <p style='text-align:justify'>
+               The admin functionality will allow you to find out some relevant information regarding the useage of the website
+               and the users that are currently on the website. Such as finding out how many users have signed up to Blueprint
+               within the last day, week and month also find out how many users are on the website altogether. The amount of Blueprint 
+               pro users would allow you to find out whether users are willing to pay the extra fees to boost their experience and business goals on 
+               the Blueprint website. find out how many jobs have been created and have been accepted by users on the website during 
+               a day, week also a month.
+                </p> <br/>
+                
+                 <p style='text-align:justify'>
+                The admin functionality allows admins to suspend any user accounts which have been reported for offences through
+                the fourms or direct messages between users themselves. Delete any user accounts which are no longer needed and also
+                create new admin accounts for new administrators of the website. 
                 </p> <br/>
 
-                <p style='text-align:justify'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                
-                </p>
-                
                 <a href='admin-client-statistics.php' class='button'>Client statistics</a>
                 <a href='admin-freelancer-statistics.php' class='button'>Freelancer statistics</a>
             </div>
@@ -110,16 +111,15 @@ if ($userType == "client") {
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>New jobs created</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>10 <br/><b> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'>$numberOfjobstoday <br/><b> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' >10 <br/><b> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' >$numberOfjobs7days <br/><b> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>10 <br/><b> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'>$numberOfjobs30Days <br/><b> This month</b></p>
                   </div>
                 </div>
             </div>";
 }
-
 echo makePageFooter();

@@ -76,13 +76,13 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>Total number of jobs created by clients</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$numberOfjobs7daysClient <br/> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' ><b>10 <br/> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' ><b>$numberOfjobs30daysClient <br/> This Month</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$numberOfjobs1yearClient <br/> This Year</b></p>
                   </div>
                 </div>
             </div>";

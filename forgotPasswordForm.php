@@ -27,7 +27,7 @@ if (isset($_POST['forgotPassword'])) {
 
         $_SESSION['email'] = $email;
 
-        $message = "To reset your password, please click on the following link: localhost:8888/University/architecture/resetPassword.php?token='$str'&email='$email'";
+        $message = "To reset your password, please click on the following link: http://unn-w14011103.newnumyspace.co.uk/blueprint/forgotPasswordReset.php?token='$str'&email='$email'";
         mail($email, "Reset password", $message, "From: doNotReply@blueprint.com");
 
         $dbConn->query("UPDATE bp_user SET token='$str' where email='$email'");
@@ -36,11 +36,15 @@ if (isset($_POST['forgotPassword'])) {
         <h1>Check your emails</h1>
         <p style='text-align: center'>Please check your emails for a link to reset your password, if you can't find the email, check your spam or junk email folders</p>";
     } else {
-        echo "<p>We could not match that email address</p>";
+        echo "
+            <div class=\"ErrorMessages\">
+            <p><b>The following errors occurred:</b></p>
+            <li>We couldn't match the email address which you have provided. </li>
+            </div>";
     }
 } else {
     echo "<body>
-    <br><br><br><h1>Forgot your password</h1>
+    <br><br><br><h1>Enter your email address</h1>
     <form method=\"post\" action=\"forgotPasswordForm.php\">
         <label for=\"email\">Email address:
             <input type=\"text\" name=\"email\">
