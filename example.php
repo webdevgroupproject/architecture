@@ -1,25 +1,21 @@
-
 <?php
-ob_start();
-require_once('scripts/functions.php');
-echo startSession();
-echo makePageStart("viewport", "width=device-width, inital-scale=1", "Admin");
-echo makeHeader();
+//define the number of rows to return per page
+define("ROW_PER_PAGE", 6);
 ?>
-
 <script type="text/javascript">
     function confirm_delete() {
         return confirm('are you sure you would like to delete?');
     }
 </script>
 <?php
-$userType = checkUserType();
-$username = $_SESSION['username'];
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require_once('scripts/functions.php');
+echo startSession();
+require_once('classes/databaseConn.php');
+echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
+echo makeHeader();
 $dbConn = databaseConn::getConnection();
-
+$userType = checkUserType();
+$eventSQL = 'SELECT userId, username, userRole FROM bp_user order by username';
 
 if (isset($_POST['AdminUser'])) {
     $forename = isset($_REQUEST["forename"]) ? $_REQUEST["forename"] : null;
@@ -153,7 +149,7 @@ if (isset($_POST['AdminUser'])) {
           <p><b>Email address: $emailAddress</b></p>
           <p><b>password: $password</b></p>
           <p>once you have logged into your account, change your password and check that all information that we have submitted to your account is correct using the edit profile section of the website.</p>
-          <p>If you require any assitaince , contact us on admin@blueprint.com</p>
+          <p>If you require any assistance , contact us on admin@blueprint.com</p>
           
           <p>Kind regards, Blueprint</p>
         </body>
@@ -175,65 +171,102 @@ if (isset($_POST['AdminUser'])) {
 }
 
 if (isset($_SESSION['username']) && ($userType == "admin")) {
-
-
-    echo "<h1> Maintain user roles</h1> ";
-
-    echo "<div class=\"images-container\">
-            <div class=\"imageHalfContain\">
-                <table id=\"customers\">
-                  <tr>
-                    <th>Username</th>
-                    <th>User role</th>
-                    <th>Delete</th>
-                    <th>Suspend</th>
-                   
-                  </tr>";
-
-    $query = "SELECT userId, username, userRole FROM bp_user order by username";
-    $result = $dbConn->prepare($query);
-    $result->execute();
-    $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
-
-    foreach ($recordSet as $row) {
-        $userID = $row['userId'];
-        echo "<tr>
-                        <td>$row[username]</td>
-                        <td>$row[userRole]</td>
-                        <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
-                        <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
-                      </tr>";
-    }
-
-    echo" </table>
-                </div>
-
-            <div class=\"imageHalfContain\">
-                <h2 style='text-align: center; margin: 0;'>Create a new admin account</h2>
-                <div class=\"form-container\">
-                    <form method=\"POST\" action=\"maintain-roles.php\" id='test' >
-                        <label>Forename: </label>
-                        <input type=\"text\" name=\"forename\">
-                        <label>Surname: </label>
-                        <input type=\"text\" name=\"surname\">
-                        <label>Email address: </label>
-                        <input type=\"text\" name=\"email\">
-                        <label>Username: </label>
-                        <input type=\"text\" name=\"username\">
-                        <label>Password: </label>
-                        <input type=\"password\" name=\"password\">
-                        <label>Confirm password: </label>
-                        <input type=\"password\" name=\"password-confirm\">
-                        <div class=\"submit-wrap\">
-                            <input type=\"submit\" value=\"Create\" class=\"button\" name='AdminUser'>
-                        </div>
-                    </form>
-                </div>
-            </div>";
-} else {
-    echo "<p>Sorry you can't access this page</p>";
+    echo "<h1>Maintain user roles</h1>";
+// Pagination Code starts
+$per_page_html = '';
+$page = 1;
+$start = 0;
+if (!empty($_POST["page"])) {
+    $page = $_POST["page"];
+    $start = ($page - 1) * ROW_PER_PAGE;
 }
+$limit = " limit " . $start . "," . ROW_PER_PAGE;
+$pagination_statement = $dbConn->prepare($eventSQL);
+$pagination_statement->execute();
+
+$row_count = $pagination_statement->rowCount();
+//if there are results returned
+if (!empty($row_count)) {
+    //add html to display the pagination links in a div to a variable
+    $per_page_html .= "<div class='pag-links' '><span style='margin-right: 10px;'>Pg</span>";
+    //divide the number of rows by the number of rows per page to get the page count
+    $page_count = ceil($row_count / ROW_PER_PAGE);
+    //if the page count is bigger than 1 show the pagination links
+    if ($page_count > 1) {
+        for ($i = 1; $i <= $page_count; $i++) {
+            if ($i == $page) {
+                $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button pag-button-current" />';
+            } else {
+                $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button" />';
+            }
+        }
+    }
+    $per_page_html .= "</div>";
+}
+
+$query = $eventSQL . $limit;
+$pdo_statement = $dbConn->prepare($query);
+$pdo_statement->execute();
+$result = $pdo_statement->fetchAll();
+
+
+//display results
+echo "<div class='result-set'>
+            <div class=\"images-container\">";
+                if (!empty($result)) {
+                    echo "<div class=\"images-container\">
+                                <div class=\"imageHalfContain\">
+                                    <table id=\"customers\">
+                                      <tr>
+                                        <th>Username</th>
+                                        <th>User role</th>
+                                        <th>Delete</th>
+                                        <th>Suspend</th>
+                                      </tr>";
+                                        foreach ($result as $row) {
+                                            $userID = $row['userId'];
+                                            echo "<tr>
+                                                    <td>$row[username]</td>
+                                                    <td>$row[userRole]</td>
+                                                    <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
+                                                    <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
+                                                  </tr>";
+                                        }
+
+                                    echo"</table>";
+                }
+                                echo "</div> 
+                                <div class=\"imageHalfContain\">
+                                <h2 style='text-align: center; margin: 0;'>Create a new admin account</h2>
+                                <div class=\"form - container\">
+                                    <form method=\"POST\" action=\"maintain-roles.php\" id='test' >
+                                        <label>Forename: </label>
+                                        <input type=\"text\" name=\"forename\">
+                                        <label>Surname: </label>
+                                        <input type=\"text\" name=\"surname\">
+                                        <label>Email address: </label>
+                                        <input type=\"text\" name=\"email\">
+                                        <label>Username: </label>
+                                        <input type=\"text\" name=\"username\">
+                                        <label>Password: </label>
+                                        <input type=\"password\" name=\"password\">
+                                        <label>Confirm password: </label>
+                                        <input type=\"password\" name=\"password-confirm\">
+                                        <div class=\"submit - wrap\">
+                                            <input type=\"submit\" value=\"Create\" class=\"button\" name='AdminUser'>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>";
+    
+                    echo"</div>
+                    <form name='frmSearch' action='' method='post' class=\"pag-form\">
+                            $per_page_html
+                     </form>";
+} else {
+
+}
+
 
 echo makePageFooter();
 ?>
-
