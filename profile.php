@@ -19,7 +19,7 @@ if ($userType == "client") {
 
       <div class=\"form-container-profile\">
         <a href=\"notifications.php\" class=\"button\">Notifications</a>
-        <a href= \"editProfile.php\" class=\"button\">Edit Profile</a>
+        <a href= \"jobForm.php\" class=\"button\">Post a Job</a>
         <a href= \"messaging.php\" class=\"button\">Messages</a>
       </div>
     </div>
@@ -32,6 +32,7 @@ if ($userType == "client") {
 
   <p id=\"rcorners1\">Landscape Request</p>
   <p id=\"rcorners2\">EDIT DELETE</p>
+
 
   <br>
   <br>
@@ -114,9 +115,9 @@ if ($userType == "client") {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                
+
                 </p>
-                
+
                 <a href='admin-client-statistics.php' class='button'>Client statistics</a>
                 <a href='admin-freelancer-statistics.php' class='button'>Freelancer statistics</a>
             </div>
@@ -143,7 +144,7 @@ if ($userType == "client") {
                   <div class=\"imageThirdContain\">
                     <p style='text-align: center; font-size: 19px;' >10 <br/><b> This week</b></p>
                   </div>
-                  <div class=\"imageThirdContain\"> 
+                  <div class=\"imageThirdContain\">
                     <p style='text-align: center; font-size: 19px;'>10 <br/><b> This month</b></p>
                   </div>
                 </div>
@@ -163,3 +164,5 @@ if ($userType == "client") {
   }
 
 echo makePageFooter();
+
+//Profile Banner Image Source: https://www.architecture.com/

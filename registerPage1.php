@@ -9,18 +9,17 @@ echo makeHeader();
     <head>
         <link rel="stylesheet"  type="text/css" href="css/style.css">
         <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css"
-        rel="stylesheet" type="text/css" />
+                   rel="stylesheet" type="text/css" />
     </head>
     <body>
     <br/><br/><h1>Create your account</h1>
     <div class="form-container">
-        <form class="login-form" method="post" action="signupPage1()">
+        <form class="login-form" method="post" action="registerpage2client.php">
 
             <label>Username: </label>
             <div class="form-block" id="signupForm2">
                 <input id="username" type="text" name="username" class="form-control block" placeholder="Please enter a username"
-                       data-validation="length alphanumeric" data-validation-length="min4" data-validation="required"
-                       data-validation-help="Please enter a username">
+                       data-validation="length alphanumeric" data-validation-length="min4" data-validation="required">
 
                 <label>Email: </label>
                 <input id="email" type="text" name="Email" class="form-control block" placeholder="Please enter an email address"
@@ -43,10 +42,10 @@ echo makeHeader();
                 <div class="submit-wrap">
                   <br>
                     <div class="radio-group">
-                        <input type="radio" id="option-one" name="selector" value="option-one">
-                        <label for="option-one">Freelancer</label>
-                        <input type="radio" id="option-two" name="selector" value="option-two">
-                        <label for="option-two">Client</label>
+                        <input type="radio" name="selector" value="option-one">
+                        <label id="option-one"for="option-one">Freelancer</label>
+                        <input type="radio" name="selector" value="option-two">
+                        <label id="option-two" for="option-two">Client</label>
                     </div>
                     <br>
                     <br>

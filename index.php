@@ -4,13 +4,13 @@ echo startSession();
 require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
 echo makeHeader();
-
 ?>
+
       <div class="home-banner">
         <div class="banner-text">
           <h2>Join the UK's Leading Arhcitecture Community</h2>
           <p class="tagline" style="text-align: left;">Post your projects and search for freelancers or sign up as a freelancer and take on the latest architecture jobs.</p>
-          <a href="#" class="button">Get started</a>
+          <a href="registerPage1.php" class="button">Get started</a>
         </div>
         <img id="banner"src="images/banner2.jpeg" alt="image of a blue print">
       </div>

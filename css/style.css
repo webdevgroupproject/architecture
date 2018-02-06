@@ -452,6 +452,15 @@ form input {
     box-sizing: border-box;
 }
 
+select {
+  border: 1px solid;
+  width: 100%;
+  height: 30px;
+  margin: 0 auto;
+  margin-bottom: 1em;
+  box-sizing: border-box;
+}
+
 .blueTitle{
     position: absolute;
     top: 0;
@@ -958,7 +967,6 @@ input[type=radio] {
    cursor: pointer;
    padding: 5px 0px;
    box-sizing: border-box;
-   float: left;
    width: 50%;
 }
 
@@ -982,7 +990,14 @@ label + input[type=radio] + label {
    margin-top: 15px;
    margin-bottom: 15px;
 }
-/*----------*/
+
+#organdesc {
+   max-width: 100%;
+   width: 100%;
+   height: 120px;
+   box-sizing: border-box;
+}
+
 /* Membership Confirmation Page */
 
 #memberconfirmp {
@@ -1175,4 +1190,23 @@ margin: 0 auto;
 .pag-button-current{
     background-color: #2DC3E7;
     color: #ffffff;
+}
+
+/* Sign up Form 1 Button */
+#option-one, #option-two {
+  text-align: center;
+}
+
+/* Job Form Styling
+.formwrapper {
+ width: 100%;
+ height: 20%;
+ position: relative;
+ background-color: #2DC3E7;
+}*/
+
+/* Job Confirmation Page Styling */
+
+#jobConfirmContent {
+  text-align: center;
 }
