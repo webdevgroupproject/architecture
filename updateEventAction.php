@@ -23,25 +23,53 @@ $postcode = filter_var($postcode, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW
 $name = filter_var($name, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
 $info = filter_var($info, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
 
+
+$errors = array();
+
+
+if (empty($address1)) {
+    $errors[] = "<p>please enter the first line of the address</p>";
+}
+if (empty($city)) {
+    $errors[] = "<p>please enter the first line of the address</p>";
+}
+if (empty($postcode)) {
+    $errors[] = "<p>Please enter a postcode</p>";
+}else{
+    if (preg_match("/^[a-zA-Z]{1,2}([0-9]{1,2}|[0-9][a-zA-Z])\s*[0-9][a-zA-Z]{2}$/", "$postcode")) {
+
+    }else{
+        $errors[] = "enter a valid postcode";
+    }
+}
+if (empty($date)) {
+    $errors[] = "<p>Please enter a date</p>";
+}
+if (empty($time)) {
+    $errors[] = "<p>Please enter a time</p>";
+}
+if (empty($name)) {
+    $errors[] = "<p>Please enter an event name</p>";
+}
+if (empty($spaces)) {
+    $errors[] = "<p>Please choose how many spaces are available</p>";
+}
 if (empty($image)) {
     $image = "defaultEventImg.jpeg";
 }
-
-
-echo "<p>event number $eventId</p>";
-echo "<p>$address1</p>";
-echo "<p>$address2</p>";
-echo "<p>$city</p>";
-echo "<p>$postcode</p>";
-echo "<p>$date</p>";
-echo "<p>$time</p>";
-echo "<p>$name</p>";
-echo "<p>$spaces</p>";
-echo "<p>$info</p>";
-try {
-    $dbConn = databaseConn::getConnection();
-    $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $updateSql = "UPDATE bp_events
+if (!empty($errors)) {
+    echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
+    echo makeHeader();
+    foreach ($errors as $currentError) {
+        echo $currentError;
+    }
+    echo makePageFooter();
+}
+else{
+    try {
+        $dbConn = databaseConn::getConnection();
+        $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $updateSql = "UPDATE bp_events
                   SET eventName = '$name',
                       eventDate= '$date',
                       eventTime= '$time',
@@ -53,11 +81,12 @@ try {
                       eventImage= '$image',
                       eventInfo= '$info'
                   WHERE eventId = '$eventId'";
-    // use exec() because no results are returned
-    $dbConn->exec($updateSql);
-    header("Location: eventPage.php?eventid=".$eventId);
+        // use exec() because no results are returned
+        $dbConn->exec($updateSql);
+        header("Location: eventPage.php?eventid=".$eventId);
 
-}
-catch(PDOException $e) {
-    echo $updateSql . "<br>" . $e->getMessage();
+    }
+    catch(PDOException $e) {
+        echo $updateSql . "<br>" . $e->getMessage();
+    }
 }

@@ -9,6 +9,7 @@ function makePageStart($metaName, $metaContent, $pageTitle) {
       <meta charset="UTF-8">
       <meta name="$metaName" content="$metaContent">
       <link rel="stylesheet" type="text/css" href="css/style.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="scripts/createModal.js"></script>
       <title>$pageTitle</title>
@@ -47,6 +48,8 @@ function makeHeader(){
 	                    <li><a href=\"admin-freelancer-statistics.php\">Freelancer statistics</a></li>
 	                    <li><a href=\"admin-client-statistics.php\">Client statistics</a></li>
 	                    <li><a href=\"maintain-roles.php\">Maintain roles</a></li>
+	                    <li><a href=\"admin-reported-messages.php\">Reported messages</a></li>
+	                    <li><a href=\"admin-reported-forum-posts.php\">Reported forum posts</a></li>
 	                 </ul>
 	              </li>
 							";
@@ -144,6 +147,27 @@ function checkUserType(){
     };
     $userType = $_SESSION['userType'];
     return $userType;
+}
+
+function checkProStatus(){
+    require_once ('classes/databaseConn.php');
+    $dbConn = databaseConn::getConnection();
+    if(isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == true){
+
+        $username = $_SESSION['username'];
+        $userTypeSQL = "select *
+                        from bp_user
+                        WHERE username = '$username' or email = '$username'";
+        $stmt = $dbConn->query($userTypeSQL);
+        while ( $result = $stmt->fetchObject()) {
+            $_SESSION['pro'] = $result->pro;
+        }
+    }
+    else{
+        $_SESSION['pro'] = '0';
+    };
+    $pro = $_SESSION['pro'];
+    return $pro;
 }
 
 function notLoggedRedirect(){

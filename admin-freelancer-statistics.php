@@ -9,26 +9,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $dbConn = databaseConn::getConnection();
-// ----------- Total Number of users function ----------//
-$sql = "SELECT count(userId) FROM bp_user where userRole = 'freelancer'";
-$result = $dbConn->prepare($sql);
-$result->execute();
-$freelancerUsers = $result->fetchColumn();
-// ----------------------------------------------------//
-
-// ----------- Total Number of jobs function ----------//
-$sql = "SELECT count(jobAcceptID) FROM bp_job_accept";
-$result = $dbConn->prepare($sql);
-$result->execute();
-$numFreelancerJobsAccepted = $result->fetchColumn();
-// ----------------------------------------------------//
-
-// ----------- Total Number of pro users function ----------//
-$sql = "SELECT count(userId) FROM bp_user where pro = 1 and userRole = 'freelancer'";
-$result = $dbConn->prepare($sql);
-$result->execute();
-$proUsersFreelancer = $result->fetchColumn();
-// ----------------------------------------------------//
+require_once('scripts/admin-stats-functions.php');
 
 if (isset($_SESSION['username']) && ($userType == "admin")) {
 
@@ -37,15 +18,15 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
             <div class=\"images-container\">
               <div class=\"imageThirdContain\">
                 <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
-                <p style='text-align: center'><b>Total freelancer users <br/> $freelancerUsers</b></p>
+                <p style='text-align: center'><b>Total number of freelancer users <br/> $freelancerUsers</b></p>
               </div>
               <div class=\"imageThirdContain\">
               <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
-                <p style='text-align: center' ><b>Total freelancer jobs accepted <br/> $numFreelancerJobsAccepted</b></p>
+                <p style='text-align: center' ><b>Total number of jobs accepted by freelancers <br/> $numFreelancerJobsAccepted</b></p>
               </div>
               <div class=\"imageThirdContain\">
               <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
-                <p style='text-align: center'><b>Total premium freelancer users <br/> $proUsersFreelancer</b></p>
+                <p style='text-align: center'><b>Total number of premium freelancer users <br/> $proUsersFreelancer</b></p>
               </div>
             </div>
         </div>";
@@ -53,7 +34,7 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
 
     echo "<div class=\"images-container\">
             <div class=\"imageHalfContain\">
-                <h2>Lastest freelancer jobs accepted</h2>
+                <h2>Description of latest jobs accepted</h2>
                 <table id=\"customers\">
                   <tr>
                     <th>Job title</th>
@@ -68,52 +49,40 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
     $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($recordSet as $row) {
-
         echo "<tr>
-                        <td>$row[jobName]</td>
-                        <td>$row[jobDesc]</td>
-                      </tr>";
+                <td>$row[jobName]</td>
+                <td>$row[jobDesc]</td>
+              </tr>";
     }
 
-    echo" </table>
+    echo " </table>
                 </div>
 
             <div class=\"imageHalfContain\">
                 <h2>Daily statistics</h2>
                 <div class=\"statistics-container\" style='border-style: solid;'>
-                    <h3 style='text-align: center'>New users</h3>
+                    <h3 style='text-align: center'>Total number of freelancer users</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$numberOfUserstoday <br/> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' ><b>10 <br/> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' ><b>$numberOfUsers7days <br/> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> This month</b></p>
-                  </div>
-                </div>
-                <div class=\"statistics-container\" style='border-style: solid;'>
-                    <h3 style='text-align: center'>New premium users</h3>
-                  <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> Today</b></p>
-                  </div>
-                  <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' ><b>10 <br/> This week</b></p>
-                  </div>
-                  <div class=\"imageThirdContain\"> 
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$numberOfUsers30Days <br/> This month</b></p>
                   </div>
                 </div>
+                
                 <div class=\"statistics-container\" style='border-style: solid;'>
-                    <h3 style='text-align: center'>New jobs accepted</h3>
+                    <h3 style='text-align: center'>Total number of jobs accepted by freelancers</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$jobAcceptedToday <br/> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' ><b>10 <br/> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' ><b>$jobAccepted7days <br/> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>10 <br/> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$jobAccepted30ays <br/> This month</b></p>
                   </div>
                 </div>
             </div>";

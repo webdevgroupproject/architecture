@@ -26,14 +26,38 @@ if (isset($_POST['forgotPassword'])) {
 
         $sql2 = "select passwordHint
                         from bp_user
-                        WHERE email = '$username'";
+                        WHERE email = '$email'";
         $stmt = $dbConn->query($sql2);
+        $stmt->execute();
+        $passwordHint = $stmt->fetchColumn();
 
-        while ( $result = $stmt->fetchObject()) {
-            $reminderMessage = $result->userRole;
-        }
-        $message = " Your password reminder is '$reminderMessage' ";
-        mail($email, "Reset password", $message, "From: doNotReply@blueprint.com");
+        $to = $email;
+
+        $subject = 'Password hint request';
+
+        $message = "
+            <html>
+            <head>
+              <title>Password hint</title>
+            </head>
+            <body>
+              <p>Dear $email, <br/> you recently submitted a request for your password reminder which you provided when registering your account.</p>
+              <p>Your password hint is -  <b>$passwordHint.</b></p>
+              <p>Kind regards, Blueprint</p>
+            </body>
+            </html>
+            ";
+
+        // To send HTML mail, the Content-type header must be set
+        $headers[] = 'MIME-Version: 1.0';
+        $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+
+        // Additional headers
+        $headers[] = 'To: $email';
+        $headers[] = 'From: doNotReply@blueprint.com';
+
+        // Mail it
+        mail($to, $subject, $message, implode("\r\n", $headers));
 
 
         echo "
@@ -45,7 +69,7 @@ if (isset($_POST['forgotPassword'])) {
 } else {
     echo "<body>
     <br><br><br><h1>Enter your email address</h1>
-    <form method=\"post\" action=\"forgotPasswordForm.php\">
+    <form method=\"post\" action=\"forgotPasswordReminderForm.php\">
         <label for=\"email\">Email address:
             <input type=\"text\" name=\"email\">
         </label>

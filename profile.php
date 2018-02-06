@@ -1,14 +1,15 @@
 <?php
-require_once ('scripts/functions.php');
+require_once('scripts/functions.php');
 echo startSession();
-require_once ('classes/databaseConn.php');
+require_once('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint profile");
 echo makeHeader();
 $dbConn = databaseConn::getConnection();
 $userType = checkUserType();
+require_once('scripts/admin-stats-functions.php');
 
 if ($userType == "client") {
-  echo "
+    echo "
 
   <div class=\"profilewrapper\">
     <img class='profilebg' src=\"images/newcastlebackground.jpg\">
@@ -38,54 +39,13 @@ if ($userType == "client") {
   <br>
   <br>
 
-  ";}
-  else if ($userType == "freelancer") {
+  ";
+} else if ($userType == "freelancer") {
     # code...
-  }
-  else if ($userType == "admin") {
-      // ----------- Total Number of users function ----------//
-      $sql = "SELECT count(userId) FROM bp_user";
-      $result = $dbConn->prepare($sql);
-      $result->execute();
-      $totalNumberUsers = $result->fetchColumn();
-// ----------------------------------------------------//
-      // ----------- Total Number of jobs function ----------//
-      $sql = "SELECT count(jobPostID) FROM bp_job_post";
-      $result = $dbConn->prepare($sql);
-      $result->execute();
-      $numberOfJobs = $result->fetchColumn();
-    // ----------------------------------------------------//
+} else if ($userType == "admin") {
 
-    // ----------- Total Number of pro users function ----------//
-          $sql = "SELECT count(userId) FROM bp_user where pro = 1";
-          $result = $dbConn->prepare($sql);
-          $result->execute();
-          $proUsers = $result->fetchColumn();
-    // ----------------------------------------------------//
-
-
-    // ----------- Total Number of users function ----------//
-          $sql = "SELECT count(userId) FROM bp_user where dateAdded = CURDATE()";
-          $result = $dbConn->prepare($sql);
-          $result->execute();
-          $numberOfUserstoday = $result->fetchColumn();
-    // ----------------------------------------------------//
-
-    //// ----------- Total Number of users function ----------//
-    //$sql = "SELECT count(userId) FROM bp_user where dateAdded = DATE_ADD(CURDATE(), INTERVAL - 7 DAY); ";
-    //$result = $dbConn->prepare($sql);
-    //$result->execute();
-    //$numOfUsersWeek = $result->fetchColumn();
-    //// ----------------------------------------------------//
-
-    //// ----------- Total Number of users function ----------//
-    //$sql = "SELECT count(userId) FROM bp_user where dateAdded = DATE_ADD(CURDATE(), INTERVAL - 1 MONTH); ";
-    //$result = $dbConn->prepare($sql);
-    //$result->execute();
-    //$numOfUsersMonth = $result->fetchColumn();
-    //// ----------------------------------------------------//
-      echo "<br><h1> Admin statistics</h1><br/> ";
-      echo "<div class=\"thread\" style='background-color: #CFCFCF'>
+    echo "<br><h1> Admin statistics</h1><br/> ";
+    echo "<div class=\"thread\" style='background-color: #CFCFCF'>
             <div class=\"images-container\">
               <div class=\"imageThirdContain\">
                 <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
@@ -101,22 +61,23 @@ if ($userType == "client") {
               </div>
             </div>
         </div>";
-      echo "<div class=\"images-container\">
+    echo "<div class=\"images-container\">
             <div class=\"imageHalfContain\">
-            <h2>Heading</h2>
-               <p style='text-align:justify'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-
+            <h2>Admin functionality</h2>
+               <p style='text-align:justify'>
+               The admin functionality will allow you to find out some relevant information regarding the useage of the website
+               and the users that are currently on the website. Such as finding out how many users have signed up to Blueprint
+               within the last day, week and month also find out how many users are on the website altogether. The amount of Blueprint
+               pro users would allow you to find out whether users are willing to pay the extra fees to boost their experience and business goals on
+               the Blueprint website. find out how many jobs have been created and have been accepted by users on the website during
+               a day, week also a month.
                 </p> <br/>
 
-                <p style='text-align:justify'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum velit et enim sagittis, et vestibulum purus varius. In ornare sapien a dui laoreet mollis. Etiam id suscipit elit.
-
-                </p>
+                 <p style='text-align:justify'>
+                The admin functionality allows admins to suspend any user accounts which have been reported for offences through
+                the fourms or direct messages between users themselves. Delete any user accounts which are no longer needed and also
+                create new admin accounts for new administrators of the website.
+                </p> <br/>
 
                 <a href='admin-client-statistics.php' class='button'>Client statistics</a>
                 <a href='admin-freelancer-statistics.php' class='button'>Freelancer statistics</a>
@@ -125,44 +86,43 @@ if ($userType == "client") {
             <div class=\"imageHalfContain\">
                 <h2>Daily statistics for all user types</h2>
                 <div class=\"statistics-container\" style='border-style: solid;'>
-                    <h3 style='text-align: center'>New users</h3>
+                    <h3 style='text-align: center'>Number of new users</h3>
                   <div class=\"imageThirdContain\">
                     <p style='text-align: center; font-size: 19px;'>$numberOfUserstoday <br/><b> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' >10 <br/> <b>This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' >$numberOfUsers7days <br/> <b>This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>10 <br/> <b>This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'>$numberOfUsers30Days <br/> <b>This month</b></p>
                   </div>
                 </div>
                 <div class=\"statistics-container\" style='border-style: solid;'>
-                    <h3 style='text-align: center'>Jobs accepted</h3>
+                    <h3 style='text-align: center'>Number of jobs accepted</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>10 <br/> <b>Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'>$jobAcceptedToday <br/> <b>Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' >10 <br/><b> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' >$jobAccepted7days <br/><b> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>10 <br/><b> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'>$jobAccepted30ays <br/><b> This month</b></p>
                   </div>
                 </div>
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>New jobs created</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>10 <br/><b> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'>$numberOfjobstoday <br/><b> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' >10 <br/><b> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' >$numberOfjobs7days <br/><b> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>10 <br/><b> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'>$numberOfjobs30Days <br/><b> This month</b></p>
                   </div>
                 </div>
             </div>";
-  }
-
+}
 echo makePageFooter();
 
 //Profile Banner Image Source: https://www.architecture.com/
