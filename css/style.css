@@ -808,17 +808,14 @@ legend{
 .options {
   border-bottom: 1px solid #CCC;
   padding: 10px;
-  height: 100px;
+  height: 20px;
+  width: 68%;
+  float: left;
 }
 
 .options a {
   margin: 5px;
   font-size: 14px;
-}
-
-.options input {
-  border-radius: 20px;
-  border: 1px solid #CCC;
 }
 
 .messages {
@@ -827,6 +824,7 @@ legend{
   width: 60%;
   height: 400px;
   overflow-y: scroll;
+  float: left;
 }
 
 .chat {
@@ -854,6 +852,11 @@ legend{
   float: left;
 }
 
+.options-left form {
+  float: left;
+  width: 100%;
+}
+
 .options-right {
   float: right;
 }
@@ -864,6 +867,7 @@ legend{
   display: inline-block;
   border-top: 1px solid #CCC;
   height: 100px;
+  float: left;
 }
 
 .type-section input {
@@ -896,7 +900,7 @@ legend{
   width: 30%;
   border-right: 1px solid #CCC;
   float: left;
-  height: 500px;
+  height: 550px;
   overflow-y: scroll;
 }
 
@@ -925,7 +929,8 @@ legend{
 .convo-box-head h2 {
   display: inline-block;
   margin-top: 5%;
-  float: left;
+  font-size: 1.5em;
+  width: 50%;
 }
 
 .convo-box-head p {
