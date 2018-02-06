@@ -18,10 +18,6 @@ echo makeHeader();
 
 <style>
 
-    body {
-
-    }
-
     input[type=radio] {
         position: absolute;
         visibility: hidden;
@@ -34,6 +30,7 @@ echo makeHeader();
         cursor: pointer;
         font-weight: bold;
         padding: 5px 20px;
+        text-align: center;
     }
 
     input[type=radio]:checked + label{
