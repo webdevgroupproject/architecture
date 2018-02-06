@@ -224,7 +224,7 @@ ul {
 .tagline {
     font-size: 110%;
     text-align: center;
-    margin-top: 14px;
+    margin: 10px 0;
 }
 
 .community-events-section, .get-involved-section {
@@ -452,6 +452,15 @@ form input {
     box-sizing: border-box;
 }
 
+select {
+  border: 1px solid;
+  width: 100%;
+  height: 30px;
+  margin: 0 auto;
+  margin-bottom: 1em;
+  box-sizing: border-box;
+}
+
 .blueTitle{
     position: absolute;
     top: 0;
@@ -469,15 +478,15 @@ form input {
     text-align: center;
 }
 
-.thread{
-    width: 90%;
+.forum-message{
+    width: 100%!important;
     background-color: #fff;
-    margin: 0 auto 30px auto;
-    box-shadow: 5px 5px 5px #ccc;
+    margin: 0 auto!important;
+    box-shadow: none!important;
 }
 
 .thread img{
-    width: 8%;
+    width: 6%;
     float: left;
 }
 .thread-info{
@@ -490,19 +499,23 @@ form input {
 .thread h2, p{
     margin:0;
 }
-
+.forum-message h2,p{
+    margin:0;
+}
 .thread h2{
     font-size: 2em;
 }
 .thread span{
     font-size: 0.8em;
 }
-.thread a:hover p{
-    color: #000;
+.forum-message span{
+    font-size: 0.8em;
 }
+
 
 #postThreadForm{
     margin: 0;
+    width: 100%;
 }
 #postThreadForm .button{
     margin-left: 0;
@@ -512,11 +525,11 @@ form input {
     background-color: #2DC3E7;
     color: #fff;
     width: 10%;
-    font-size: 19px;
+    font-size: 22px;
     text-align: center;
     font-weight: bold;
     box-sizing: border-box;
-    padding: 41px;
+    padding: 31px;
 }
 .EventTitle .tagline{
     color: #efefef;
@@ -534,12 +547,12 @@ form input {
     min-height: 60%;
 }
 #addEventButton{
-    float: right;
+    float: left;
     padding: 1% 2%;
     margin: 0;
 }
 .filterBar{
-    width: 90%;
+    width: 85%;
     margin: 0 auto 30px;
     background-color: #FFF;
     box-shadow: 5px 5px 5px #ccc;
@@ -682,7 +695,7 @@ legend{
     margin: auto;
     padding: 0;
     border: 1px solid #888;
-    width: 80%;
+    width: 55%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -967,7 +980,6 @@ input[type=radio] {
    cursor: pointer;
    padding: 5px 0px;
    box-sizing: border-box;
-   float: left;
    width: 50%;
 }
 
@@ -991,7 +1003,14 @@ label + input[type=radio] + label {
    margin-top: 15px;
    margin-bottom: 15px;
 }
-/*----------*/
+
+#organdesc {
+   max-width: 100%;
+   width: 100%;
+   height: 120px;
+   box-sizing: border-box;
+}
+
 /* Membership Confirmation Page */
 
 #memberconfirmp {
@@ -1097,7 +1116,7 @@ margin: 0 auto;
 .event-contain{
     height: 250px;
     overflow: hidden;
-    width: 90%;
+    width: 85%;
     margin: 0 auto;
     box-shadow: 5px 5px 5px #ccc;
     background-color: #fff;
@@ -1168,7 +1187,7 @@ margin: 0 auto;
 /*pagination*/
 .pag-form{
     float: left;
-    margin-left: 5%;
+    margin-left: 7.5%;
 }
 .pag-button{
     width: 30px !important;
@@ -1184,4 +1203,139 @@ margin: 0 auto;
 .pag-button-current{
     background-color: #2DC3E7;
     color: #ffffff;
+}
+
+
+/* Sign up Form 1 Button */
+#option-one, #option-two {
+  text-align: center;
+}
+
+/* Job Form Styling
+.formwrapper {
+ width: 100%;
+ height: 20%;
+ position: relative;
+ background-color: #2DC3E7;
+}*/
+
+/* Job Confirmation Page Styling */
+
+#jobConfirmContent {
+  text-align: center;
+}
+
+#anonymous{
+    height:auto;
+    width:auto;
+
+}
+.profileImgContain{
+    padding:10px;
+    width: 75px;
+    height: 75px;
+    float: left;
+}
+.profileImgContain img{
+    width:100%;
+}
+.reportContain{
+    width: 10%;
+    float: left;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 0.8em;
+}
+.message-info{
+    float: left;
+    padding: 1em;
+    width: calc(90% - 95px);
+    box-sizing: border-box;
+}
+.forum-message:nth-child(even) {
+    background-color: #EAEAEA;
+}
+.thread{
+    width: 85%;
+    background-color: #fff;
+    margin: 0 auto 30px auto;
+    box-shadow: 5px 5px 5px #ccc;
+}
+.reply-result-set{
+    box-shadow: 5px 5px 5px #ccc;
+    width: 85%;
+    margin: 0 auto;
+    margin-bottom: 35px;
+}
+.thread-info-contain{
+    float: left;
+    width: 100%;
+    font-size: 1.5em;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+.search-box{
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    float: right;
+    width: 240px;
+}
+
+.search-box input[type="text"]{
+    height: 40px;
+    padding: 5px 10px;
+    border: 1px solid #CCCCCC;
+    border-right:none;
+    font-size: 14px;
+    float: left;
+    width: 200px;
+    margin-bottom: 0;
+}
+
+.search-box button{
+    float: left;
+    width: 10%;
+    box-sizing: border-box;
+    border: none;
+    height: 40px;
+    width: 40px;
+    padding: 9px;
+    border: 1px solid #CCCCCC;
+    border-left: none;
+    cursor: pointer;
+    background-color: #fff;
+}
+.search-box button:hover{
+    background-color: #2DC3E7;
+    color: #fff;
+}
+
+.result{
+    position: absolute;
+    z-index: 999;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+}
+
+.search-box input[type="text"], .result{
+    width: 200px;
+    box-sizing: border-box;
+}
+/* Formatting result items */
+.result p{
+    margin: 0;
+    padding: 7px 10px;
+    border: 1px solid #CCCCCC;
+    border-top: none;
+    cursor: pointer;
+}
+.result p:hover{
+    background: #f2f2f2;
+}
+.advertBanner{
+    width: 85%;
+    margin: 0 auto;
+    margin-bottom: 30px;
 }
