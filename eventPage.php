@@ -79,7 +79,8 @@ while ($indvEvent = $stmt->fetchObject()) {
                     <p style='font-size: 1.5em;margin-top: 10px;'>If you drop out of $name your ticket will no longer be valid, you wont be able to gain entry to this event with your current ticket information. We will send you an email to confirm. </p>
                 </div>
                 <div class='modal-footer'>
-                    <a href='dropOutAction.php?eventid=" . $indvEvent->eventId . "' class='button'>Confirm</a><a href='#' style='margin-left:10px;' class='cancel'>Cancel</a>
+                    <a href='dropOutAction.php?eventid=" . $indvEvent->eventId . "' class='button'>Drop out</a>
+                    <a href='#' style='margin-left:10px;' class='cancel'>Cancel</a>
                 </div>
             </div>
         </div>
@@ -118,6 +119,9 @@ while ($indvEvent = $stmt->fetchObject()) {
                                 }
                                 else{
                                     echo "<p>".($noAttending -1)." people are registered for this event</p>";
+                                }
+                                if ($userType == "admin") {
+                                    echo "<a href = 'ManageEventForm.php?eventid=" . $eventId . "' class='button'>Manage</a>";
                                 }
 
                             }
