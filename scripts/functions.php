@@ -69,7 +69,7 @@ function makeHeader(){
                     	<ul class=\"dropdown\">
                        <li><a href=\"notifications.php\">Notifications</a></li>
                        <li><a href=\"messaging.php\">Messages</a></li>
-                       <li><a href=\"editPofile.php\">Edit profile</a></li>
+                       <li><a href=\"profileSettings.php\">Profile Settings</a></li>
                      	</ul>
                   	</li>
 										<li>
@@ -85,7 +85,7 @@ function makeHeader(){
 									<div>
 										<a href=\"#\" class=\"button\">Post a Project</a>
 										</div>
-				            <a href=\"create-account-page-1.php\">Sign up</a>
+				            <a href=\"registerPage1.php\">Sign up</a>
 											<a href=\"login.php\">Log in</a>
 				          </div>
 				        </div>
@@ -120,7 +120,7 @@ function startSession(){
     ini_set("session.save_path", "/Applications/MAMP/sessionData");
 
 
-//    ini_set("session.save_path", "/xampp1/sessionData");
+    //ini_set("session.save_path", "/xampp1/sessionData");
 
 
 
