@@ -7,19 +7,21 @@ echo startSession();
 require_once ('classes/databaseConn.php');
 $userType = checkUserType();
 $userId = $_SESSION['userId'];
+$searchQuery = filter_has_var(INPUT_GET, 'searchQuery') ? $_GET['searchQuery'] : null;
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
 echo makeHeader();
 $dbConn = databaseConn::getConnection();
-$sql = 'select *
+$sql = "select *
         from bp_thread 
         left join bp_user 
         on bp_thread.userId=bp_user.userId
-        order by datePosted DESC, timePosted DESC';
+        WHERE bp_thread.threadTitle LIKE '%$searchQuery%'
+        order by datePosted DESC, timePosted DESC";
 
 echo "<h1>Discussion board</h1>";
 echo "
       <div class='filterBar'>
-        <div class=\"postThread\" id='postThread' style='display: none; float: left; width: 33%;'>
+        <div class=\"postThread\" id='postThread' style='display: none; float: left;'>
             <div class=\"form-container\">";
 if(isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == true){
     echo"
@@ -35,11 +37,12 @@ if(isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == true){
              
         </div>
         <a class='button' onclick='toggleForm()' id='openFormButton' style='padding: 1em; margin: 0; float: left;'>Start a thread</a>
-        <form class=\"search-box\" action='forumSearchResults.php' method='get'>
-            <input type=\"text\" name='searchQuery' autocomplete=\"off\" placeholder=\"Search message boards...\" />
-            <button type='submit'><i class=\"material-icons\">search</i></button>
-            <div class=\"result\"></div><br>
-        </form>  
+        <form class=\"search-box\">
+        <input type=\"text\" name='searchQuery' autocomplete=\"off\" placeholder=\"Search message boards...\" />
+        <button type='submit'><i class=\"material-icons\">search</i></button>
+        <div class=\"result\"></div><br>
+        
+    </form>  
       ";
 }
 else{
