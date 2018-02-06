@@ -81,9 +81,9 @@ if (isset($_SESSION['username'])) {
       </div>
       <div class=\"options\">
         <div class='options-left'>
-          <form method='get' action=\"newConvo.php\">
-            <input type='text' name='newConversation' style='width:200px;' value='Start new conversation'/>
-            <input type='submit' value='n' style='width:10px; padding: 0; margin:0; height: 20px; background-color:#fff; border:none;'/>
+          <form class=\"search-box\" method='get' action=\"newConvo.php\">
+            <input type='text' autocomplete=\"off\" name='newConversation' style='width:200px;' value='Start new conversation...'/>
+            <button type='submit'><i class=\"material-icons\">search</i></button>
           </form>
         </div>
         <div class=\"options-right\">

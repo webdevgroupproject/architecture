@@ -821,14 +821,25 @@ legend{
 .options {
   border-bottom: 1px solid #CCC;
   padding: 10px;
-  height: 20px;
+  height: 19px;
   width: 68%;
   float: left;
 }
 
 .options a {
-  margin: 5px;
+  margin: 10px 5px;
   font-size: 14px;
+}
+
+.options .search-box input[type="text"]{
+    height: 30px;
+    font-size: 11px;
+    margin: 0 0 0 5px;
+}
+
+.options .search-box button{
+  height: 30px;
+  padding: 3px;
 }
 
 .messages {
