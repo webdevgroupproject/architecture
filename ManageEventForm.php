@@ -24,9 +24,14 @@ while ($event = $eventQuery->fetchObject()) {
     echo "<h1>Manage $name</h1>
           <div class=\"form-container\">
         <form method=\"get\" action=\"updateEventAction.php\" id='addEventForm'>
+        <fieldset>
             <input style='display: none' type='text' value='$id' name='eventid' readonly>
+            <label>Event name: </label>
+                <input type=\"text\" name=\"name\" value='$name' class=\"form-control block\" placeholder=\"Please enter the name ov the event\"
+                       data-validation=\"required\">
+                       </fieldset>
             <fieldset>
-                <legend>Where</legend>
+                <legend><h2>Where</h2></legend>
                 <label>Address line 1: </label>
                 <input type=\"text\" name=\"address1\" value='$address1' class=\"form-control block\" placeholder=\"Please enter the first line of the address\"
                        data-validation=\"required\">
@@ -40,17 +45,15 @@ while ($event = $eventQuery->fetchObject()) {
                        data-validation=\"required\"><br>
             </fieldset>
             <fieldset>
-                <legend>When</legend>
+                <legend><h2>When</h2></legend>
                 <label>Date: </label><br>
                 <input style=\"width: 150px;\" type=\"date\" name=\"date\" value='$date' class=\"form-control block\" data-validation=\"required\"><br>
                 <label>Time: </label><br>
                 <input style=\"width: 150px;\" type=\"time\" name=\"time\" value='$time' class=\"form-control block\" data-validation=\"required\"><br>
             </fieldset>
             <fieldset>
-                <legend>Additional info</legend>
-                <label>Event name: </label>
-                <input type=\"text\" name=\"name\" value='$name' class=\"form-control block\" placeholder=\"Please enter the name ov the event\"
-                       data-validation=\"required\">
+                <legend><h2>Additional info</h2></legend>
+                
                 <label>Spaces: </label><br>
                 <input style=\"width: 150px;\" type=\"number\" name=\"spaces\" value='$spaces' class=\"form-control block\" placeholder=\"1\"
                        data-validation=\"required\"><br>

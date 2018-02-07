@@ -65,7 +65,7 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
             } else {
                 echo "<div class='filterBar'>
 
-        <form class='search-box' action='maintain-roles.php' method='post'>
+        <form class='search-box' action='admin-reported-forum-posts.php' method='post'>
                 <input type='text' name='searchQuery' style='width: 300px;' autocomplete='off' placeholder='Search users...' />
                 <button type='submit' name='searchUser'><i class='material-icons'>search</i></button>
                 <div class='result'></div><br>
@@ -151,4 +151,28 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
 
 echo makePageFooter();
 ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.search-box input[type="text"]').on("keyup input", function(){
+            /* Get input value on change */
+            var inputVal = $(this).val();
+            var resultDropdown = $(this).siblings(".result");
+            if(inputVal.length){
+                $.get("searchUsersReportedThreads.php", {term: inputVal}).done(function(data){
+                    // Display the returned data in browser
+                    resultDropdown.html(data);
+                });
+            } else{
+                resultDropdown.empty();
+            }
+        });
+
+        // Set search input value on click of result item
+        $(document).on("click", ".result p", function(){
+            $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+            $(this).parent(".result").empty();
+        });
+    });
+</script>
+
 
