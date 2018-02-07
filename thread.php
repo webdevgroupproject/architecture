@@ -61,7 +61,7 @@ while ($thread = $threadInfo->fetch(PDO::FETCH_ASSOC)) {
         echo "";
     }else{
         echo"
-          <div class='advertBanner'>
+          <div class='payToHideBanner'>
             <a href='#'><img src=\"images/advert.png\"></a>
           </div>";
     }
