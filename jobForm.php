@@ -21,59 +21,69 @@ echo makeHeader();
           <form method="post" class="login-form" action="jobFormAction.php">
 
               <!-- Job Description Section -->
-              <h2>Describe the Job</h2>
+              <fieldset>
 
-              <label>Name your job posting: </label>
-              <input type="text" name="jobName" class="form-control block" placeholder="Example: Housing Extension Request"
-                     data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+                  <legend><h3>Describe the Job</h3></legend>
 
-              <label>Describe the work to be done: </label>
-              <input type="text" name="workDesc" class="form-control block" placeholder="Use this area to provide details about your project"
-                     data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+                  <label>Name your job posting: </label>
+                  <input type="text" name="jobName" class="form-control block" placeholder="Example: Housing Extension Request"
+                         data-validation-length="min4 data" data-validation="required">
 
-              <label>Job Location: </label>
-              <input type="text" name="jobLocation" class="form-control block" placeholder="Example: Newcastle upon Tyne"
-                     data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+                  <label>Describe the work to be done: </label>
+                  <input type="text" name="workDesc" class="form-control block" placeholder="Use this area to provide details about your project"
+                         data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+
+                  <label>Job Location: </label>
+                  <input type="text" name="jobLocation" class="form-control block" placeholder="Example: Newcastle upon Tyne"
+                         data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+
+              </fieldset>
 
               <!-- Rate and Availability Section -->
-              <h2>Rate and Availability</h2>
+              <fieldset>
+                  <legend><h3>Rates and Availability</h3></legend>
 
-              <label>How would you like to pay: </label>
-              <input type="text" name="payMethod" class="form-control block" placeholder="Optional: Enter your organisation name"
-                     data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+                  <label>How would you like to pay: </label>
+                  <input type="text" name="payMethod" class="form-control block" placeholder="Optional: Enter your organisation name"
+                         data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
 
-              <label>Budget: </label>
-              <select name="budgetType">
-                <option value="fixedPrice">Fixed Price</option>
-                <option value="hourlyProject">Hourly Project</option>
-              </select>
+                  <label>Budget: </label>
+                  <select name="budgetType">
+                    <option value="fixedPrice">Fixed Price</option>
+                    <option value="hourlyProject">Hourly Project</option>
+                  </select>
 
-              <label>Job Duration: </label>
-              <input type="text" name="jobDuration" class="form-control block" placeholder="Example: 6 Months"
-                     data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+                  <label>Job Duration: </label>
+                  <input type="text" name="jobDuration" class="form-control block" placeholder="Example: 6 Months"
+                         data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+
+              </fieldset>
 
               <!-- Dates and Deadlinesn-->
-              <h2>Dates and Deadlines</h2>
+              <fieldset>
+                  <legend><h3>Dates and Deadlines</h3></legend>
 
-              <label>Start Date: </label>
-              <input type="date" name="startDate" class="form-control block" placeholder="Example: 06/11/18"
-                     data-validation="required" min="2018-02-06">
+                  <label>Start Date: </label>
+                  <input type="date" name="startDate" class="form-control block" placeholder="Example: 06/11/18"
+                         data-validation="required" min="2018-02-07">
 
-              <label>Is this date flexible? </label>
-              <select name="startDateFlex">
-                <option value="dateFlexYes">Yes</option>
-                <option value="dateFlexNo">No</option>
-              </select>
+                  <label>Is this date flexible? </label>
+                  <select name="startDateFlex">
+                    <option value="dateFlexYes">Yes</option>
+                    <option value="dateFlexNo">No</option>
+                  </select>
 
-              <label>End Date: </label>
-              <input type="date" name="endDate" class="form-control block" placeholder="Example: 20/02/19"
-                     data-validation="required" min="2018-02-06">
+                  <label>End Date: </label>
+                  <input type="date" name="endDate" class="form-control block" placeholder="Example: 20/02/19"
+                         data-validation="required" min="2018-02-07">
 
-              <label>Is this date flexible? </label>
-              <select name="endDateFlex">
-                <option value="dateFlexYes">Yes</option>
-                <option value="dateFlexNo">No</option>
-              </select>
+                  <label>Is this date flexible? </label>
+                  <select name="endDateFlex">
+                    <option value="dateFlexYes">Yes</option>
+                    <option value="dateFlexNo">No</option>
+                  </select>
+
+              </fieldset>
 
               <!-- Submit Button -->
               <div class="submit-wrap">
