@@ -17,9 +17,7 @@ try{
 try{
     if(isset($_REQUEST['term'])){
         // create prepared statement
-
-        $sql = "SELECT * FROM bp_user WHERE forename LIKE :term OR surname LIKE :term";
-
+        $sql = "SELECT distinct username FROM bp_message inner join bp_user on bp_message.userID = bp_user.userId where reported = 1 ";
         $stmt = $dbConn->prepare($sql);
         $term = '%' . $_REQUEST['term'] . '%';
         // bind parameters to statement
@@ -28,8 +26,7 @@ try{
         $stmt->execute();
         if($stmt->rowCount() > 0){
             while($row = $stmt->fetch()){
-
-                echo "<p value=". $row['userId'] .">" . $row['forename'] ." ". $row['surname'] . "</p>";
+                echo "<p>" . $row['username'] . "</p>";
             }
         } else{
             echo "<p>No matches found";
@@ -41,6 +38,4 @@ try{
 
 // Close connection
 unset($dbConn);
-
 ?>
-

@@ -311,7 +311,7 @@ echo makePageFooter();
             var inputVal = $(this).val();
             var resultDropdown = $(this).siblings(".result");
             if(inputVal.length){
-                $.get("searchUsers.php", {term: inputVal}).done(function(data){
+                $.get("searchUsername.php", {term: inputVal}).done(function(data){
                     // Display the returned data in browser
                     resultDropdown.html(data);
                 });

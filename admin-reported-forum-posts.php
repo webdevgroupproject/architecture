@@ -1,7 +1,7 @@
 <?php
 require_once('scripts/functions.php');
 echo startSession();
-echo makePageStart("viewport", "width=device-width, inital-scale=1", "Admin reported messages and posts");
+echo makePageStart("viewport", "width=device-width, inital-scale=1", "Admin reported forum posts");
 echo makeHeader();
 $userType = checkUserType();
 $username = $_SESSION['username'];
@@ -90,7 +90,7 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
                     echo "<tr>
                 <td>$row[username]</td>
                 <td>$row[message]</td>
-                <td><a class='button' style='margin: 0;' href='thread.php?threadId=$threadID'>View message</a></td>
+                <td><a class='button' style='margin: 0;' hreaf='thread.php?threadId=$threadID'>View message</a></td>
                 <td><a class='button' style='margin: 0;'  href='suspend-reported-forum-reason.php?userId=$userID&threadMessId=$messageID' >Suspend user</a></td>
                 <td><a class='button' style='margin: 0;'  href='ignore-forum-post.php?threadMessId=$messageID' >Ignore report</a></td>
               </tr>";
@@ -106,7 +106,7 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
             } else {
                 echo "<div class='filterBar'>
 
-        <form class='search-box' action='maintain-roles.php' method='post'>
+        <form class='search-box' action='admin-reported-forum-posts.php' method='post'>
                 <input type='text' name='searchQuery' style='width: 300px;' autocomplete='off' placeholder='Search users...' />
                 <button type='submit' name='searchUser'><i class='material-icons'>search</i></button>
                 <div class='result'></div><br>
