@@ -12,6 +12,7 @@ function makePageStart($metaName, $metaContent, $pageTitle) {
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="scripts/createModal.js"></script>
+      <script src="scripts/timeout.js"></script>
       <title>$pageTitle</title>
   </head>
   <body>
@@ -118,10 +119,7 @@ FOOTER;
 function startSession(){
 
     ini_set("session.save_path", "/Applications/MAMP/sessionData");
-		ini_set("session.save_path", "/xampp1/sessionData");
-    ini_set("session.save_path", "/xampp/sessionData");
-
-
+    //ini_set("session.save_path", "/xampp1/sessionData");
     session_start();
 };
 

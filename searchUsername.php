@@ -18,7 +18,8 @@ try{
     if(isset($_REQUEST['term'])){
         // create prepared statement
 
-        $sql = "SELECT * FROM bp_user WHERE forename LIKE :term OR surname LIKE :term";
+        $sql = "SELECT * FROM bp_user WHERE username LIKE :term";
+
 
         $stmt = $dbConn->prepare($sql);
         $term = '%' . $_REQUEST['term'] . '%';
@@ -29,7 +30,8 @@ try{
         if($stmt->rowCount() > 0){
             while($row = $stmt->fetch()){
 
-                echo "<p value=". $row['userId'] .">" . $row['forename'] ." ". $row['surname'] . "</p>";
+                echo "<p>" . $row['username'] . "</p>";
+
             }
         } else{
             echo "<p>No matches found";

@@ -1,59 +1,21 @@
-
 <?php
-ob_start();
-require_once('scripts/functions.php');
-echo startSession();
-echo makePageStart("viewport", "width=device-width, inital-scale=1", "Admin");
-echo makeHeader();
+//define the number of rows to return per page
+define("ROW_PER_PAGE", 6);
 ?>
-
 <script type="text/javascript">
     function confirm_delete() {
         return confirm('are you sure you would like to delete?');
     }
 </script>
-<style>
-    form.search-box{
-        position: relative;
-        display: inline-block;
-        font-size: 14px;
-        float: left;
-        width: 340px;
-    }
-
-    .refine-box{
-        float: right;
-
-    }
-
-    .refine-box span {
-        padding-left:50px;
-        display: inline-block;
-
-    }
-
-    .refine-box input {
-
-        display: inline-block;
-    }
-
-    .imageHalfContain {
-        width:45%;
-        margin-left:5%;
-    }
-
-
-
-
-
-</style>
 <?php
-$userType = checkUserType();
-$username = $_SESSION['username'];
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require_once('scripts/functions.php');
+echo startSession();
+require_once('classes/databaseConn.php');
+echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
+echo makeHeader();
 $dbConn = databaseConn::getConnection();
+$userType = checkUserType();
+$eventSQL = 'SELECT userId, username, userRole FROM bp_user order by username';
 
 if (isset($_POST['AdminUser'])) {
     $forename = isset($_REQUEST["forename"]) ? $_REQUEST["forename"] : null;
@@ -69,7 +31,6 @@ if (isset($_POST['AdminUser'])) {
     $userName = filter_var($userName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $password = filter_var($password, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $confirmPassword = filter_var($confirmPassword, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-
 
     $forename = filter_var($forename, FILTER_SANITIZE_SPECIAL_CHARS);
     $surname = filter_var($surname, FILTER_SANITIZE_SPECIAL_CHARS);
@@ -187,7 +148,7 @@ if (isset($_POST['AdminUser'])) {
           <p><b>Email address: $emailAddress</b></p>
           <p><b>password: $password</b></p>
           <p>once you have logged into your account, change your password and check that all information that we have submitted to your account is correct using the edit profile section of the website.</p>
-          <p>If you require any assitaince , contact us on admin@blueprint.com</p>
+          <p>If you require any assistance , contact us on admin@blueprint.com</p>
           
           <p>Kind regards, Blueprint</p>
         </body>
@@ -209,122 +170,108 @@ if (isset($_POST['AdminUser'])) {
 }
 
 if (isset($_SESSION['username']) && ($userType == "admin")) {
-
-
-    echo "<h1> Maintain user roles</h1> ";
-
-    echo "
-        <div class='filterBar'>";
-
-            echo"<form class=\"search-box\" action='maintain-roles.php' method='post'>
-                <input type=\"text\" name='searchQuery' style='width: 300px;' autocomplete=\"off\" placeholder=\"Search users...\" />
-                <button type='submit' name='searchUser'><i class=\"material-icons\">search</i></button>
-                <div class=\"result\"></div><br>
-            </form>
-            <form class='refine-box' style='width:700px; float: right;'>
-                <span class=\"checkbox-inline\"><input type=\"checkbox\" value=\"\">Option 1</span>
-                <span class=\"checkbox-inline\"><input type=\"checkbox\" value=\"\">Option 2</span>
-                <span class=\"checkbox-inline\"><input type=\"checkbox\" value=\"\">Option 3</span>
-            </form>
-            <div class='clear'></div>
-        </div>"; // end of filter bar
-
-
-    echo "<div class=\"images-container\">
-            <div class=\"imageHalfContain\">
-                <table id=\"customers\">
-                  <tr>
-                    <th>Username</th>
-                    <th>User role</th>
-                    <th>Delete</th>
-                    <th>Suspend</th>
-                   
-                  </tr>";
-
-    if (isset($_POST['searchUser'])) {
-        $searchQuery = isset($_REQUEST["searchQuery"]) ? $_REQUEST["searchQuery"] : null;
-        $query = "SELECT userId, username, userRole FROM bp_user  where username = '$searchQuery' ";
-        $result = $dbConn->prepare($query);
-        $result->execute();
-        $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach ($recordSet as $row) {
-            $userID = $row['userId'];
-            echo "<tr>
-                <td>$row[username]</td>
-                <td>$row[userRole]</td>
-                <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
-                <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
-              </tr>";
-        }
-    } else {
-        $query = "SELECT userId, username, userRole FROM bp_user";
-        $result = $dbConn->prepare($query);
-        $result->execute();
-        $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach ($recordSet as $row) {
-            $userID = $row['userId'];
-            echo "<tr>
-                <td>$row[username]</td>
-                <td>$row[userRole]</td>
-                <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
-                <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
-              </tr>";
-        }
+    echo "<h1>Maintain user roles</h1>";
+// Pagination Code starts
+    $per_page_html = '';
+    $page = 1;
+    $start=0;
+    if(!empty($_POST["page"])) {
+        $page = $_POST["page"];
+        $start=($page-1) * ROW_PER_PAGE;
     }
-    echo" </table>
-                </div>
+    $limit=" limit " . $start . "," . ROW_PER_PAGE;
+    $pagination_statement = $dbConn->prepare($eventSQL);
+    $pagination_statement->execute();
 
-            <div class=\"imageHalfContain\">
-                <h2 style='text-align: center; margin: 0 15% 0 0;'>Create a new admin account</h2> <br>    
-                <div class=\"form-container\">
-                    <form method=\"POST\" action=\"maintain-roles.php\" id='test' >
-                        <label>Forename: </label>
-                        <input type=\"text\" name=\"forename\">
-                        <label>Surname: </label>
-                        <input type=\"text\" name=\"surname\">
-                        <label>Email address: </label>
-                        <input type=\"text\" name=\"email\">
-                        <label>Username: </label>
-                        <input type=\"text\" name=\"username\">
-                        <label>Password: </label>
-                        <input type=\"password\" name=\"password\">
-                        <label>Confirm password: </label>
-                        <input type=\"password\" name=\"password-confirm\">
-                        <div class=\"submit-wrap\">
-                            <input type=\"submit\" value=\"Create\" class=\"button\" name='AdminUser'>
-                        </div>
-                    </form>
-                </div>
-            </div>";
+    $row_count = $pagination_statement->rowCount();
+//if there are results returned
+    if(!empty($row_count)){
+        //add html to display the pagination links in a div to a variable
+        $per_page_html .= "<div class='pag-links'>";
+        if ($row_count > ROW_PER_PAGE){
+            $per_page_html .= "<span style='margin-right: 10px;'>Pg</span>";
+        }
+        //divide the number of rows by the number of rows per page to get the page count
+        $page_count=ceil($row_count/ROW_PER_PAGE);
+        //if the page count is bigger than 1 show the pagination links
+        if($page_count>1) {
+            for($i=1;$i<=$page_count;$i++){
+                if($i==$page){
+                    $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button pag-button-current" />';
+                } else {
+                    $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button" />';
+                }
+            }
+        }
+        $per_page_html .= "</div>";
+    }
+
+    $query = $eventSQL . $limit;
+    $pdo_statement = $dbConn->prepare($query);
+    $pdo_statement->execute();
+    $result = $pdo_statement->fetchAll();
+
+
+    //display results
+    echo "<div class='result-set'>
+                <div class=\"images-container\">";
+                    if (!empty($result)) {
+                        echo "
+                        <div class=\"images-container\">
+                            <div class=\"imageHalfContain\">
+                                <table id=\"customers\">
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>User role</th>
+                                        <th>Delete</th>
+                                        <th>Suspend</th>
+                                    </tr>";
+                                    foreach ($result as $row) {
+                                        $userID = $row['userId'];
+                                        echo "
+                                            <tr>
+                                                <td>$row[username]</td>
+                                                <td>$row[userRole]</td>
+                                                <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
+                                                <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
+                                            </tr>";
+                                    }
+
+                                echo"</table> </div>";
+                    }
+
+                                    echo "
+                                    <div class=\"imageHalfContain\">
+                                        <h2 style='text-align: center; margin: 0;'>Create a new admin account</h2>
+                                            <div class=\"form - container\">
+                                                <form method=\"POST\" action=\"maintain-roles.php\" id='test' >
+                                                    <label>Forename: </label>
+                                                    <input type=\"text\" name=\"forename\">
+                                                    <label>Surname: </label>
+                                                    <input type=\"text\" name=\"surname\">
+                                                    <label>Email address: </label>
+                                                    <input type=\"text\" name=\"email\">
+                                                    <label>Username: </label>
+                                                    <input type=\"text\" name=\"username\">
+                                                    <label>Password: </label>
+                                                    <input type=\"password\" name=\"password\">
+                                                    <label>Confirm password: </label>
+                                                    <input type=\"password\" name=\"password-confirm\">
+                                                    <div class=\"submit - wrap\">
+                                                        <input type=\"submit\" value=\"Create\" class=\"button\" name='AdminUser'>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                    </div>";
+
+                        echo"</div>
+                        <form name='frmSearch' action='' method='post' class=\"pag-form\">
+                                $per_page_html
+                        </form>";
 } else {
     echo "<p>Sorry you can't access this page</p>";
 }
 
+
 echo makePageFooter();
 ?>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('.search-box input[type="text"]').on("keyup input", function(){
-            /* Get input value on change */
-            var inputVal = $(this).val();
-            var resultDropdown = $(this).siblings(".result");
-            if(inputVal.length){
-                $.get("searchUsername.php", {term: inputVal}).done(function(data){
-                    // Display the returned data in browser
-                    resultDropdown.html(data);
-                });
-            } else{
-                resultDropdown.empty();
-            }
-        });
-
-        // Set search input value on click of result item
-        $(document).on("click", ".result p", function(){
-            $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
-            $(this).parent(".result").empty();
-        });
-    });
-</script>
-
