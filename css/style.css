@@ -444,12 +444,17 @@ form input[type="submit"] {
 }
 
 form input {
-    border: 1px solid;
     width: 100%;
     height: 30px;
     margin: 0 auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
     margin-bottom: 1em;
     box-sizing: border-box;
+    margin-top: 4px;
+    background-color: #eaeaea;
+    padding-left: 5px;
+    border: none;
 }
 
 select {
@@ -584,9 +589,10 @@ select {
 }
 
 fieldset{
-    border: 2px solid;
+    border: 1px solid #404040;
     margin-bottom: 20px;
     padding: 15px;
+    background-color: #fff;
 }
 legend{
     font-size: 1.4em;
@@ -965,6 +971,11 @@ input[type=radio] {
   display: none;
 }
 
+input:focus{
+    background-color: #999;
+    color: #fff;
+}
+
 .radio-group label {
    color: #404040;
   display: inline-block;
@@ -1325,8 +1336,15 @@ margin: 0 auto;
 .result p:hover{
     background: #f2f2f2;
 }
-.advertBanner{
+.payToHideBanner{
     width: 85%;
     margin: 0 auto;
     margin-bottom: 30px;
+}
+legend h2{
+    font-size: 28px;
+    margin: 0;
+}
+.search-box input{
+    margin:0;
 }
