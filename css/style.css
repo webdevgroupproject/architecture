@@ -436,6 +436,10 @@ form {
     margin: 0 auto;
 }
 
+.submit-wrap {
+  text-align: center;
+}
+
 
 form input[type="submit"] {
     width: 130px;
@@ -801,19 +805,24 @@ legend{
   border-bottom-left-radius: 20px;
 }
 
-.notif-box-header {
-  font-size: 18px;
+.notif-box-dismiss {
+  width: 25%;
 }
 
-.notif-box-dismiss {
+.notif-box-dismiss input {
   float: left;
-  line-height: 90px;
-  font-size: 14px;
-  margin: auto;
+  text-decoration: underline;
+  border: none;
+  width: 100% !important;
+  height: 20px !important;
+  font-size: 15px;
+  margin: 35px auto !important;
+  background-color: #f9f9f9;
+  color: #404040;
 }
 
 .notif-box-content h2 {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 /*-----Messages styling ------*/
@@ -856,8 +865,8 @@ legend{
   -moz-box-shadow:    3px 3px 4px 2px #ccc;  /* Firefox 3.5 - 3.6 */
   box-shadow:         3px 3px 4px 2px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
   border: 1px solid #CCC;
-  background-color: rgb(45, 195, 231);
-  color: #f9f9f9;
+  background-color: #f9f9f9;
+  color: #000;
   width: 70%;
   padding: 20px;
   margin: 20px auto;
@@ -868,8 +877,8 @@ legend{
 
 .sent {
   float: right;
-  background-color: #f9f9f9;
-  color: #000;
+  background-color: rgb(45, 195, 231);
+  color: #f9f9f9;
 }
 
 .options-left {
@@ -894,11 +903,33 @@ legend{
   float: left;
 }
 
-.type-section input {
+.type-section textarea {
   margin-top: 20px;
-  padding-bottom: 40px;
-  border-radius: 20px;
-  border: 1px solid #CCC;
+  box-sizing: border-box;
+  border: 1px solid #CCCCCC;
+  border-right: none;
+  height: 60px;
+  float: left;
+  resize: none;
+}
+
+.type-section button{
+    float: left;
+    margin-top: 20px;
+    width: 10%;
+    box-sizing: border-box;
+    border: none;
+    height: 60px;
+    width: 40px;
+    padding: 9px;
+    border: 1px solid #CCCCCC;
+    border-left: none;
+    cursor: pointer;
+    background-color: #fff;
+}
+.type-section button:hover{
+    background-color: #2DC3E7;
+    color: #fff;
 }
 
 .charaters-remaining {

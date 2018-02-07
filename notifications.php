@@ -39,9 +39,10 @@
                               <h2 class=\"notif-box-header\">Bob Jones has sent you a job offer</h2>
                               <a href=\"". $notif->link ."\">Click here to see the offer</a>
                             </div>
-                            <div class=\"notif-box-dismiss\">
-                              <a href=\"#\" onclick=removeNotif($notif->notificationID)>Dismiss</a>
-                            </div>
+                            <form class=\"notif-box-dismiss\" method='get' action='deleteNotif.php'>
+                              <input type='disabled' name='deleteNotification' value=\"$notif->notificationID\" style='display:none;'/>
+                              <input type='submit' value='Delete'/>
+                            </form>
                           </div>
                         </div>
                       ";

@@ -107,10 +107,9 @@ if (isset($_POST['loginProcess'])) {
             </div>
         </form>
     </div><br>
-    <p style="text-align: center"><a href="Create-Account-Page-1.php">Sign up</a> | <a href="forgotPasswordOptions.php">Forgot password</a></p>
+    <p style="text-align: center"><a href="registerPage1.php">Sign up</a> | <a href="forgotPasswordOptions.php">Forgot password</a></p>
 
 
 <?php
 echo makePageFooter();
 ?>
-

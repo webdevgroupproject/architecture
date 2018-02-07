@@ -46,20 +46,24 @@ if (isset($_SESSION['username'])) {
         } else {
           $convoUserID = "";
         }
+
         $convoNameSQL = "SELECT *
                   FROM bp_user
                   WHERE userId = $convoUserID";
+
         if ($convoNameStmt = $dbConn->query($convoNameSQL)) {
           $cnRow = $convoNameStmt->fetch(PDO::FETCH_OBJ);{
           $forename = $cnRow->forename;
           $surname = $cnRow->surname;
           }
         }
+
         if ($cnum_rows == 1) {
           $active = "convo-selected";
         } else {
           $active = "";
         }
+
         echo "
           <div class=\"convo-box $active\">
             <div class=\"convo-box-head\">
@@ -82,8 +86,9 @@ if (isset($_SESSION['username'])) {
       <div class=\"options\">
         <div class='options-left'>
           <form class=\"search-box\" method='get' action=\"newConvo.php\">
-            <input type='text' autocomplete=\"off\" name='newConversation' style='width:200px;' value='Start new conversation...'/>
+            <input type='text' autocomplete=\"off\" name='newConversation' placeholder='Start new conversation...'/>
             <button type='submit'><i class=\"material-icons\">search</i></button>
+            <div class='result'></div>
           </form>
         </div>
         <div class=\"options-right\">
@@ -119,15 +124,13 @@ if (isset($_SESSION['username'])) {
       }
       echo "
       </div>
-      <div class=\"type-section\">
-          <input type=\"text\" name=\"message-text\" id=\"message-text\" placeholder=\"Write something...\">
-          <div class=\"enter-button\" href=\"#\">
-            <p>-></p>
+      <form method='get' action='postMessage.php' class=\"type-section\">
+          <textarea name=\"message-text\" cols='40' rows='5' onkeyup=\"countChar(this)\" id=\"message-text\" placeholder=\"Write something...\"></textarea>
+          <input type='disabled' style='display:none;' name='messConvoID' value=\"$convoID\"/>
+          <button type='submit'><i class=\"material-icons\">keyboard_return</i></button>
+          <div id='charNum' class=\"charaters-remaining\">
           </div>
-          <div class=\"charaters-remaining\">
-            <p>500 charaters remaining</p>
-          </div>
-        </div>
+      </form>
     </div>.
     ";
     } else {
@@ -140,5 +143,49 @@ if (isset($_SESSION['username'])) {
     return notLoggedRedirect();
   }
 }
+?>
+<script src="http://code.jquery.com/jquery-1.5.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".dropdown").change(function(){
+            $("#orderEventsForm").submit();
+        });
+    });
+    //source - https://stackoverflow.com/questions/5371089/count-characters-in-textarea
+    function countChar(val) {
+        var len = val.value.length;
+        if (len >= 500) {
+          val.value = val.value.substring(0, 500);
+        } else {
+          $('#charNum').text(500 - len + ' charaters remaining');
+        }
+      };
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.search-box input[type="text"]').on("keyup input", function(){
+            /* Get input value on change */
+            var inputVal = $(this).val();
+            var resultDropdown = $(this).siblings(".result");
+            if(inputVal.length){
+                $.get("searchUsers.php", {term: inputVal}).done(function(data){
+                    // Display the returned data in browser
+                    resultDropdown.html(data);
+                });
+            } else{
+                resultDropdown.empty();
+            }
+        });
+
+        // Set search input value on click of result item
+        $(document).on("click", ".result p", function(){
+            $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+            $(this).parent(".result").empty();
+        });
+    });
+</script>
+<?php
 echo makePageFooter();
 ?>
