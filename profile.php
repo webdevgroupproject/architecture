@@ -20,7 +20,7 @@ if ($userType == "client") {
 
       <div class=\"form-container-profile\">
         <a href=\"notifications.php\" class=\"button\">Notifications</a>
-        <a href= \"editProfile.php\" class=\"button\">Edit Profile</a>
+        <a href= \"jobForm.php\" class=\"button\">Post a Job</a>
         <a href= \"messaging.php\" class=\"button\">Messages</a>
       </div>
     </div>
@@ -33,6 +33,7 @@ if ($userType == "client") {
 
   <p id=\"rcorners1\">Landscape Request</p>
   <p id=\"rcorners2\">EDIT DELETE</p>
+
 
   <br>
   <br>
@@ -66,16 +67,16 @@ if ($userType == "client") {
                <p style='text-align:justify'>
                The admin functionality will allow you to find out some relevant information regarding the useage of the website
                and the users that are currently on the website. Such as finding out how many users have signed up to Blueprint
-               within the last day, week and month also find out how many users are on the website altogether. The amount of Blueprint 
-               pro users would allow you to find out whether users are willing to pay the extra fees to boost their experience and business goals on 
-               the Blueprint website. find out how many jobs have been created and have been accepted by users on the website during 
+               within the last day, week and month also find out how many users are on the website altogether. The amount of Blueprint
+               pro users would allow you to find out whether users are willing to pay the extra fees to boost their experience and business goals on
+               the Blueprint website. find out how many jobs have been created and have been accepted by users on the website during
                a day, week also a month.
                 </p> <br/>
-                
+
                  <p style='text-align:justify'>
                 The admin functionality allows admins to suspend any user accounts which have been reported for offences through
                 the fourms or direct messages between users themselves. Delete any user accounts which are no longer needed and also
-                create new admin accounts for new administrators of the website. 
+                create new admin accounts for new administrators of the website.
                 </p> <br/>
 
                 <a href='admin-client-statistics.php' class='button'>Client statistics</a>
@@ -104,7 +105,7 @@ if ($userType == "client") {
                   <div class=\"imageThirdContain\">
                     <p style='text-align: center; font-size: 19px;' >$jobAccepted7days <br/><b> This week</b></p>
                   </div>
-                  <div class=\"imageThirdContain\"> 
+                  <div class=\"imageThirdContain\">
                     <p style='text-align: center; font-size: 19px;'>$jobAccepted30ays <br/><b> This month</b></p>
                   </div>
                 </div>
@@ -123,3 +124,5 @@ if ($userType == "client") {
             </div>";
 }
 echo makePageFooter();
+
+//Profile Banner Image Source: https://www.architecture.com/

@@ -12,6 +12,41 @@ echo makeHeader();
         return confirm('are you sure you would like to delete?');
     }
 </script>
+<style>
+    form.search-box{
+        position: relative;
+        display: inline-block;
+        font-size: 14px;
+        float: left;
+        width: 340px;
+    }
+
+    .refine-box{
+        float: right;
+
+    }
+
+    .refine-box span {
+        padding-left:50px;
+        display: inline-block;
+
+    }
+
+    .refine-box input {
+
+        display: inline-block;
+    }
+
+    .imageHalfContain {
+        width:45%;
+        margin-left:5%;
+    }
+
+
+
+
+
+</style>
 <?php
 $userType = checkUserType();
 $username = $_SESSION['username'];
@@ -19,7 +54,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $dbConn = databaseConn::getConnection();
-
 
 if (isset($_POST['AdminUser'])) {
     $forename = isset($_REQUEST["forename"]) ? $_REQUEST["forename"] : null;
@@ -179,6 +213,23 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
 
     echo "<h1> Maintain user roles</h1> ";
 
+    echo "
+        <div class='filterBar'>";
+
+            echo"<form class=\"search-box\" action='maintain-roles.php' method='post'>
+                <input type=\"text\" name='searchQuery' style='width: 300px;' autocomplete=\"off\" placeholder=\"Search users...\" />
+                <button type='submit' name='searchUser'><i class=\"material-icons\">search</i></button>
+                <div class=\"result\"></div><br>
+            </form>
+            <form class='refine-box' style='width:700px; float: right;'>
+                <span class=\"checkbox-inline\"><input type=\"checkbox\" value=\"\">Option 1</span>
+                <span class=\"checkbox-inline\"><input type=\"checkbox\" value=\"\">Option 2</span>
+                <span class=\"checkbox-inline\"><input type=\"checkbox\" value=\"\">Option 3</span>
+            </form>
+            <div class='clear'></div>
+        </div>"; // end of filter bar
+
+
     echo "<div class=\"images-container\">
             <div class=\"imageHalfContain\">
                 <table id=\"customers\">
@@ -190,26 +241,43 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
                    
                   </tr>";
 
-    $query = "SELECT userId, username, userRole FROM bp_user order by username";
-    $result = $dbConn->prepare($query);
-    $result->execute();
-    $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
+    if (isset($_POST['searchUser'])) {
+        $searchQuery = isset($_REQUEST["searchQuery"]) ? $_REQUEST["searchQuery"] : null;
+        $query = "SELECT userId, username, userRole FROM bp_user  where username = '$searchQuery' ";
+        $result = $dbConn->prepare($query);
+        $result->execute();
+        $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
 
-    foreach ($recordSet as $row) {
-        $userID = $row['userId'];
-        echo "<tr>
-                        <td>$row[username]</td>
-                        <td>$row[userRole]</td>
-                        <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
-                        <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
-                      </tr>";
+        foreach ($recordSet as $row) {
+            $userID = $row['userId'];
+            echo "<tr>
+                <td>$row[username]</td>
+                <td>$row[userRole]</td>
+                <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
+                <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
+              </tr>";
+        }
+    } else {
+        $query = "SELECT userId, username, userRole FROM bp_user";
+        $result = $dbConn->prepare($query);
+        $result->execute();
+        $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($recordSet as $row) {
+            $userID = $row['userId'];
+            echo "<tr>
+                <td>$row[username]</td>
+                <td>$row[userRole]</td>
+                <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
+                <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
+              </tr>";
+        }
     }
-
     echo" </table>
                 </div>
 
             <div class=\"imageHalfContain\">
-                <h2 style='text-align: center; margin: 0;'>Create a new admin account</h2>
+                <h2 style='text-align: center; margin: 0 15% 0 0;'>Create a new admin account</h2> <br>    
                 <div class=\"form-container\">
                     <form method=\"POST\" action=\"maintain-roles.php\" id='test' >
                         <label>Forename: </label>
@@ -236,4 +304,27 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
 
 echo makePageFooter();
 ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.search-box input[type="text"]').on("keyup input", function(){
+            /* Get input value on change */
+            var inputVal = $(this).val();
+            var resultDropdown = $(this).siblings(".result");
+            if(inputVal.length){
+                $.get("searchUsers.php", {term: inputVal}).done(function(data){
+                    // Display the returned data in browser
+                    resultDropdown.html(data);
+                });
+            } else{
+                resultDropdown.empty();
+            }
+        });
+
+        // Set search input value on click of result item
+        $(document).on("click", ".result p", function(){
+            $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+            $(this).parent(".result").empty();
+        });
+    });
+</script>
 

@@ -32,7 +32,6 @@ if (isset($_POST['AdminUser'])) {
     $password = filter_var($password, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $confirmPassword = filter_var($confirmPassword, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-
     $forename = filter_var($forename, FILTER_SANITIZE_SPECIAL_CHARS);
     $surname = filter_var($surname, FILTER_SANITIZE_SPECIAL_CHARS);
     $emailAddress = filter_var($emailAddress, FILTER_SANITIZE_SPECIAL_CHARS);
@@ -173,98 +172,104 @@ if (isset($_POST['AdminUser'])) {
 if (isset($_SESSION['username']) && ($userType == "admin")) {
     echo "<h1>Maintain user roles</h1>";
 // Pagination Code starts
-$per_page_html = '';
-$page = 1;
-$start = 0;
-if (!empty($_POST["page"])) {
-    $page = $_POST["page"];
-    $start = ($page - 1) * ROW_PER_PAGE;
-}
-$limit = " limit " . $start . "," . ROW_PER_PAGE;
-$pagination_statement = $dbConn->prepare($eventSQL);
-$pagination_statement->execute();
+    $per_page_html = '';
+    $page = 1;
+    $start=0;
+    if(!empty($_POST["page"])) {
+        $page = $_POST["page"];
+        $start=($page-1) * ROW_PER_PAGE;
+    }
+    $limit=" limit " . $start . "," . ROW_PER_PAGE;
+    $pagination_statement = $dbConn->prepare($eventSQL);
+    $pagination_statement->execute();
 
-$row_count = $pagination_statement->rowCount();
+    $row_count = $pagination_statement->rowCount();
 //if there are results returned
-if (!empty($row_count)) {
-    //add html to display the pagination links in a div to a variable
-    $per_page_html .= "<div class='pag-links' '><span style='margin-right: 10px;'>Pg</span>";
-    //divide the number of rows by the number of rows per page to get the page count
-    $page_count = ceil($row_count / ROW_PER_PAGE);
-    //if the page count is bigger than 1 show the pagination links
-    if ($page_count > 1) {
-        for ($i = 1; $i <= $page_count; $i++) {
-            if ($i == $page) {
-                $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button pag-button-current" />';
-            } else {
-                $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button" />';
+    if(!empty($row_count)){
+        //add html to display the pagination links in a div to a variable
+        $per_page_html .= "<div class='pag-links'>";
+        if ($row_count > ROW_PER_PAGE){
+            $per_page_html .= "<span style='margin-right: 10px;'>Pg</span>";
+        }
+        //divide the number of rows by the number of rows per page to get the page count
+        $page_count=ceil($row_count/ROW_PER_PAGE);
+        //if the page count is bigger than 1 show the pagination links
+        if($page_count>1) {
+            for($i=1;$i<=$page_count;$i++){
+                if($i==$page){
+                    $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button pag-button-current" />';
+                } else {
+                    $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button" />';
+                }
             }
         }
+        $per_page_html .= "</div>";
     }
-    $per_page_html .= "</div>";
-}
 
-$query = $eventSQL . $limit;
-$pdo_statement = $dbConn->prepare($query);
-$pdo_statement->execute();
-$result = $pdo_statement->fetchAll();
+    $query = $eventSQL . $limit;
+    $pdo_statement = $dbConn->prepare($query);
+    $pdo_statement->execute();
+    $result = $pdo_statement->fetchAll();
 
 
-//display results
-echo "<div class='result-set'>
-            <div class=\"images-container\">";
-                if (!empty($result)) {
-                    echo "<div class=\"images-container\">
-                                <div class=\"imageHalfContain\">
-                                    <table id=\"customers\">
-                                      <tr>
+    //display results
+    echo "<div class='result-set'>
+                <div class=\"images-container\">";
+                    if (!empty($result)) {
+                        echo "
+                        <div class=\"images-container\">
+                            <div class=\"imageHalfContain\">
+                                <table id=\"customers\">
+                                    <tr>
                                         <th>Username</th>
                                         <th>User role</th>
                                         <th>Delete</th>
                                         <th>Suspend</th>
-                                      </tr>";
-                                        foreach ($result as $row) {
-                                            $userID = $row['userId'];
-                                            echo "<tr>
-                                                    <td>$row[username]</td>
-                                                    <td>$row[userRole]</td>
-                                                    <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
-                                                    <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
-                                                  </tr>";
-                                        }
+                                    </tr>";
+                                    foreach ($result as $row) {
+                                        $userID = $row['userId'];
+                                        echo "
+                                            <tr>
+                                                <td>$row[username]</td>
+                                                <td>$row[userRole]</td>
+                                                <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
+                                                <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
+                                            </tr>";
+                                    }
 
-                                    echo"</table>";
-                }
-                                echo "</div> 
-                                <div class=\"imageHalfContain\">
-                                <h2 style='text-align: center; margin: 0;'>Create a new admin account</h2>
-                                <div class=\"form - container\">
-                                    <form method=\"POST\" action=\"maintain-roles.php\" id='test' >
-                                        <label>Forename: </label>
-                                        <input type=\"text\" name=\"forename\">
-                                        <label>Surname: </label>
-                                        <input type=\"text\" name=\"surname\">
-                                        <label>Email address: </label>
-                                        <input type=\"text\" name=\"email\">
-                                        <label>Username: </label>
-                                        <input type=\"text\" name=\"username\">
-                                        <label>Password: </label>
-                                        <input type=\"password\" name=\"password\">
-                                        <label>Confirm password: </label>
-                                        <input type=\"password\" name=\"password-confirm\">
-                                        <div class=\"submit - wrap\">
-                                            <input type=\"submit\" value=\"Create\" class=\"button\" name='AdminUser'>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>";
-    
-                    echo"</div>
-                    <form name='frmSearch' action='' method='post' class=\"pag-form\">
-                            $per_page_html
-                     </form>";
+                                echo"</table> </div>";
+                    }
+
+                                    echo "
+                                    <div class=\"imageHalfContain\">
+                                        <h2 style='text-align: center; margin: 0;'>Create a new admin account</h2>
+                                            <div class=\"form - container\">
+                                                <form method=\"POST\" action=\"maintain-roles.php\" id='test' >
+                                                    <label>Forename: </label>
+                                                    <input type=\"text\" name=\"forename\">
+                                                    <label>Surname: </label>
+                                                    <input type=\"text\" name=\"surname\">
+                                                    <label>Email address: </label>
+                                                    <input type=\"text\" name=\"email\">
+                                                    <label>Username: </label>
+                                                    <input type=\"text\" name=\"username\">
+                                                    <label>Password: </label>
+                                                    <input type=\"password\" name=\"password\">
+                                                    <label>Confirm password: </label>
+                                                    <input type=\"password\" name=\"password-confirm\">
+                                                    <div class=\"submit - wrap\">
+                                                        <input type=\"submit\" value=\"Create\" class=\"button\" name='AdminUser'>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                    </div>";
+
+                        echo"</div>
+                        <form name='frmSearch' action='' method='post' class=\"pag-form\">
+                                $per_page_html
+                        </form>";
 } else {
-
+    echo "<p>Sorry you can't access this page</p>";
 }
 
 

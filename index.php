@@ -7,11 +7,12 @@ echo makeHeader();
 
 
 ?>
+
       <div class="home-banner">
         <div class="banner-text">
           <h2>Join the UK's Leading Arhcitecture Community</h2>
           <p class="tagline" style="text-align: left;">Post your projects and search for freelancers or sign up as a freelancer and take on the latest architecture jobs.</p>
-          <a href="#" class="button">Get started</a>
+          <a href="registerPage1.php" class="button">Get started</a>
         </div>
         <img id="banner"src="images/banner2.jpeg" alt="image of a blue print">
       </div>
@@ -60,39 +61,7 @@ echo makeHeader();
         </div>
       </div>
       <div class="community-events-section">
-        <div class="images-container">
-          <h1>Community events</h1>
-          <p class="tagline">Sign up for one of our many events and get involved with the community.</p>
-            <?php
-            $dbConn = databaseConn::getConnection();
 
-            $eventSQL = 'select *
-             from bp_events
-             order by eventDate
-             LIMIT 3';
-
-            $stmt = $dbConn->query($eventSQL);
-            while ( $event = $stmt->fetchObject()) {
-
-
-                echo "<div class=\"imageThirdContain\">
-            <a href=\"eventPage.php?eventid=" . $event->eventId . "\">
-            <div class=\"image-with-text\">
-              <img src=\"images/event-img-1.jpeg\" alt=\"image of a 3d model house\">
-              <div class=\"attendance-info-banner\">
-                <span class=\"number-attending\">9 attending</span>
-                <span class=\"spaces-left\">11 spaces left</span>
-              </div>
-              <div class=\"image-text\">" . $event->eventName . "<p>" . $event->eventDate . " | " . $event->eventPlace . " | " . $event->eventTime . "</p>
-              </div>
-            </div>
-            </a>
-          </div>";
-            }
-
-            ?>
-        </div>
-        <a href="events.php" style="margin-left: 2.5%;">See all events</a>
       </div>
 <?php
 echo makePageFooter();
