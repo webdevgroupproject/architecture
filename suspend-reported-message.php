@@ -74,7 +74,7 @@ if (!empty($errors)) {
 
     $query3->execute();
 
-    echo "User has been suspended. They will receieve a email to confirm the reasons for their suspension and when they will be able to use the website again";
+    echo "User has been suspended. They will receive a email to confirm the reasons for their suspension and when they will be able to use the website again";
 
     $to = $userEmail;
 

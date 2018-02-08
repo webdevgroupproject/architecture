@@ -15,26 +15,28 @@ require_once ('scripts/admin-stats-functions.php');
 if (isset($_SESSION['username']) && ($userType == "admin")) {
 
     echo "<br><h1> Client statistics</h1><br/> ";
-    echo "<div class=\"thread\" style='background-color: #CFCFCF'>
-            <div class=\"images-container\">
-              <div class=\"imageThirdContain\">
-                <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
+
+    echo "
+        <div class='filterBar'>
+            <div class=\"imageThirdContain\">
+                <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center'><b>Total number of client users <br/> $totalClients</b></p>
               </div>
               <div class=\"imageThirdContain\">
-              <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
+              <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center' ><b>Total number of client jobs created <br/> $numClientJobsCreated</b></p>
               </div>
               <div class=\"imageThirdContain\">
-              <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
+              <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center'><b>Total number of premium client users <br/> $proUsersClient</b></p>
               </div>
-            </div>
-        </div>";
+            <div class='clear'></div>
+        </div>"; // end of filter bar
 
-    echo "<div class=\"images-container\">
-            <div class=\"imageHalfContain\">
-                <h2>Description of latest jobs created</h2>
+
+    echo "<div class=\"images-container\" style='width:95%;'>
+            <div class=\"imageHalfContain\" style='margin-left:5%; width:45% '>
+                <h2>Latest jobs created</h2>
                 <table id=\"customers\">
                   <tr>
                     <th>Job title</th>
@@ -59,7 +61,7 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
            echo" </table>
                 </div>
 
-            <div class=\"imageHalfContain\">
+            <div class=\"imageHalfContain\" style='margin-left:5%; width:45%'>
                 <h2>Daily statistics</h2>
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>Total number of new client users</h3>

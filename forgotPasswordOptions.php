@@ -52,7 +52,7 @@ echo makeHeader();
 
 
     <br/><br/><h1>Forgot your password</h1>
-    <p style="text-align: center">You have two options, you can reset your password or we can send the password reminder that you provided while you were registering your account. <br/>Select the route you could like to go down.</p>
+    <p style="text-align: center">You have two options, you can reset your password or we can send the password reminder that you provided while you were registering your account. <br/>Select the route you would like to go down.</p>
 
     <div class="form-container">
         <form method="post" action="forgotPasswordOptions.php">
