@@ -26,7 +26,7 @@ while ($event = $eventQuery->fetchObject()) {
         <form method=\"get\" action=\"updateEventAction.php\" id='addEventForm'>
         <fieldset>
             <input style='display: none' type='text' value='$id' name='eventid' readonly>
-            <label>Event name: </label>
+            <label>Event name&#9913;: </label>
                 <input type=\"text\" name=\"name\" value='$name' class=\"form-control block\" placeholder=\"Please enter the name ov the event\"
                        data-validation=\"required\">
                        </fieldset>
@@ -55,13 +55,13 @@ while ($event = $eventQuery->fetchObject()) {
                 <legend><h2>Additional info</h2></legend>
                 
                 <label>Spaces: </label><br>
-                <input style=\"width: 150px;\" type=\"number\" name=\"spaces\" value='$spaces' class=\"form-control block\" placeholder=\"1\"
+                <input style=\"width: 150px;\" min=\"1\" max=\"1000\" type=\"number\" name=\"spaces\" value='$spaces' class=\"form-control block\" placeholder=\"1\"
                        data-validation=\"required\"><br>
                 <label>Event Information: </label>
                 <textarea style=\"max-width: 100%; width: 100%; margin-bottom: 1em;\" name=\"info\" id='info' class=\"form-control block\" placeholder=\"Please provide some information about the event\"
                        data-validation=\"required\">$info</textarea>
                 <label>Image: </label>
-                <input type=\"file\" name=\"image\">
+                <input style=\"padding: 0;\" type=\"file\" name=\"image\">
             </fieldset>
             <div class=\"submit-wrap\">
             <input type=\"submit\" value=\"Update\" class=\"button\">
