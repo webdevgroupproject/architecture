@@ -16,7 +16,7 @@ $sql = 'select *
         on bp_thread.userId=bp_user.userId
         order by datePosted DESC, timePosted DESC';
 
-echo "<h1>Discussion board</h1>";
+echo "<h1>Blueprint forums</h1>";
 echo "
       <div class='filterBar'>
         <div class=\"postThread\" id='postThread' style='display: none; float: left; width: 33%;'>
@@ -27,7 +27,7 @@ if(isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == true){
                     <label for='title'>Thread title: </label>
                     <input type=\"text\" name=\"threadTitle\" id='title' class=\"form-control block\" data-validation=\"required\" placeholder=\"Please enter a title\">
                     <label for='postThread'>Thread information</label><br/>
-                    <textarea class=\"form-control block\" style=\"max-width: 100%; width: 100%;\" name=\"threadInfo\" id='postThread' data-validation=\"required\" placeholder=\"Please enter some information\"></textarea>
+                    <textarea class=\"form-control block\" style=\"max-width: 100%; min-width: 100%; width: 100%;\" name=\"threadInfo\" id='postThread' data-validation=\"required\" placeholder=\"Please enter some information\"></textarea>
                     <input type=\"submit\" value=\"Post\" class=\"button\">
                     <a class='button' onclick='toggleForm()' id='closeFormButton'>Hide</a>
                 </form>

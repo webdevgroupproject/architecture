@@ -17,6 +17,9 @@ $eventSQL = 'select *
              WHERE eventDate > now()
              order by eventDate ASC';
 
+$getCity = $dbConn->prepare('select DISTINCT eventCity From bp_events ORDER BY eventCity');
+$getCity->execute();
+$citys = $getCity->fetchAll();
 //main html not related to the result set
 echo "
 <h1>Community events</h1>
@@ -26,17 +29,23 @@ if ($userType == "admin" || $pro == "1"){
     echo "<a href='addEventForm.php' class='button' id='addEventButton'>Add an event</a>";
 }else if (isset($_SESSION['username'])){
 
-    echo"<div style='float: left; width: 40%'>
+    echo"<div style='float: left; width: 20%'>
             <p><a href='#'>Upgrade to pro</a> to create your own event</p>
         </div>";
 }else{
-    echo "<div style='float: left; width: 40%'>
+    echo "<div style='float: left; width: 20%'>
             <p><a href='login.php'>log in</a> to register for events</p>
         </div>";
 
 };
-//end filterbar
-echo "
+echo"<form id='orderEventsForm' action='eventSearchResults.php'>
+<select name=\"citySearch\" id=\"cityDropdown\" class='dropdown'>
+<option>Search by city</option>";
+foreach ($citys as $city){
+    echo"<option value='".$city["eventCity"]."'>".$city["eventCity"]."</option>";
+}echo"
+</select>
+</form>
 <form class=\"search-box\" action='eventSearchResults.php' method='get'>
             <input type=\"text\" name='searchQuery' autocomplete=\"off\" placeholder=\"Search events...\" />
             <button type='submit'><i class=\"material-icons\">search</i></button>
@@ -108,7 +117,7 @@ if(!empty($result)) {
                     </div > 
                     <div class='event-info-contain'>
                         <h2>".$row['eventName']."</h2>
-                        <p>".$row['eventPlace'].", $formatTime</p>
+                        <p>".$row['eventCity'].", $formatTime</p>
                         <a class=\"button\" href=\"eventPage.php?eventid=" .$row['eventId']. "\"> Find out more </a >";
         if ($userType == "admin") {
             echo       "<a style = 'right: 0;' href = 'ManageEventForm.php?eventid=" .$row['eventId']. "' class='button'>Manage</a>";

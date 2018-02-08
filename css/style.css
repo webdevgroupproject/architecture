@@ -459,11 +459,11 @@ form input {
 
 select {
   border: 1px solid;
-  width: 100%;
-  height: 30px;
+  height: 40px;
   margin: 0 auto;
-  margin-bottom: 1em;
   box-sizing: border-box;
+    margin-left: 20px;
+
 }
 
 .blueTitle{
