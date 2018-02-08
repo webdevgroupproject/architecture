@@ -13,6 +13,7 @@ function makePageStart($metaName, $metaContent, $pageTitle) {
       <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet" type="text/css" />
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="scripts/createModal.js"></script>
+      <script src="scripts/timeout.js"></script>
       <title>$pageTitle</title>
   </head>
   <body>
@@ -118,16 +119,8 @@ FOOTER;
 
 function startSession(){
 
- //   ini_set("session.save_path", "/Applications/MAMP/sessionData");
-
-
-    ini_set("session.save_path", "/xampp1/sessionData");
-
-
-
-
-
-
+    ini_set("session.save_path", "/Applications/MAMP/sessionData");
+    //ini_set("session.save_path", "/xampp1/sessionData");
     session_start();
 };
 
