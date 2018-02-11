@@ -161,7 +161,6 @@ ul {
     list-style: none;
     margin-bottom: 10px;
     float: left; /* Clear floats */
-    width: 40%;
     position: relative;
     z-index: 5;
     padding: 0 10px;
@@ -788,7 +787,7 @@ legend{
 }
 
 .notif-box-unread {
-  background-color: rgb(45, 195, 231);
+  background-color: #2DC3E7;
   float: left;
   padding: 0 20px;
   color: #FFF;
@@ -845,17 +844,68 @@ legend{
   font-size: 14px;
 }
 
-.options .search-box input[type="text"]{
+.options .search-box input[type="text"] {
     height: 30px;
     font-size: 11px;
     margin: 0 0 0 5px;
 }
 
-.options .search-box button{
+.options .search-box button {
   height: 30px;
   padding: 3px;
 }
 
+.main-search {
+  float: left !important;
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  width: auto;
+  margin-top: 5px;
+}
+
+.main-search input[type="text"] {
+    height: 30px;
+    font-size: 11px;
+    margin: 0;
+    padding: 5px 10px;
+    border: 1px solid #CCCCCC;
+    border-right:none;
+    border-left: none;
+    float: left;
+    width: 200px;
+}
+
+.search-select {
+  height: 30px;
+  border: 1px solid #CCC;
+  border-right: none;
+  float: left;
+  color: #FFF;
+  font-weight: bold;
+  background-color: #2DC3E7;
+}
+
+.search-select select {
+  border: none;
+  padding: 5px 8px;
+  width: 130%;
+  background-image: none;
+  -webkit-appearance: none;
+}
+
+.main-search button {
+  height: 30px;
+  padding: 3px;
+  float: left;
+  box-sizing: border-box;
+  border: none;
+  width: 40px;
+  border: 1px solid #CCCCCC;
+  border-left: none;
+  cursor: pointer;
+  background-color: #fff;
+}
 .messages {
   /*background-color: #404040;*/
   padding: 0 4.95%;
@@ -1325,7 +1375,7 @@ margin: 0 auto;
     font-style: italic;
     margin-bottom: 10px;
 }
-.search-box{
+.search-box {
     position: relative;
     display: inline-block;
     font-size: 14px;
@@ -1333,7 +1383,7 @@ margin: 0 auto;
     width: 240px;
 }
 
-.search-box input[type="text"]{
+.search-box input[type="text"] {
     height: 40px;
     padding: 5px 10px;
     border: 1px solid #CCCCCC;
@@ -1344,7 +1394,7 @@ margin: 0 auto;
     margin-bottom: 0;
 }
 
-.search-box button{
+.search-box button {
     float: left;
     width: 10%;
     box-sizing: border-box;
@@ -1357,7 +1407,7 @@ margin: 0 auto;
     cursor: pointer;
     background-color: #fff;
 }
-.search-box button:hover{
+.search-box button:hover, .main-search button:hover {
     background-color: #2DC3E7;
     color: #fff;
 }

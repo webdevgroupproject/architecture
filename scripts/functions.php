@@ -58,13 +58,22 @@ function makeHeader(){
             }
             $headerContent.= "
 							</ul>
-
+							<form class=\"main-search\" method='get' action=\"searchList.php\">
+								<select class='search-select' name='searchChoice'>
+									<option value='freelancer'>Freelancers</option>
+									<option value='client'>Clients</option>
+									<option value='jobs'>Jobs</option>
+								</select>
+		            <input type='text' autocomplete=\"off\" name='searchInput' placeholder=''/>
+		            <button type='submit'><i class=\"material-icons\">search</i></button>
+		            <div class='result'></div>
+		          </form>
 						";
 						//</nav>
         		if (isset($_SESSION['username'])) {
           		$username = $_SESSION['username'];
           		$headerContent .= "
-          			<div class=\"header-nav\" id='user-nav' style='float: right; width: 40%;'>
+          			<div class=\"header-nav\" id='user-nav' style='float: right; width: 30%;'>
           				<ul class=\"clearfix\" style='float: right; width: auto;'>
 										<li style='margin: 0; padding: 0;'>
 											<a href='profile.php'>$username<span class=\"arrow\"> &#9660;</span></a>
