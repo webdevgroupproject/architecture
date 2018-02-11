@@ -456,9 +456,8 @@ form input {
     margin-bottom: 1em;
     box-sizing: border-box;
     margin-top: 4px;
-    background-color: #eaeaea;
     padding-left: 5px;
-    border: none;
+    border: 1px solid #ccc;
 }
 
 select {
@@ -1023,8 +1022,7 @@ input[type=radio] {
 }
 
 input:focus{
-    background-color: #999;
-    color: #fff;
+    border: 2px solid #2DC3E7;
 }
 
 .radio-group label {
