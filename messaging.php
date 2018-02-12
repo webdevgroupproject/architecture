@@ -24,8 +24,6 @@ if (isset($_SESSION['username'])) {
   if ($convostmt = $dbConn->query($convoSQL)) {
     $crows = $convostmt->fetchAll(PDO::FETCH_OBJ);
     $cnum_rows = count($crows);
-    echo "
-    ";
 
     echo "
     <div class=\"container\">
@@ -86,8 +84,8 @@ if (isset($_SESSION['username'])) {
       <div class=\"options\">
         <div class='options-left'>
           <form class=\"search-box\" method='get' action=\"newConvo.php\">
-            <input type='text' autocomplete=\"off\" name='newConversation' placeholder='Start new conversation...'/>
-            <button type='submit'><i class=\"material-icons\">search</i></button>
+            <input type='text' autocomplete=\"off\" name='newConversation' placeholder='Start new conversation with...'/>
+            <button type='submit'><i class=\"material-icons\">add</i></button>
             <div class='result'></div>
           </form>
         </div>
@@ -126,7 +124,7 @@ if (isset($_SESSION['username'])) {
       </div>
       <form method='get' action='postMessage.php' class=\"type-section\">
           <textarea name=\"message-text\" cols='40' rows='5' onkeyup=\"countChar(this)\" id=\"message-text\" placeholder=\"Write something...\"></textarea>
-          <input type='disabled' style='display:none;' name='messConvoID' value=\"$convoID\"/>
+          <input type='disabled' style='display:none;' name='messConvoID' value=\"\"/>
           <button type='submit'><i class=\"material-icons\">keyboard_return</i></button>
           <div id='charNum' class=\"charaters-remaining\">
           </div>
@@ -180,7 +178,7 @@ if (isset($_SESSION['username'])) {
         });
 
         // Set search input value on click of result item
-        $(document).on("click", ".result p", function(){
+        $(document).on("click", ".result select", function(){
             $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
             $(this).parent(".result").empty();
         });
