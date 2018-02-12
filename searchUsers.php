@@ -27,12 +27,14 @@ try{
         // execute the prepared statement
         $stmt->execute();
         if($stmt->rowCount() > 0){
+            echo "<ul>";
             while($row = $stmt->fetch()){
 
-                echo "<p value=". $row['userId'] .">" . $row['forename'] ." ". $row['surname'] . "</p>";
+                echo "<li value=". $row['userId'] .">" . $row['forename'] ." ". $row['surname'] . "</li>";
             }
-        } else{
-            echo "<p>No matches found";
+            echo "</ul>";
+        } else {
+            echo "<p>No matches found</p>";
         }
     }
 } catch(PDOException $e){
@@ -43,4 +45,3 @@ try{
 unset($dbConn);
 
 ?>
-
