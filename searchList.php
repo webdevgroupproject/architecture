@@ -28,7 +28,20 @@ if (isset($searchChoice)){
                order by forname ASC";
     }
 
-    echo "<h1>Search results</h1>";
+    echo "
+      <h1>Search results</h1>
+      <div class='filterBar'>
+        <fieldset>
+          <input type='checkbox' id='filterA-Z' name='filterA-Z' value='A-Z'/>
+          <label for='filterA-Z'>A to Z</label>
+          <input type='checkbox' id='filterHourly' name='filterHourly' value='Hourly'/>
+          <label for='filterHourly'>By £/hour</label>
+          <input type='checkbox' id='filterRole' name='filterRole' value='Role'/>
+          <label for='filterRole'>By role</label>
+          <input type='checkbox' id='filterSkill' name='filterSkill' value='Skill'/>
+          <label for='filterSkill'>By skill</label>
+      </div>
+    ";
 
     if ($searchstmt = $dbConn->query($searchSQL)) {
      $srows = $searchstmt->fetchAll(PDO::FETCH_OBJ);
