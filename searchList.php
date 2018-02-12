@@ -25,7 +25,7 @@ if (isset($searchChoice)){
                OR surname LIKE '%$search%'
                OR email LIKE '%$search%'
                AND userRole = '$searchChoice'
-               order by forname ASC";
+               ORDER BY forname ASC";
     }
 
     echo "
