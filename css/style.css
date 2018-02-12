@@ -444,12 +444,17 @@ form input[type="submit"] {
 }
 
 form input {
-    border: 1px solid;
     width: 100%;
     height: 30px;
     margin: 0 auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
     margin-bottom: 1em;
     box-sizing: border-box;
+    margin-top: 4px;
+    background-color: #eaeaea;
+    padding-left: 5px;
+    border: none;
 }
 
 select {
@@ -584,9 +589,10 @@ select {
 }
 
 fieldset{
-    border: 2px solid;
+    border: 1px solid #404040;
     margin-bottom: 20px;
     padding: 15px;
+    background-color: #fff;
 }
 legend{
     font-size: 1.4em;
@@ -968,6 +974,11 @@ legend{
   text-align: center;
 }
 
+input:focus{
+    background-color: #999;
+    color: #fff;
+}
+
 .radio-group label {
    color: #404040;
   display: inline-block;
@@ -1064,19 +1075,14 @@ margin: 0 auto;
  text-align: center;
 }
 
-#activejobtitle {
-   padding-top: 10px;
- }
-
 #rcorners1 {
   margin-left: 120px;
   margin-bottom: 20px;
   margin-right: 0;
   border-radius: 5px;
   background: #404040;
-  padding: 10px;
-  width: 800px;
-  height: 30px;
+  padding: 15px;
+  width: 780px;
   text-align: left;
   color: white;
   float: left;
@@ -1088,9 +1094,8 @@ margin: 0 auto;
     margin-right: 80px;
     border-radius: 5px;
     background: #404040;
-    padding: 10px;
+    padding: 15px;
     width: 200px;
-    height: 30px;
     text-align: center;
     color: white;
     float: right;
@@ -1328,7 +1333,7 @@ margin: 0 auto;
 .result p:hover{
     background: #f2f2f2;
 }
-.advertBanner{
+.payToHideBanner{
     width: 85%;
     margin: 0 auto;
     margin-bottom: 30px;
@@ -1395,3 +1400,42 @@ margin: 0 auto;
 .submit-wrap {
   text-align: center;
 }
+
+/*Ross Styling */
+
+legend h2{
+    font-size: 28px;
+    margin: 0;
+}
+.search-box input{
+    margin:0;
+}
+
+/* Profile Page Styling */
+
+.profileThird {
+  text-align: center;
+  padding-bottom: 60px;
+}
+
+#clientDetails {
+  text-align: center;
+  padding-top: 25px;
+  font-size: 30px;
+}
+
+.clientContainer {
+  background-color: #404040;
+  color: #EAEAEA;
+  margin-bottom: 25px;
+}
+
+#profileThirdPTitle {
+  color: #2DC3E7;
+}
+
+#activejobtitle {
+  text-align: center;
+  padding-top: 25px;
+  font-size: 30px;
+ }

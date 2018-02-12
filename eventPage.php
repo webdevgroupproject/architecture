@@ -42,7 +42,31 @@ while ($indvEvent = $stmt->fetchObject()) {
     $spacesLeft = $noSpaces - $noAttending;
 
     echo "
-        <div id=\"myModal\" class=\"modal\">
+       
+            <div class=\"home-banner\" id='eventPageBanner'>
+                <div class='EventTitle'>
+                    <h1>$name</h1>
+                    <p class='tagline'>$formatDate at $formatTime</p>
+                    <p class='tagline'>$city</p>
+                </div>
+                <img src=\"images/$image\" alt=\"image of a blue print\">
+            </div>    
+            <div class='eventInfo'>
+                <div class='infoBox'>
+                    <h2>Ticket information</h2>
+                    <p id='eventInfoText'>$indvEvent->eventInfo</p>";
+
+
+                    if (isset($_SESSION['username'])) {
+                        $userId = $_SESSION['userId'];
+                        $checkSignedUpSQL = "select *
+                                             from bp_event_signup INNER JOIN bp_user
+                                             ON bp_event_signup.userId=bp_user.userId
+                                             WHERE bp_event_signup.eventId = '$eventId'
+                                             AND bp_event_signup.userId = '$userId'";
+                        $checkSignedUpRes = $dbConn->query($checkSignedUpSQL);
+                        if ($checkSignedUpRes) {
+                            echo " <div id=\"myModal\" class=\"modal\">
             <!-- Modal content -->
             <div class=\"modal-content\">
                 <div class=\"modal-header\">
@@ -68,7 +92,10 @@ while ($indvEvent = $stmt->fetchObject()) {
                 </div>
             </div>
         </div>
-        <div id=\"myModal2\" class=\"modal\">
+       ";
+                            /* Check the number of rows that match the SELECT statement */
+                            if ($checkSignedUpRes->fetchColumn() > 0) {
+                                echo " <div id=\"myModal2\" class=\"modal\">
             <!-- Modal content -->
             <div class=\"modal-content\">
                 <div class=\"modal-header\">
@@ -83,32 +110,7 @@ while ($indvEvent = $stmt->fetchObject()) {
                     <a href='#' style='margin-left:10px;' class='cancel'>Cancel</a>
                 </div>
             </div>
-        </div>
-            <div class=\"home-banner\" id='eventPageBanner'>
-                <div class='EventTitle'>
-                    <h1>$name</h1>
-                    <p class='tagline'>$formatDate at $formatTime</p>
-                    <p class='tagline'>$city</p>
-                </div>
-                <img src=\"images/$image\" alt=\"image of a blue print\">
-            </div>    
-            <div class='eventInfo'>
-                <div class='infoBox'>
-                    <h2>Ticket information</h2>
-                    <p id='eventInfoText'>$indvEvent->eventInfo</p>";
-
-
-                    if (isset($_SESSION['username'])) {
-                        $userId = $_SESSION['userId'];
-                        $checkSignedUpSQL = "select *
-                                             from bp_event_signup
-                                             WHERE eventId = '$eventId'
-                                             AND userId = '$userId'";
-                        $checkSignedUpRes = $dbConn->query($checkSignedUpSQL);
-                        if ($checkSignedUpRes) {
-                            /* Check the number of rows that match the SELECT statement */
-                            if ($checkSignedUpRes->fetchColumn() > 0) {
-                                echo "<div style='margin-bottom: 25px;'><p class='registeredText'>You are registered to attend this event</p>
+        </div><div style='margin-bottom: 25px;'><p class='registeredText'>You are registered to attend this event</p>
                                        <span>(check your email for ticket information) </span><a href='#myModal2'>Drop out</a></div>";
 
                                 if ($noAttending <= 1){
@@ -192,36 +194,7 @@ echo"<script>
     }
     window.onload = codeAddress;
 </script>
-//<script> //Get the modal
-//var modal = document.getElementById('myModal');
-//
-//// Get the button that opens the modal
-//var btn = document.getElementById(\"modalButton\");
-//
-//// Get the <span> element that closes the modal
-//var close = document.getElementsByClassName(\"close\")[0];
-//var cancel = document.getElementsByClassName(\"cancel\")[0];
-//
-//// When the user clicks the button, open the modal
-//btn.onclick = function() {
-//    modal.style.display = \"block\";
-//}
-//
-//// When the user clicks on <span> (x), close the modal
-//close.onclick = function() {
-//    modal.style.display = \"none\";
-//}
-//cancel.onclick = function() {
-//    modal.style.display = \"none\";
-//}
-//
-//// When the user clicks anywhere outside of the modal, close it
-//window.onclick = function(event) {
-//    if (event.target == modal) {
-//        modal.style.display = \"none\";
-//    }
-//}
-</script>
+
 <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyBzchtixjwkdocwfYPZYd26c-bYbAXvI3c&callback=myMap\"></script>";
 }
 echo makePageFooter();

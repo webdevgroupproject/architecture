@@ -1,18 +1,14 @@
-<html>
-    <head>
-        <link rel="stylesheet"  type="text/css" href="css/style.css">
-        <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet" type="text/css" />
-    </head>
-    <body>
-        <?php
-        require_once ('scripts/functions.php');
-        echo startSession();
-        require_once ('classes/databaseConn.php');
-        echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
-        echo makeHeader();
-        echo "<h1>Sign up</h1>";
+<?php
+    require_once ('scripts/functions.php');
+    echo startSession();
+    require_once ('classes/databaseConn.php');
+    echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
+    echo makeHeader();
+    echo "<h1>Sign up</h1>";
+    echo '<link rel="stylesheet"  type="text/css" href="css/style.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet" type="text/css" />';
 
-    if (isset($_SESSION['username'])!="") {
+    if (isset($_SESSION['user'])!="") {
         echo "<h3> You are already logged in as " . $_SESSION['username'];
         echo "</br><a href='javascript:history.go(-1)'> Go Back </a>";
         echo "<form action='logout.php' method='get'>
@@ -20,7 +16,6 @@
               </form>";
     } else {
     echo '
-
     <div class="form-container">
         <form id="signup" name="signup" method="post" action="registerPage2Freelance.php">
             <label>Username: </label>
@@ -35,23 +30,15 @@
                 <label>Password Hint: </label>
                 <input type="text" name="passwordHint" class="form-control block"  data-validation="length alphanumeric" data-validation-length="min4" placeholder="Please enter a password hint">
                 <br>
-                <br>
-
-                <div class="typeChoice">
-                  <p>Please choose your account type by clicking on one of the options</p>
-                  </br>
-                  <span>Freelance: </span><input type="radio" name="accType" value="freelance" checked="checked" onfocus="freelance()">
-                  <span>Client: </span><input type="radio" name="accType" value="client" onfocus="client()"><br>
-                </div>
-                <br>
-
                 <p style="text-align: center;">Please tick the checkbox if you agree with our <a href="#">terms and conditions</a></p></br>
-                <input type="checkbox" name="tandcbox" class="skillsChk">
-
+                <input type="checkbox" name="tandcbox" style="width: 40px; margin: 0 auto; display: block;">
                 <div class="submit-wrap">
                   <br>
-                  <input type="submit" name="submit" value="Next" class="button">
-                </div>
+                  <p>Please choose your account type by clicking on one of the options</p> </br>
+                    Freelance: <input type="radio" name="accType" value="freelance" checked="checked" onfocus="freelance()">
+                    Client: <input type="radio" name="accType" value="client" onfocus="client()"><br>
+                <input type="submit" name="submit" value="Next" class="button">
+            </div>
         </div>
     </form>
     </div>
@@ -80,7 +67,7 @@
         console.log(document.signup.action);
     }
     </script>
-<?
+<?php
     echo makePageFooter();
 ?>
     </body>

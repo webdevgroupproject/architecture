@@ -4,14 +4,35 @@ echo startSession();
 require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
 echo makeHeader();
+$username = $_POST['username'];
+$password = $_POST['password'];
+$email = $_POST['Email'];
+$passHint = $_POST['passwordHint'];
+
+trim($username);
+trim($password);
+trim($passHint);
+trim($email);
+
+$username = filter_var($username, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+$password = filter_var($password, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+$passHint = filter_var($passHint, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+$passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+$_SESSION['username'] = $username;
+$_SESSION['password'] = $passwordHash;
+$_SESSION['email'] = $email;
+$_SESSION['passHint'] = $passHint;
 ?>
 
-<head>
-    <link rel="stylesheet"  type="text/css" href="css/style.css">
 
-    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css"
-rel="stylesheet" type="text/css" />
-</head>
+<link rel="stylesheet"  type="text/css" href="css/style.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css"
+          rel="stylesheet" type="text/css" />
+
 
 <br/>
 <br/>

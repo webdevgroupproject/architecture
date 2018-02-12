@@ -22,9 +22,9 @@ if (isset($_SESSION['username']) && $userType == "client") {
               $forename = $row->forename;
               $surname = $row->surname;
               $location = $row->location;
-              $organName = $row->organName;
-              $organOverview = $row->organOverview;
-              $webLink = $row->webLink;
+              $organName = $row->organisation;
+              $organOverview = $row->overview;
+              $webLink = $row->websiteLink;
             }
           }
 
@@ -45,9 +45,23 @@ if (isset($_SESSION['username']) && $userType == "client") {
     </div>
   </div>
 
-  <h3 id=\"clientDetails\">Client Details</h3>
+  <div class=\"images-container clientContainer\">
+    <h3 id=\"clientDetails\">Client Details</h3>
+    <div class=\"imageThirdContain profileThird\">
+      <h3 id=\"profileThirdPTitle\">Organisation Name</h3>
+      <p>$organName</p>
+    </div>
+    <div class=\"imageThirdContain profileThird\">
+      <h3 id=\"profileThirdPTitle\">Organisation Details</h3>
+      <p>$organOverview</p>
+    </div>
+    <div class=\"imageThirdContain profileThird\">
+      <h3 id=\"profileThirdPTitle\">Website</h3>
+      <p>$webLink</p>
+    </div>
+  </div>
 
-  <h3 id=\"activejobtitle\">My Active Job Posts</h3>
+  <h2 id=\"activejobtitle\">My Active Job Posts</h2>
   ";
   $profileJobSQL = "SELECT *
               FROM bp_job_post
