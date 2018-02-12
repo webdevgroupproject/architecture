@@ -6,7 +6,7 @@ echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint 
 echo makeHeader();
 $username = $_POST['username'];
 $password = $_POST['password'];
-$email = $_POST['Email']; 
+$email = $_POST['Email'];
 $passHint = $_POST['passwordHint'];
 
 trim($username);
@@ -23,72 +23,14 @@ $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
 $_SESSION['username'] = $username;
 $_SESSION['password'] = $passwordHash;
-$_SESSION['email'] = $email; 
-$_SESSION['passHint'] = $passHint; 
+$_SESSION['email'] = $email;
+$_SESSION['passHint'] = $passHint;
 ?>
 <html>
 <head>
     <link rel="stylesheet"  type="text/css" href="css/style.css">
     <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css"
     rel="stylesheet" type="text/css" />
-
-    <style>
-    #skillSets {
-      width: 160%;
-      margin-left: -13%;
-      margin-bottom: 20px;
-    }
-
-    .skillsChk {
-      width: 20px;
-      margin-right: 10px;
-      vertical-align: bottom;
-    }
-
-    .skillCont {
-      display: inline-block;
-      width: 31%;
-      float: left;
-      margin-bottom: 10px;
-      margin-left: 10px;
-      }
-
-    .skillCont label {
-      display: block;
-      text-indent: -25px;
-      background: linear-gradient(to left, #f9f9f9 51%, #2DC3E7 49%);
-      background-size: 200% 100%;
-      background-position:right bottom;
-      transition:all 2s ease;
-      margin-right: 10px;
-    }
-
-    .skillCont input {
-      width: 25px;
-      height: 25px;
-      padding: 0;
-      margin: 0;
-      margin-right: 15px;
-      vertical-align: bottom;
-      position: relative;
-      top: -1px;
-      *overflow: hidden;
-
-    
-}
-    .skillCont label:hover {
-      background-position:left bottom;
-    }
-
-    .form-container {
-      min-height: 100%;
-    }
-
-    .form-container h2, h3 {
-      text-align: center;
-    }
-
-    </style>
 </head>
 <body>
 <br/>
@@ -114,21 +56,21 @@ $_SESSION['passHint'] = $passHint;
         <input type="text" name="location" class="form-control block" placeholder="Please enter your current location"
                data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required"
                data-validation-help="Please enter a location">
-        
+
         <!-- Professional Background Section -->
         <h2>Professional Details</h2>
         <h3>Choose your skillsets</h3>
         <div id="skillSets">
-        <?php 
-          $sql = "SELECT * FROM bp_skill_type"; 
+        <?php
+          $sql = "SELECT * FROM bp_skill_type";
 
           $conn = databaseConn::getConnection();
 
           $stmt = $conn->query($sql);
 
           while ($skills = $stmt->fetchObject()) {
-            echo "<div class='skillCont'> 
-                    
+            echo "<div class='skillCont'>
+
                      <label><input class='skillsChk' name='skillsets[]' type='checkbox' value='$skills->skillTypeId'/>$skills->skillType</label>
                   </div>
             ";
@@ -136,7 +78,7 @@ $_SESSION['passHint'] = $passHint;
 
         ?>
       </div>
-      
+
 
         <div class="submit-wrap">
             <br>
@@ -159,5 +101,3 @@ $_SESSION['passHint'] = $passHint;
 ?>
 </body>
 </html>
-
-
