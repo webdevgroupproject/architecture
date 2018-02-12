@@ -8,15 +8,34 @@ $dbConn = databaseConn::getConnection();
 $userType = checkUserType();
 require_once('scripts/admin-stats-functions.php');
 
-if ($userType == "client") {
-    echo "
+if (isset($_SESSION['username']) && $userType == "client") {
+
+  $dbConn = databaseConn::getConnection();
+  $userId = $_SESSION['userId'];
+
+          $profileInfoSQL = "SELECT *
+                      FROM bp_user
+                      WHERE userID = '$userId'";
+
+          if ($stmt = $dbConn->query($profileInfoSQL)) {
+            $row = $stmt->fetch(PDO::FETCH_OBJ); {
+              $forename = $row->forename;
+              $surname = $row->surname;
+              $location = $row->location;
+              $organName = $row->organisation;
+              $organOverview = $row->overview;
+              $webLink = $row->websiteLink;
+            }
+          }
+
+  echo "
 
   <div class=\"profilewrapper\">
     <img class='profilebg' src=\"images/newcastlebackground.jpg\">
     <div class=\"profilebgcontent\">
       <img id=\"profilepicture\" src=\"images/profilepicture.jpg\" />
-      <h2 class=\"profilepagename\">Jodi Clark</h2>
-      <p class=\"profilepagelocation\">Newcastle upon Tyne</p>
+      <h2 class=\"profilepagename\">$forename $surname</h2>
+      <p class=\"profilepagelocation\">$location</p>
 
       <div class=\"form-container-profile\">
         <a href=\"notifications.php\" class=\"button\">Notifications</a>
@@ -26,20 +45,45 @@ if ($userType == "client") {
     </div>
   </div>
 
-  <h3 id=\"activejobtitle\">My Active Job Posts</h3>
+  <div class=\"images-container clientContainer\">
+    <h3 id=\"clientDetails\">Client Details</h3>
+    <div class=\"imageThirdContain profileThird\">
+      <h3 id=\"profileThirdPTitle\">Organisation Name</h3>
+      <p>$organName</p>
+    </div>
+    <div class=\"imageThirdContain profileThird\">
+      <h3 id=\"profileThirdPTitle\">Organisation Details</h3>
+      <p>$organOverview</p>
+    </div>
+    <div class=\"imageThirdContain profileThird\">
+      <h3 id=\"profileThirdPTitle\">Website</h3>
+      <p>$webLink</p>
+    </div>
+  </div>
 
-  <p id=\"rcorners1\">Newcastle Public House Build</p>
-  <p id=\"rcorners2\">EDIT DELETE</p>
-
-  <p id=\"rcorners1\">Landscape Request</p>
-  <p id=\"rcorners2\">EDIT DELETE</p>
-
-
-  <br>
-  <br>
-  <br>
-
+  <h2 id=\"activejobtitle\">My Active Job Posts</h2>
   ";
+  $profileJobSQL = "SELECT *
+              FROM bp_job_post
+              WHERE userID = '$userId'";
+
+  if ($stmt = $dbConn->query($profileJobSQL)) {
+    $row = $stmt->fetchAll(PDO::FETCH_OBJ);
+    $num_rows = count(row);
+
+    if ($num_rows > 0) {
+      foreach ($row as $jobs) {
+        $jobName = $jobs->jobName;
+
+        echo "
+        <p id=\"rcorners1\">$jobName</p>
+        <p id=\"rcorners2\">EDIT DELETE</p>
+        ";
+      }
+    }
+
+  }
+
 } else if ($userType == "freelancer") {
     # code...
 } else if ($userType == "admin") {
