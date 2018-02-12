@@ -1,5 +1,7 @@
 <?php
 ob_start();
+//define the number of rows to return per page
+define("ROW_PER_PAGE", 10);
 require_once('scripts/functions.php');
 echo startSession();
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Admin");
@@ -40,7 +42,6 @@ echo makeHeader();
         float: left;
         width: 400px;
     }
-
 
 
 </style>
@@ -207,7 +208,6 @@ if (isset($_POST['AdminUser'])) {
 
 if (isset($_SESSION['username']) && ($userType == "admin")) {
 
-
     echo "<h1> Maintain user roles</h1> ";
 
     echo "
@@ -229,6 +229,7 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
 
     echo "<div class=\"images - container\">
             <div class=\"imageHalfContain\">";
+
     $userNameSearch = isset($_REQUEST["userNameSearch"]) ? $_REQUEST["userNameSearch"] : null;
     $freelancer = isset($_REQUEST["freelancer"]) ? $_REQUEST["freelancer"] : null;
     $client = isset($_REQUEST["client"]) ? $_REQUEST["client"] : null;
@@ -250,7 +251,41 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
         $sqlCondition .= " and userRole = '$admin'";
     }
 
-    $sqlSearch = $query . $sqlCondition;
+    $per_page_html = '';
+    $page = 1;
+    $start = 0;
+    if (!empty($_POST["page"])) {
+        $page = $_POST["page"];
+        $start = ($page - 1) * ROW_PER_PAGE;
+    }
+    $limit = " limit " . $start . "," . ROW_PER_PAGE;
+    $pagination_statement = $dbConn->prepare($query);
+    $pagination_statement->execute();
+
+    $row_count = $pagination_statement->rowCount();
+//if there are results returned
+    if (!empty($row_count)) {
+        //add html to display the pagination links in a div to a variable
+        $per_page_html .= "<div class='pag-links'>";
+        if ($row_count > ROW_PER_PAGE) {
+            $per_page_html .= "<span style='margin-right: 10px;'>Pg</span>";
+        }
+        //divide the number of rows by the number of rows per page to get the page count
+        $page_count = ceil($row_count / ROW_PER_PAGE);
+        //if the page count is bigger than 1 show the pagination links
+        if ($page_count > 1) {
+            for ($i = 1; $i <= $page_count; $i++) {
+                if ($i == $page) {
+                    $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button pag-button-current" />';
+                } else {
+                    $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button" />';
+                }
+            }
+        }
+        $per_page_html .= "</div>";
+    }
+
+    $sqlSearch = $query . $sqlCondition . $limit;
 
     $result = $dbConn->prepare($sqlSearch);
     $result->execute();
@@ -282,8 +317,10 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
     }
 
 
-    echo " </table>
-                </div>
+    echo " </table><br><form name='frmSearch' action='' method='post'>
+        $per_page_html
+    </form>
+    </div>
 
             <div class=\"imageHalfContain\">
                 <h2 style='text-align: center; margin: 0 15% 0 0;'>Create a new admin account</h2> <br>    

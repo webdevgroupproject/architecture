@@ -45,14 +45,14 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
                   </tr>";
 
 
-                $query = "SELECT jobName, jobDesc FROM bp_job_post ";
+                $query = "SELECT jobName, jobDesc FROM bp_job_post LIMIT 4 ";
                 $result = $dbConn->prepare($query);
                 $result->execute();
                 $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
 
                 foreach ($recordSet as $row) {
 
-                echo "<tr>
+                echo "<tr>    
                         <td>$row[jobName]</td>
                         <td>$row[jobDesc]</td>
                       </tr>";
