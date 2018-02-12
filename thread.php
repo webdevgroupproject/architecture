@@ -38,7 +38,7 @@ while ($thread = $threadInfo->fetch(PDO::FETCH_ASSOC)) {
                 <div class=\"form-container\" style='width: 33%;'>
                     <form method=\"get\" action=\"addThreadMessage.php\" id='postThreadForm'>
                         <label for='postReply' style='display: none;'>Reply</label><br/>
-                        <textarea placeholder=\"Post your reply here\" style=\"max-width: 100%; width: 100%; margin-bottom: 10px;\" name=\"replyMess\" id='postReply' class=\"form-control block\" data-validation=\"required\"></textarea>
+                        <textarea placeholder=\"Post your reply here\" style=\"max-width: 100%; min-width: 100%; width: 100%; margin-bottom: 10px;\" name=\"replyMess\" id='postReply' class=\"form-control block\" data-validation=\"required\"></textarea>
                         <label for='anonymous'>Post anonymously</label>
                         <input type='text' name='threadId' style='display: none' value='".$thread['threadId']."'>
                         <input type='checkbox' name='anonymous' id='anonymous'><br>

@@ -89,24 +89,25 @@ if (isset($_SESSION['username']) && $userType == "client") {
 } else if ($userType == "admin") {
 
     echo "<br><h1> Admin statistics</h1><br/> ";
-    echo "<div class=\"thread\" style='background-color: #CFCFCF'>
-            <div class=\"images-container\">
-              <div class=\"imageThirdContain\">
-                <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
-                <p style='text-align: center'><b>Total website users: <br/>$totalNumberUsers</b></p>
+    echo "
+        <div class='filterBar'>
+            <div class=\"imageThirdContain\">
+                <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
+                <p style='text-align: center'><b>Total website users: <br/> $totalNumberUsers</b></p>
               </div>
               <div class=\"imageThirdContain\">
-              <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
+              <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center' ><b>Total active jobs <br/> $numberOfJobs</b></p>
               </div>
               <div class=\"imageThirdContain\">
-              <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
+              <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center'><b>Total premium users <br/> $proUsers</b></p>
               </div>
-            </div>
-        </div>";
-    echo "<div class=\"images-container\">
-            <div class=\"imageHalfContain\">
+            <div class='clear'></div>
+        </div>"; // end of filter bar
+
+    echo "<div class=\"images-container\" style='width:95%'>
+            <div class=\"imageHalfContain\" style='margin-left:5%; width:45%'>
             <h2>Admin functionality</h2>
                <p style='text-align:justify'>
                The admin functionality will allow you to find out some relevant information regarding the useage of the website
@@ -127,7 +128,7 @@ if (isset($_SESSION['username']) && $userType == "client") {
                 <a href='admin-freelancer-statistics.php' class='button'>Freelancer statistics</a>
             </div>
 
-            <div class=\"imageHalfContain\">
+            <div class=\"imageHalfContain\" style='margin-left:5%; width:45%'>
                 <h2>Daily statistics for all user types</h2>
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>Number of new users</h3>

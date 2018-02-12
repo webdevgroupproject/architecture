@@ -1,4 +1,3 @@
-
 <?php
 ob_start();
 require_once('scripts/functions.php');
@@ -12,6 +11,39 @@ echo makeHeader();
         return confirm('are you sure you would like to delete?');
     }
 </script>
+<style>
+
+
+    .refine-box {
+        float: right;
+        width: 400px;
+        display: inline-block;
+        position: relative;
+
+    }
+
+    .imageHalfContain {
+        width: 45%;
+        margin-left: 5%;
+    }
+
+    .anonymous {
+        height: auto;
+        width: auto;
+        margin: 5%;
+    }
+
+    .search-box {
+        position: relative;
+        display: inline-block;
+        font-size: 14px;
+        float: left;
+        width: 400px;
+    }
+
+
+
+</style>
 <?php
 $userType = checkUserType();
 $username = $_SESSION['username'];
@@ -19,6 +51,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $dbConn = databaseConn::getConnection();
+
 if (isset($_POST['AdminUser'])) {
     $forename = isset($_REQUEST["forename"]) ? $_REQUEST["forename"] : null;
     $surname = isset($_REQUEST["surname"]) ? $_REQUEST["surname"] : null;
@@ -151,7 +184,7 @@ if (isset($_POST['AdminUser'])) {
           <p><b>Email address: $emailAddress</b></p>
           <p><b>password: $password</b></p>
           <p>once you have logged into your account, change your password and check that all information that we have submitted to your account is correct using the edit profile section of the website.</p>
-          <p>If you require any assitaince , contact us on admin@blueprint.com</p>
+          <p>If you require any assistance , contact us on admin@blueprint.com</p>
           
           <p>Kind regards, Blueprint</p>
         </body>
@@ -177,9 +210,57 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
 
     echo "<h1> Maintain user roles</h1> ";
 
-    echo "<div class=\"images-container\">
-            <div class=\"imageHalfContain\">
-                <table id=\"customers\">
+    echo "
+        <div class='filterBar'>";
+
+    echo "<form action='maintain-roles.php' method='post'>
+            <div class='search-box'>
+                <input type=\"text\" name='userNameSearch' style='width: 300px;' autocomplete=\"off\" placeholder=\"Search users...\" />
+                <button type='submit' name='searchUser'><i class=\"material-icons\">search</i></button>
+            </div>
+            <div class='refine-box'>
+                <label for='anonymous'>Freelancer</label><input type='checkbox' name='freelancer' class='anonymous' value='freelancer'>
+                <label for='anonymous'>Client</label><input type='checkbox' name='client' class='anonymous' value='client'>
+                <label for='anonymous'>Admin</label><input type='checkbox' name='admin' class='anonymous' value='admin'>
+            </div>
+            </form>
+            <div class='clear'></div>
+        </div>"; // end of filter bar
+
+    echo "<div class=\"images - container\">
+            <div class=\"imageHalfContain\">";
+    $userNameSearch = isset($_REQUEST["userNameSearch"]) ? $_REQUEST["userNameSearch"] : null;
+    $freelancer = isset($_REQUEST["freelancer"]) ? $_REQUEST["freelancer"] : null;
+    $client = isset($_REQUEST["client"]) ? $_REQUEST["client"] : null;
+    $admin = isset($_REQUEST["admin"]) ? $_REQUEST["admin"] : null;
+
+    $query = "SELECT userId, username, userRole FROM bp_user  where 1 ";
+
+    $sqlCondition = '';
+    if (!empty($userNameSearch)) {
+        $sqlCondition .= " and username LIKE '%$userNameSearch%'";
+    }
+    if (!empty($freelancer)) {
+        $sqlCondition .= " and userRole = '$freelancer'";
+    }
+    if (!empty($client)) {
+        $sqlCondition .= " and userRole = '$client'";
+    }
+    if (!empty($admin)) {
+        $sqlCondition .= " and userRole = '$admin'";
+    }
+
+    $sqlSearch = $query . $sqlCondition;
+
+    $result = $dbConn->prepare($sqlSearch);
+    $result->execute();
+    $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
+    $numRows = $result->rowCount();
+
+    if ($numRows > 0) {
+
+
+        echo "<table id=\"customers\">
                   <tr>
                     <th>Username</th>
                     <th>User role</th>
@@ -187,27 +268,25 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
                     <th>Suspend</th>
                    
                   </tr>";
-
-    $query = "SELECT userId, username, userRole FROM bp_user order by username";
-    $result = $dbConn->prepare($query);
-    $result->execute();
-    $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
-
-    foreach ($recordSet as $row) {
-        $userID = $row['userId'];
-        echo "<tr>
-                        <td>$row[username]</td>
-                        <td>$row[userRole]</td>
-                        <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
-                        <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
-                      </tr>";
+        foreach ($recordSet as $row) {
+            $userID = $row['userId'];
+            echo "<tr>
+                <td>$row[username]</td>
+                <td>$row[userRole]</td>
+                <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
+                <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
+              </tr>";
+        }
+    } else {
+        echo "There are no users found";
     }
 
-    echo" </table>
+
+    echo " </table>
                 </div>
 
             <div class=\"imageHalfContain\">
-                <h2 style='text-align: center; margin: 0;'>Create a new admin account</h2>
+                <h2 style='text-align: center; margin: 0 15% 0 0;'>Create a new admin account</h2> <br>    
                 <div class=\"form-container\">
                     <form method=\"POST\" action=\"maintain-roles.php\" id='test' >
                         <label>Forename: </label>
@@ -234,4 +313,5 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
 
 echo makePageFooter();
 ?>
+
 

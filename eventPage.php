@@ -128,8 +128,13 @@ while ($indvEvent = $stmt->fetchObject()) {
 
                             }
                             /* No rows matched -- do something else */
-                            else {
+                            elseif ($spacesLeft <= 0) {
 
+                                echo "<p>This event is fully booked</p> ";
+                                if ($userType == "admin") {
+                                    echo "<a href = 'ManageEventForm.php?eventid=" . $eventId . "' class='button'>Manage</a>";
+                                }
+                            }else{
                                 echo "<a href='#myModal' class='button' id=\"modalButton\">Register</a> ";
                                 if ($userType == "admin") {
                                     echo "<a href = 'ManageEventForm.php?eventid=" . $eventId . "' class='button'>Manage</a>";

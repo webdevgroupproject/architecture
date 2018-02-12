@@ -14,26 +14,27 @@ require_once('scripts/admin-stats-functions.php');
 if (isset($_SESSION['username']) && ($userType == "admin")) {
 
     echo "<br><h1> Freelancer statistics</h1><br/> ";
-    echo "<div class=\"thread\" style='background-color: #CFCFCF'>
-            <div class=\"images-container\">
-              <div class=\"imageThirdContain\">
-                <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
-                <p style='text-align: center'><b>Total number of freelancer users <br/> $freelancerUsers</b></p>
+
+    echo "
+        <div class='filterBar'>
+            <div class=\"imageThirdContain\">
+                <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
+                <p style='text-align: center'><b>Total number of freelancer users: <br/> $freelancerUsers</b></p>
               </div>
               <div class=\"imageThirdContain\">
-              <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
-                <p style='text-align: center' ><b>Total number of jobs accepted by freelancers <br/> $numFreelancerJobsAccepted</b></p>
+              <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
+                <p style='text-align: center' ><b>Total number of jobs accepted by freelancers: <br/> $numFreelancerJobsAccepted</b></p>
               </div>
               <div class=\"imageThirdContain\">
-              <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br><br><br>
-                <p style='text-align: center'><b>Total number of premium freelancer users <br/> $proUsersFreelancer</b></p>
+              <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br>
+                <p style='text-align: center'><b>Total number of premium freelancer users: <br/> $proUsersFreelancer</b></p>
               </div>
-            </div>
-        </div>";
+            <div class='clear'></div>
+        </div>"; // end of filter bar
 
 
-    echo "<div class=\"images-container\">
-            <div class=\"imageHalfContain\">
+    echo "<div class=\"images-container\" style='width:95%'>
+            <div class=\"imageHalfContain\" style='margin-left:5%; width:45%'>
                 <h2>Description of latest jobs accepted</h2>
                 <table id=\"customers\">
                   <tr>
@@ -58,7 +59,7 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
     echo " </table>
                 </div>
 
-            <div class=\"imageHalfContain\">
+            <div class=\"imageHalfContain\" style='margin-left:5%; width:45%'>
                 <h2>Daily statistics</h2>
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>Total number of freelancer users</h3>
