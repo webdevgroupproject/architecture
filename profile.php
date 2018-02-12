@@ -69,7 +69,7 @@ if (isset($_SESSION['username']) && $userType == "client") {
 
   if ($stmt = $dbConn->query($profileJobSQL)) {
     $row = $stmt->fetchAll(PDO::FETCH_OBJ);
-    $num_rows = count(row);
+    $num_rows = count($row);
 
     if ($num_rows > 0) {
       foreach ($row as $jobs) {

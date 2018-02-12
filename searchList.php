@@ -30,16 +30,27 @@ if (isset($searchChoice)){
 
     echo "
       <h1>Search results</h1>
-      <div class='filterBar'>
-        <fieldset>
-          <input type='checkbox' id='filterA-Z' name='filterA-Z' value='A-Z'/>
-          <label for='filterA-Z'>A to Z</label>
-          <input type='checkbox' id='filterHourly' name='filterHourly' value='Hourly'/>
-          <label for='filterHourly'>By £/hour</label>
-          <input type='checkbox' id='filterRole' name='filterRole' value='Role'/>
-          <label for='filterRole'>By role</label>
-          <input type='checkbox' id='filterSkill' name='filterSkill' value='Skill'/>
-          <label for='filterSkill'>By skill</label>
+      <div class='searchFilter'>
+        <form>
+          <legend>Filters</legend>
+          <span>
+            <input type='radio' id='filterA-Z' name='filterA-Z' value='A-Z'/>
+            <label for='filterA-Z'>A to Z</label>
+          </span>
+          <span>
+            <input type='radio' id='filterHourly' name='filterHourly' value='Hourly'/>
+            <label for='filterHourly'>By £/hour</label>
+          </span>
+          <span>
+            <input type='radio' id='filterRole' name='filterRole' value='Role'/>
+            <label for='filterRole'>By role</label>
+          </span>
+          <span>
+            <input type='radio' id='filterSkill' name='filterSkill' value='Skill'/>
+            <label for='filterSkill'>By skill</label>
+          </span>
+          <input type='submit' class='button'>
+        </form>
       </div>
     ";
 
@@ -47,20 +58,30 @@ if (isset($searchChoice)){
      $srows = $searchstmt->fetchAll(PDO::FETCH_OBJ);
      $snum_rows = count($srows);
      echo "
-       <div>
+       <div class='searchResults'>
      ";
 
      if ($snum_rows > 0) {
        foreach ($srows as $listing) {
          $forename = $listing->forename;
          $surname = $listing->surname;
-         $email = $listing->surname;
+         $email = $listing->email;
+         $profilePic = $listing->image;
+
+         if ($listing->pro == 1) {
+           $pro = "star";
+         } else {
+           $pro = "";
+         }
 
          echo "
-           <div>
-             <img src=''/>
-             <h2>$forename $surname</h2>
-             <p>$email</p>
+           <div class='flSearch'>
+             <img src=$profilePic/>
+             <span class='heading'>
+                <h2>$forename $surname</h2>
+                <i class=\"material-icons\">$pro</i>
+              </span>
+             <p>Email: $email</p>
            </div>
          ";
        }
@@ -81,7 +102,7 @@ if (isset($searchChoice)){
      $srows = $searchstmt->fetchAll(PDO::FETCH_OBJ);
      $snum_rows = count($srows);
      echo "
-       <div>
+       <div class='searchResults'>
      ";
 
      if ($snum_rows > 0) {
@@ -94,7 +115,7 @@ if (isset($searchChoice)){
          $date = $listing->dateAdded;
 
          echo "
-           <div>
+           <div class='jSearch'>
              <img src=''/>
              <h2>$name</h2>
              <p>$desc</p>
