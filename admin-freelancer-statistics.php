@@ -64,26 +64,26 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>Total number of freelancer users</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>$numberOfUserstoday <br/> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$freelancerusersTodayCount <br/> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' ><b>$numberOfUsers7days <br/> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' ><b>$freelancerUsers7daysCount <br/> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>$numberOfUsers30Days <br/> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$freelancerUsers30DaysCount <br/> This month</b></p>
                   </div>
                 </div>
                 
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>Total number of jobs accepted by freelancers</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>$jobAcceptedToday <br/> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$freelancerJobAcceptTodayCount <br/> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' ><b>$jobAccepted7days <br/> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' ><b>$freelancerJobAccept7daysCount <br/> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>$jobAccepted30ays <br/> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$freelancerJobAccept30daysCount <br/> This month</b></p>
                   </div>
                 </div>
             </div>";
