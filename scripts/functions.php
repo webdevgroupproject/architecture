@@ -117,7 +117,7 @@ function makePageFooter(){
     $makePageFooter = <<<FOOTER
     </main>
 		<footer>
-				
+
 				<ul class="clearfix">
 				    <li>
 					    <a href="index.php">Home</a>
@@ -155,10 +155,9 @@ FOOTER;
 
 function startSession(){
 
-
     //ini_set("session.save_path", "/Applications/MAMP/sessionData");
-    ini_set("session.save_path", "/xampp1/sessionData");
-
+    //ini_set("session.save_path", "/xampp1/sessionData");
+		ini_set("session.save_path", "/xampp/sessionData");
     session_start();
 };
 
@@ -210,12 +209,12 @@ function notLoggedRedirect(){
     header('Location: http://localhost/architecture/index.php');
 };
 
-function removeNotif($notifID){
+function addNotification($userID){
     require_once ('classes/databaseConn.php');
     $dbConn = databaseConn::getConnection();
 
-    $notifDLT = "DELETE FROM `bp_notification`
-    WHERE `bp_notification`.`notificationID` = $notifID";
+    $notifDLT = "INSERT INTO bp_notification (notificationID, userID, link, time, date, markRead, messageID, jobID, jobAcceptID)
+    VALUES ()";
 
     if ($dbConn->query($notifDLT) === TRUE) {
 
