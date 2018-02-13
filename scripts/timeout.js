@@ -24,10 +24,6 @@ $(function()
             sessionStorage.removeItem("lastTimeStamp");
             window.location = "./logout.php";
             return false;
-        }else
-        {
-            //JUST ADDED AS A VISUAL CONFIRMATION
-            console.log(currentTime +" - "+ pastTime+" - "+minPast+" min past");
         }
     }
 
@@ -43,4 +39,4 @@ $(function()
     }
 });//END JQUERY
 
-// https://www.youtube.com/watch?v=m930dkSCjrk
+// (https://www.youtube.com/watch?v=m930dkSCjrk)
