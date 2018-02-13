@@ -1,20 +1,22 @@
 <?php
-    require_once ('scripts/functions.php');
-    echo startSession();
-    require_once ('classes/databaseConn.php');
-    echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
-    echo makeHeader();
-    echo "<h1>Sign up</h1>";
-    echo '<link rel="stylesheet"  type="text/css" href="css/style.css">
+require_once ('scripts/functions.php');
+
+echo startSession();
+require_once ('classes/databaseConn.php');
+
+echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
+echo makeHeader();
+echo '<link rel="stylesheet"  type="text/css" href="css/style.css">
     <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet" type="text/css" />';
 
-    if (isset($_SESSION['user'])!="") {
-        echo "<h3> You are already logged in as " . $_SESSION['username'];
-        echo "</br><a href='javascript:history.go(-1)'> Go Back </a>";
-        echo "<form action='logout.php' method='get'>
+if (isset($_SESSION['user']) != "") {
+    echo "<h3> You are already logged in as " . $_SESSION['username'];
+    echo "</br><a href='javascript:history.go(-1)'> Go Back </a>";
+    echo "<form action='logout.php' method='get'>
               <input type='submit' value='Logout'>
               </form>";
-    } else {
+}
+else {
     echo '
     <div class="form-container">
         <form id="signup" name="signup" method="post" action="registerPage2Freelance.php">
@@ -29,26 +31,25 @@
                 <input type="password" name="confirmpassword" class="form-control block"  data-validation="alphanumeric" placeholder="Please confirm your password">
                 <label>Password Hint: </label>
                 <input type="text" name="passwordHint" class="form-control block"  data-validation="length alphanumeric" data-validation-length="min4" placeholder="Please enter a password hint">
-                <br>
-                <p style="text-align: center;">Please tick the checkbox if you agree with our <a href="#">terms and conditions</a></p></br>
-                <input type="checkbox" name="tandcbox" style="width: 40px; margin: 0 auto; display: block;">
+                <br />
+
                 <div class="submit-wrap">
-                  <br>
-                  <p>Please choose your account type by clicking on one of the options</p> </br>
-                    Freelance: <input type="radio" name="accType" value="freelance" checked="checked" onfocus="freelance()">
-                    Client: <input type="radio" name="accType" value="client" onfocus="client()"><br>
-                <input type="submit" name="submit" value="Next" class="button">
+                    <br />
+                    <p>Please choose your account type by clicking on one of the options</p> </br>
+                    Freelance: <input type="radio" name="accType[]" value="freelancer" checked="checked" onfocus="freelance()">
+                    Client: <input type="radio" name="accType[]" value="client" onfocus="client()"><br />
+                    <p style="text-align: center;">Please tick the checkbox if you agree with our <a href="#">terms and conditions</a></p></br>
+                    <input type="checkbox" name="tandcbox" style="width: 30px; margin: 0 auto; display: block;" required>                    
+                    <input type="submit" name="submit" value="Next" class="button">
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
     </div>
-    ';}
+    ';
+};
+
 ?>
-    <br>
     <p style="text-align: center">Already have an account? <a href="login.php">Click here</a></p>
-    <br>
-    <br>
-    <br>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
@@ -58,17 +59,15 @@
     });
         console.log(document.signup.action);
      function client() {
-        document.signup.action = "registerPage2Client.php";
+        document.signup.action = "registerPage2Client.php"; 
         console.log(document.signup.action);
     }
 
      function freelance() {
-        document.signup.action = "registerPage2Freelance.php";
+        document.signup.action = "registerPage2Freelance.php"; 
         console.log(document.signup.action);
     }
     </script>
 <?php
     echo makePageFooter();
 ?>
-    </body>
-</html>
