@@ -8,7 +8,7 @@ echo makeHeader();
 
       <div class="home-banner">
         <div class="banner-text">
-          <h2>Join the UK's Leading Arhcitecture Community</h2>
+          <h2>Join the UK's Leading Architecture Community</h2>
           <p class="tagline" style="text-align: left;">Post your projects and search for freelancers or sign up as a freelancer and take on the latest architecture jobs.</p>
           <a href="registerPage1.php" class="button">Get started</a>
         </div>

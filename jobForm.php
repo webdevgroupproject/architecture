@@ -44,7 +44,7 @@ echo makeHeader();
                   <legend><h3>Rates and Availability</h3></legend>
 
                   <label>How would you like to pay: </label>
-                  <input type="text" name="payMethod" class="form-control block" placeholder="Optional: Enter your organisation name"
+                  <input type="text" name="payMethod" class="form-control block" placeholder="Example: Weekly"
                          data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
 
                   <label>Budget: </label>
@@ -52,10 +52,12 @@ echo makeHeader();
                     <option value="fixedPrice">Fixed Price</option>
                     <option value="hourlyProject">Hourly Project</option>
                   </select>
+                  <br>
+                  <br>
 
                   <label>Job Duration: </label>
                   <input type="text" name="jobDuration" class="form-control block" placeholder="Example: 6 Months"
-                         data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+                         data-validation-length="min4 data" data-validation="required">
 
               </fieldset>
 
@@ -72,6 +74,8 @@ echo makeHeader();
                     <option value="dateFlexYes">Yes</option>
                     <option value="dateFlexNo">No</option>
                   </select>
+                  <br>
+                  <br>
 
                   <label>End Date: </label>
                   <input type="date" name="endDate" class="form-control block" placeholder="Example: 20/02/19"

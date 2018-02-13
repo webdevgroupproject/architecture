@@ -1212,7 +1212,6 @@ legend h2{
 .search-box input{
     margin:0;
 }
-<<<<<<< HEAD
 
 /* Profile Page Styling */
 
@@ -1242,5 +1241,78 @@ legend h2{
   padding-top: 25px;
   font-size: 30px;
  }
-=======
->>>>>>> master
+
+ /* Job Boxes on Profile Page */
+
+ .jobBox {
+   width: 20%;
+   height: 350px;
+   background-color: #FFF;
+   box-shadow: 5px 5px 5px #ccc;
+   box-sizing: border-box;
+   margin: 20px 5% 5% 0;
+   float: left;
+ }
+
+ .jobBox img {
+   width: 100%;
+   height: 150px;
+   background-color: #CCC;
+   box-sizing: border-box;
+ }
+
+ .jobBoxBody{
+   height: 130px;
+   overflow: hidden;
+ }
+
+ .jobBoxHeading {
+   margin: 10px;
+   width: 90%;
+   border-bottom: 1px solid #CCC;
+   display: inline-block;
+ }
+
+ .jobBoxHeading h2 {
+   font-size: 18px;
+   float: left;
+   margin: 0 5px 0 5px;
+   line-height: 1.4;
+ }
+
+ .jobBoxHeading i {
+   float: left;
+   width: 10%;
+   margin-bottom: 5px;
+   color: #2DC3E7;
+ }
+
+ .jobBox p {
+   font-size: 14px;
+   margin: 0 5%;
+   width: 90%;
+ }
+
+ .jobBoxButtons input[type="submit"] {
+   margin: 0;
+   width: auto;
+   height: auto;
+   padding: 5px 10px;
+ }
+
+ .jobBoxButtons form {
+   width: auto;
+   margin: 10px 5%;
+   float: left;
+ }
+
+.jobBoxContainer {
+   width: 80%;
+   margin: 0 10%;
+   padding-bottom: 20px;
+   float: left;
+}
+
+#jobPostEcho {
+  text-align: center;
+}

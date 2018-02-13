@@ -63,24 +63,64 @@ if (isset($_SESSION['username']) && $userType == "client") {
 
   <h2 id=\"activejobtitle\">My Active Job Posts</h2>
   ";
+
+  echo "
+
+  <div class=\"jobBoxContainer\">
+  ";
+
+
   $profileJobSQL = "SELECT *
               FROM bp_job_post
               WHERE userID = '$userId'";
 
   if ($stmt = $dbConn->query($profileJobSQL)) {
     $row = $stmt->fetchAll(PDO::FETCH_OBJ);
-    $num_rows = count(row);
+    $num_rows = count($row);
 
     if ($num_rows > 0) {
       foreach ($row as $jobs) {
         $jobName = $jobs->jobName;
+        $jobLoc = $jobs->jobLoc;
+        $startDate = $jobs->startDate;
+        $endDate = $jobs->endDate;
+        $jobPostID = $jobs->jobPostID;
 
         echo "
-        <p id=\"rcorners1\">$jobName</p>
-        <p id=\"rcorners2\">EDIT DELETE</p>
+
+        <div class=\"jobBox\">
+          <img src=$profilePic/>
+          <div class=\"jobBoxBody\">
+            <span class=\"jobBoxHeading\">
+              <h2>$jobName</h2>
+            </span>
+            <p>Location: $jobLoc</p>
+            <p>Start date: $startDate</p>
+            <p>End date: $endDate</p>
+          </div>
+          <div class=\"jobBoxButtons\">
+          <form method='GET' action='editJob.php'>
+            <input type='text' style='display:none;' name='jobPostID' value='$jobPostID'/>
+            <input type=\"submit\" class=\"button\" value=\"Edit\"/>
+          </form>
+            <form method='GET' style=\"float: right !important;\"  action='jobDelete.php'>
+              <input type='text' style='display:none;' name='jobPostID' value='$jobPostID'/>
+              <input type=\"submit\" class=\"button\" value=\"Delete\"/>
+            </form>
+          </div>
+        </div>
         ";
       }
     }
+    else {
+      echo "
+      <p id=\"jobPostEcho\">No jobs have been posted yet</p>
+      ";
+    }
+
+    echo "
+      </div>
+    ";
 
   }
 

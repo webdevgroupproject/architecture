@@ -12,6 +12,8 @@ $jobLocation = $_POST['jobLocation'];
 $payMethod = $_POST['payMethod'];
 $budgetType = $_POST['budgetType'];
 $jobDuration = $_POST['jobDuration'];
+$startDate = $_POST['startDate'];
+$endDate = $_POST['endDate'];
 
 $jobName = filter_var($jobName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 $workDesc = filter_var($workDesc, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);

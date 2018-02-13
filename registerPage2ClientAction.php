@@ -5,6 +5,11 @@ require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Create account");
 echo makeHeader();
 
+$username = $_SESSION['regUsername'];
+$password = $_SESSION['password'];
+$passHint = $_SESSION['passHint'];
+$accType = $_SESSION['accType'];
+$email = $_SESSION['email'];
 $forename = $_SESSION['forename'];
 $surname = $_POST['surname'];
 $location = $_POST['location'];
@@ -19,26 +24,29 @@ $organName = filter_var($organName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCOD
 $organOverview = filter_var($organOverview, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 $webLink = filter_var($webLink, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-$forename = filter_var($forename, FILTER_SANITIZE_SPECIAL_CHARS);
-$surname = filter_var($surname, FILTER_SANITIZE_SPECIAL_CHARS);
-$location = filter_var($location, FILTER_SANITIZE_SPECIAL_CHARS);
-$organName = filter_var($organName, FILTER_SANITIZE_SPECIAL_CHARS);
-$organOverview = filter_var($organOverview, FILTER_SANITIZE_SPECIAL_CHARS);
-$webLink = filter_var($webLink, FILTER_SANITIZE_SPECIAL_CHARS);
+// $forename = filter_var($forename, FILTER_SANITIZE_SPECIAL_CHARS);
+// $surname = filter_var($surname, FILTER_SANITIZE_SPECIAL_CHARS);
+// $location = filter_var($location, FILTER_SANITIZE_SPECIAL_CHARS);
+// $organName = filter_var($organName, FILTER_SANITIZE_SPECIAL_CHARS);
+// $organOverview = filter_var($organOverview, FILTER_SANITIZE_SPECIAL_CHARS);
+// $webLink = filter_var($webLink, FILTER_SANITIZE_SPECIAL_CHARS);
 
 trim($forename);
 trim($surname);
-trim($location);
-trim($organName);
 trim($organOverview);
-trim($webLink);
 
 $dbConn = databaseConn::getConnection();
+
 $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$addJobSql = "INSERT INTO bp_user (userID, jobName, jobDesc, jobLoc, payMethod, budget, duration, startDate, endDate)
-                VALUES ('$userID', '$jobName', '$workDesc', '$jobLocation', '$payMethod', '$budgetType', '$jobDuration', '$startDate', '$endDate' )";
+
+$addUserSql = "INSERT INTO bp_user(forename, surname, email, username, password, overview, organisation, websiteLink, userRole)
+                VALUES ('$forename', '$surname', '$email', '$username', '$password', '$organOverview', '$organName', '$webLink', '$accTypeValue')";
 // use exec() because no results are returned
 $dbConn->exec($addJobSql);
+
+$getUserID = $dbConn->prepare("SELECT userId FROM bp_user ORDER BY userId DESC LIMIT 1");
+$getUserID->execute();
+$userID = $getUserID->fetchObject();
 
 header ('location: jobPostConfirm.php');
 

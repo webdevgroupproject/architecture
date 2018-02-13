@@ -1,4 +1,4 @@
-<?php
+<?php<?php
 require_once ('scripts/functions.php');
 echo startSession();
 require_once ('classes/databaseConn.php');
@@ -21,25 +21,36 @@ if (isset($searchChoice)){
     } else {
       $searchSQL = "SELECT *
                FROM bp_user
-               WHERE forname LIKE '%$search%'
+               WHERE forename LIKE '%$search%'
                OR surname LIKE '%$search%'
                OR email LIKE '%$search%'
                AND userRole = '$searchChoice'
-               order by forname ASC";
+               ORDER BY forename ASC";
     }
 
     echo "
       <h1>Search results</h1>
-      <div class='filterBar'>
-        <fieldset>
-          <input type='checkbox' id='filterA-Z' name='filterA-Z' value='A-Z'/>
-          <label for='filterA-Z'>A to Z</label>
-          <input type='checkbox' id='filterHourly' name='filterHourly' value='Hourly'/>
-          <label for='filterHourly'>By £/hour</label>
-          <input type='checkbox' id='filterRole' name='filterRole' value='Role'/>
-          <label for='filterRole'>By role</label>
-          <input type='checkbox' id='filterSkill' name='filterSkill' value='Skill'/>
-          <label for='filterSkill'>By skill</label>
+      <div class='searchFilter'>
+        <form>
+          <legend>Filters</legend>
+          <span>
+            <input type='radio' id='filterA-Z' name='filterA-Z' value='A-Z'/>
+            <label for='filterA-Z'>A to Z</label>
+          </span>
+          <span>
+            <input type='radio' id='filterHourly' name='filterHourly' value='Hourly'/>
+            <label for='filterHourly'>By £/hour</label>
+          </span>
+          <span>
+            <input type='radio' id='filterRole' name='filterRole' value='Role'/>
+            <label for='filterRole'>By role</label>
+          </span>
+          <span>
+            <input type='radio' id='filterSkill' name='filterSkill' value='Skill'/>
+            <label for='filterSkill'>By skill</label>
+          </span>
+          <input type='submit' class='button'>
+        </form>
       </div>
     ";
 
@@ -47,20 +58,42 @@ if (isset($searchChoice)){
      $srows = $searchstmt->fetchAll(PDO::FETCH_OBJ);
      $snum_rows = count($srows);
      echo "
-       <div>
+       <div class='searchResults'>
      ";
 
      if ($snum_rows > 0) {
        foreach ($srows as $listing) {
          $forename = $listing->forename;
          $surname = $listing->surname;
-         $email = $listing->surname;
+         $email = $listing->email;
+         $profilePic = $listing->image;
+         $org = $listing->organisation;
+         $local = $listing->location;
+         $oView = $listing->overview;
+
+         if ($listing->pro == 1) {
+           $pro = "star";
+         } else {
+           $pro = "";
+         }
 
          echo "
-           <div>
-             <img src=''/>
-             <h2>$forename $surname</h2>
-             <p>$email</p>
+            <div class='flSearch'>
+              <img src=$profilePic/>
+              <div class='listing-body'>
+                <span class='heading'>
+                  <h2>$forename $surname</h2>
+                  <i class=\"material-icons\">$pro</i>
+                </span>
+                <p>Email: $email</p>
+                <p>Organisation: $org</p>
+                <p>Location: $local</p>
+                <p>Description: $oView</p>
+              </div>
+              <div class='listing-buttons'>
+                <input type='submit' class='button' href='profile.php' value='View'/>
+                <input type='submit' style='float: right;' class='button' value='Message'/>
+              </div>
            </div>
          ";
        }
@@ -75,13 +108,37 @@ if (isset($searchChoice)){
              WHERE jobName LIKE '%$search%'
              order by jobName ASC";
 
-    echo "<h1>Search results</h1>";
+    echo "
+      <h1>Search results</h1>
+      <div class='searchFilter'>
+        <form>
+          <legend>Filters</legend>
+          <span>
+            <input type='radio' id='filterA-Z' name='filterA-Z' value='A-Z'/>
+            <label for='filterA-Z'>A to Z</label>
+          </span>
+          <span>
+            <input type='radio' id='filterHourly' name='filterHourly' value='Hourly'/>
+            <label for='filterHourly'>By £/hour</label>
+          </span>
+          <span>
+            <input type='radio' id='filterRole' name='filterRole' value='Role'/>
+            <label for='filterRole'>By role</label>
+          </span>
+          <span>
+            <input type='radio' id='filterSkill' name='filterSkill' value='Skill'/>
+            <label for='filterSkill'>By skill</label>
+          </span>
+          <input type='submit' class='button'>
+        </form>
+      </div>
+    ";
 
     if ($searchstmt = $dbConn->query($searchSQL)) {
      $srows = $searchstmt->fetchAll(PDO::FETCH_OBJ);
      $snum_rows = count($srows);
      echo "
-       <div>
+       <div class='searchResults'>
      ";
 
      if ($snum_rows > 0) {
@@ -94,12 +151,12 @@ if (isset($searchChoice)){
          $date = $listing->dateAdded;
 
          echo "
-           <div>
+           <div class='jSearch'>
              <img src=''/>
              <h2>$name</h2>
-             <p>$desc</p>
-             <p>$location</p>
-             <p>$duration</p>
+             <p>Job description: $desc</p>
+             <p>Location: $location</p>
+             <p>Duration: $duration</p>
            </div>
          ";
        }

@@ -4,10 +4,12 @@ echo startSession();
 require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
 echo makeHeader();
+
 $username = $_POST['username'];
 $password = $_POST['password'];
 $email = $_POST['Email'];
 $passHint = $_POST['passwordHint'];
+$accType = $_POST['accType'];
 
 trim($username);
 trim($password);
@@ -27,18 +29,16 @@ $_SESSION['email'] = $email;
 $_SESSION['passHint'] = $passHint;
 ?>
 
-
 <link rel="stylesheet"  type="text/css" href="css/style.css">
 
 <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css"
-          rel="stylesheet" type="text/css" />
-
+      rel="stylesheet" type="text/css" />
 
 <br/>
 <br/>
 <h1>Client Sign up Details</h1>
 <div class="form-container">
-    <form method="get" class="login-form" action="Create-Account-Page-2-Client.php">
+    <form method="get" class="login-form" action="accountType.php">
 
         <!-- Personal Details Section -->
         <fieldset>
@@ -74,8 +74,7 @@ $_SESSION['passHint'] = $passHint;
 
             <label>Website Link: </label>
             <input type="text" name="webLink" class="form-control block" placeholder="Optional: Enter your organisation name"
-                   data-validation="length alphanumeric" data-validation-length="min4 data"
-                   data-validation="required">
+                   data-validation-length="min4 data" data-validation="required">
 
         </fieldset>
 
