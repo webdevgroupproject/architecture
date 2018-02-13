@@ -56,12 +56,10 @@ $getUserID = $dbConn->prepare("SELECT userId FROM bp_user ORDER BY userId DESC L
 $getUserID->execute();
 $userID = $getUserID->fetchObject();
 
-
-
 echo "<h1>Success!</h1>" .
      "<div id=\"jobConfirmContent\">" .
      "<p>Your job has been successfully posted for others to see. You can now edit and review your posting from your profile page.</p>" .
      "<a href=\"profile.php\" class=\"button\">Return to your profile</a>" .
      "</div>";
-     
+
 echo makePageFooter();

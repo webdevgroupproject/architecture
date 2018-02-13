@@ -8,16 +8,21 @@ echo makeHeader();
 $search = filter_has_var(INPUT_GET, 'searchInput') ? $_GET['searchInput'] : null;
 $searchChoice = filter_has_var(INPUT_GET, 'searchChoice') ? $_GET['searchChoice'] : null;
 $search = filter_var($search, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+$filter = filter_has_var(INPUT_GET, 'filter') ? $_GET['filter'] : '';
 
 $dbConn = databaseConn::getConnection();
 $userType = checkUserType();
 $pro = checkProStatus();
 if (isset($searchChoice)){
   if ($searchChoice == 'freelancer' || $searchChoice == 'client') {
+    if ($filter == '') {
+      $filter = 'pro DESC';
+    }
     if (empty($search)) {
       $searchSQL = "SELECT *
               FROM bp_user
-              WHERE userRole = '$searchChoice'";
+              WHERE userRole = '$searchChoice'
+              ORDER BY  $filter";
     } else {
       $searchSQL = "SELECT *
                FROM bp_user
@@ -25,31 +30,37 @@ if (isset($searchChoice)){
                OR surname LIKE '%$search%'
                OR email LIKE '%$search%'
                AND userRole = '$searchChoice'
-               ORDER BY forename ASC";
+               ORDER BY $filter";
     }
 
     echo "
       <h1>Search results</h1>
       <div class='searchFilter'>
-        <form>
+        <form method='get' action='searchList.php'>
           <legend>Filters</legend>
           <span>
-            <input type='radio' id='filterA-Z' name='filterA-Z' value='A-Z'/>
-            <label for='filterA-Z'>A to Z</label>
+            <input type='radio' name='filter' value='forename ASC' checked/>
+            <label for='filterA-Z'>Forename - A to Z</label>
           </span>
           <span>
-            <input type='radio' id='filterHourly' name='filterHourly' value='Hourly'/>
-            <label for='filterHourly'>By £/hour</label>
+            <input type='radio' name='filter' value='surname ASC'/>
+            <label for='filter'>Surname - A to Z</label>
           </span>
           <span>
-            <input type='radio' id='filterRole' name='filterRole' value='Role'/>
-            <label for='filterRole'>By role</label>
+            <input type='radio' name='filter' value='location ASC'/>
+            <label for='filter'>Location - A to Z</label>
           </span>
           <span>
-            <input type='radio' id='filterSkill' name='filterSkill' value='Skill'/>
-            <label for='filterSkill'>By skill</label>
+            <input type='radio' name='filter' value='organisation ASC'/>
+            <label for='filter'>Organisation - A to Z</label>
           </span>
-          <input type='submit' class='button'>
+          <span>
+            <input type='radio' name='filter' value='pro DESC'/>
+            <label for='filter'>Pro</label>
+          </span>
+          <input type='text' name='searchInput' style='display:none;' value='$search'/>
+          <input type='text' name='searchChoice' style='display:none;' value='$searchChoice'/>
+          <input type='submit' class='button' value='Fliter'>
         </form>
       </div>
     ";
@@ -63,6 +74,7 @@ if (isset($searchChoice)){
 
      if ($snum_rows > 0) {
        foreach ($srows as $listing) {
+         $id = $listing->userId;
          $forename = $listing->forename;
          $surname = $listing->surname;
          $email = $listing->email;
@@ -82,17 +94,17 @@ if (isset($searchChoice)){
               <img src=$profilePic/>
               <div class='listing-body'>
                 <span class='heading'>
-                  <h2>$forename $surname</h2>
+                  <a href='profile.php'>$forename $surname</a>
                   <i class=\"material-icons\">$pro</i>
                 </span>
-                <p>Email: $email</p>
-                <p>Organisation: $org</p>
-                <p>Location: $local</p>
-                <p>Description: $oView</p>
+                <p style='width:100%;'>$local</p>
+                <p>$org</p>
+                <p>$oView</p>
               </div>
               <div class='listing-buttons'>
-                <input type='submit' class='button' href='profile.php' value='View'/>
-                <input type='submit' style='float: right;' class='button' value='Message'/>
+                <form method='get' style='float: right !important;' action='messaging.php?userID=$id'>
+                  <input type='submit' class='button' value='Message'/>
+                </form>
               </div>
            </div>
          ";
@@ -103,33 +115,42 @@ if (isset($searchChoice)){
      ";
     }
   } elseif ($searchChoice == 'jobs') {
+    if ($filter == '') {
+      $filter = 'jobName ASC';
+    }
     $searchSQL = "select *
              from bp_job_post
              WHERE jobName LIKE '%$search%'
-             order by jobName ASC";
+             order by $filter";
 
     echo "
       <h1>Search results</h1>
       <div class='searchFilter'>
-        <form>
+        <form method='get' action='searchList.php'>
           <legend>Filters</legend>
           <span>
-            <input type='radio' id='filterA-Z' name='filterA-Z' value='A-Z'/>
-            <label for='filterA-Z'>A to Z</label>
+            <input type='radio' name='filter' value='jobName ASC' checked/>
+            <label for='filter'>Job name - A to Z</label>
           </span>
           <span>
-            <input type='radio' id='filterHourly' name='filterHourly' value='Hourly'/>
-            <label for='filterHourly'>By £/hour</label>
+            <input type='radio' name='filter' value='budget ASC'/>
+            <label for='filter'>Wage - High to Low</label>
           </span>
           <span>
-            <input type='radio' id='filterRole' name='filterRole' value='Role'/>
-            <label for='filterRole'>By role</label>
+            <input type='radio' name='filter' value='jobLoc ASC'/>
+            <label for='filter'>Location - A to Z</label>
           </span>
           <span>
-            <input type='radio' id='filterSkill' name='filterSkill' value='Skill'/>
-            <label for='filterSkill'>By skill</label>
+            <input type='radio' name='filter' value='duration ASC'/>
+            <label for='filter'>Job length - Long to Short</label>
           </span>
-          <input type='submit' class='button'>
+          <span>
+            <input type='radio' name='filter' value='duration ASC'/>
+            <label for='filter'>Date posted - Recent</label>
+          </span>
+          <input type='text' name='searchInput' style='display:none;' value='$search'/>
+          <input type='text' name='searchChoice' style='display:none;' value='$searchChoice'/>
+          <input type='submit' class='button' value='Fliter'>
         </form>
       </div>
     ";
@@ -143,6 +164,7 @@ if (isset($searchChoice)){
 
      if ($snum_rows > 0) {
        foreach ($srows as $listing) {
+         $id = $listing->jobPostID;
          $name = $listing->jobName;
          $desc = $listing->jobDesc;
          $location = $listing->jobLoc;
@@ -151,12 +173,18 @@ if (isset($searchChoice)){
          $date = $listing->dateAdded;
 
          echo "
-           <div class='jSearch'>
-             <img src=''/>
-             <h2>$name</h2>
-             <p>Job description: $desc</p>
-             <p>Location: $location</p>
-             <p>Duration: $duration</p>
+            <div class='jSearch'>
+              <div class='listing-body'>
+                <span class='heading'>
+                  <a href='jobPost.php?jobID=$id;'>$name</a>
+                </span>
+                <div class='jlisting-body'>
+                  <p style='width:100%; margin-bottom:5px;'>$location</p>
+                  <p><b>Length of job:</b> $duration</p>
+                  <p style=margin-left:10px;><b>Budget:</b> £$budget</p>
+                  <p class='listing-desc'>$desc</p>
+                </div>
+              </div>
            </div>
          ";
        }
