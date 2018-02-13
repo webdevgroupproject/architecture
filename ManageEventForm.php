@@ -26,38 +26,38 @@ while ($event = $eventQuery->fetchObject()) {
         <form method=\"get\" action=\"updateEventAction.php\" id='addEventForm'>
         <fieldset>
             <input style='display: none' type='text' value='$id' name='eventid' readonly>
-            <label>Event name&#9913;: </label>
+            <label>Event name: &#9913;</label>
                 <input type=\"text\" name=\"name\" value='$name' class=\"form-control block\" placeholder=\"Please enter the name ov the event\"
                        data-validation=\"required\">
                        </fieldset>
             <fieldset>
                 <legend><h2>Where</h2></legend>
-                <label>Address line 1: </label>
+                <label>Address line 1: &#9913;</label>
                 <input type=\"text\" name=\"address1\" value='$address1' class=\"form-control block\" placeholder=\"Please enter the first line of the address\"
                        data-validation=\"required\">
-                <label>Address line 2 (optional): </label>
+                <label>Address line 2: </label>
                 <input type=\"text\" name=\"address2\" value='$address2'>
-                <label>City: </label>
+                <label>City: &#9913;</label>
                 <input type=\"text\" name=\"city\" value='$city' class=\"form-control block\" placeholder=\"Please enter the City\"
                        data-validation=\"required\">
-                <label>Postcode: </label><br>
+                <label>Postcode: &#9913;</label><br>
                 <input style=\"width: 150px;\" type=\"text\" name=\"postcode\" value='$postcode' class=\"form-control block\" placeholder=\"Please enter a valid UK postcode\"
                        data-validation=\"required\"><br>
             </fieldset>
             <fieldset>
                 <legend><h2>When</h2></legend>
-                <label>Date: </label><br>
+                <label>Date: &#9913;</label><br>
                 <input style=\"width: 150px;\" type=\"date\" name=\"date\" value='$date' class=\"form-control block\" data-validation=\"required\"><br>
-                <label>Time: </label><br>
+                <label>Time: &#9913;</label><br>
                 <input style=\"width: 150px;\" type=\"time\" name=\"time\" value='$time' class=\"form-control block\" data-validation=\"required\"><br>
             </fieldset>
             <fieldset>
                 <legend><h2>Additional info</h2></legend>
                 
-                <label>Spaces: </label><br>
+                <label>Spaces: &#9913;</label><br>
                 <input style=\"width: 150px;\" min=\"1\" max=\"1000\" type=\"number\" name=\"spaces\" value='$spaces' class=\"form-control block\" placeholder=\"1\"
                        data-validation=\"required\"><br>
-                <label>Event Information: </label>
+                <label>Event Information: &#9913;</label>
                 <textarea style=\"max-width: 100%; width: 100%; margin-bottom: 1em;\" name=\"info\" id='info' class=\"form-control block\" placeholder=\"Please provide some information about the event\"
                        data-validation=\"required\">$info</textarea>
                 <label>Image: </label>

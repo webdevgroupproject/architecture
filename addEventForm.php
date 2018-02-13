@@ -31,7 +31,7 @@ echo makeHeader();
             <fieldset>
                 <legend>When</legend>
                 <label>Date: &#9913;</label><br>
-                <input style="width: 150px;" type="date" name="date" class="form-control block" data-validation="required" data-validation-help="Please enter a username"><br>
+                <input style="width: 150px;" type="date" name="date" class="form-control block" data-validation="required" data-validation-help="Please enter a date"><br>
                 <label>Time: &#9913;</label><br>
                 <input style="width: 150px;" type="time" name="time" class="form-control block" data-validation="required"><br>
             </fieldset>

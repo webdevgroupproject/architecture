@@ -16,21 +16,36 @@ try {
     // use exec() because no results are returned
     $dbConn->exec($regSql);
 
-    $userSQL ="SELECT *
-               FROM bp_user
-               WHERE userId = '$userId'";
-    $userQuery = $dbConn->query($userSQL);
-    while($userInfo = $userQuery->fetchObject()){
+    $eventSQL ="SELECT *
+               FROM bp_events
+               WHERE eventId = '$eventId'";
+    $eventQuery = $dbConn->query($eventSQL);
+    while($eventInfo = $eventQuery->fetchObject()){
 
-//        $email = $userInfo->email;
-//        $to      = $email;
-//        $subject = 'Event registration';
-//        $message = 'You have signed up for this event your ticket number is 100034abc';
-//        $headers = 'From: donotreply@blueprint.com' . "\r\n" .
-//            'Reply-To: donotreply@blueprint.com' . "\r\n" .
-//            'X-Mailer: PHP/' . phpversion();
-//
-//        mail($to, $subject, $message, $headers);
+        $to = "ross.al.brown92@gmail.com";
+        $subject = "Blueprint ticket info";
+
+        $message = "
+<html>
+<head>
+<title>Your ticket info</title>
+</head>
+<body>
+<h1>Your ticket information</h1>
+<p>You have successfully registered for ".$eventInfo->eventName."</p>
+<p>Your ticket number is <strong>".generateRandomString()."</strong>".$eventInfo->address1."</p>
+</body>
+</html>
+";
+
+// Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+// More headers
+        $headers .= 'From: <blueprint@donotreply.com>';
+
+        mail($to,$subject,$message,$headers);
 
     }
     header("Location: eventPage.php?eventid=".$eventId);

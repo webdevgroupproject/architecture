@@ -4,6 +4,9 @@ echo startSession();
 require_once('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint profile");
 echo makeHeader();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 $dbConn = databaseConn::getConnection();
 $userType = checkUserType();
 require_once('scripts/admin-stats-functions.php');
@@ -93,15 +96,15 @@ if (isset($_SESSION['username']) && $userType == "client") {
         <div class='filterBar'>
             <div class=\"imageThirdContain\">
                 <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
-                <p style='text-align: center'><b>Total website users: <br/> $totalNumberUsers</b></p>
+                <p style='text-align: center'><b>Total website users: <br/> $adminAllUsersCount</b></p>
               </div>
               <div class=\"imageThirdContain\">
               <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
-                <p style='text-align: center' ><b>Total active jobs <br/> $numberOfJobs</b></p>
+                <p style='text-align: center' ><b>Total active jobs <br/> $adminNumJobsCount</b></p>
               </div>
               <div class=\"imageThirdContain\">
               <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br>
-                <p style='text-align: center'><b>Total premium users <br/> $proUsers</b></p>
+                <p style='text-align: center'><b>Total premium users <br/> $adminNumProUsersCount</b></p>
               </div>
             <div class='clear'></div>
         </div>"; // end of filter bar
@@ -133,37 +136,37 @@ if (isset($_SESSION['username']) && $userType == "client") {
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>Number of new users</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>$numberOfUserstoday <br/><b> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'>$adminNumUsersTodayCount <br/><b> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' >$numberOfUsers7days <br/> <b>This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' >$adminNumUsers7daysCount <br/> <b>This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>$numberOfUsers30Days <br/> <b>This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'>$adminNumUsers30daysCount <br/> <b>This month</b></p>
+                  </div>
+                </div>
+                <div class=\"statistics-container\" style='border-style: solid;'>
+                    <h3 style='text-align: center'>Number of jobs created</h3>
+                  <div class=\"imageThirdContain\">
+                    <p style='text-align: center; font-size: 19px;'>$adminJobsTodayCount <br/> <b>Today</b></p>
+                  </div>
+                  <div class=\"imageThirdContain\">
+                    <p style='text-align: center; font-size: 19px;' >$adminJobsWeekCount <br/><b> This week</b></p>
+                  </div>
+                  <div class=\"imageThirdContain\">
+                    <p style='text-align: center; font-size: 19px;'>$adminJobsMonthCount <br/><b> This month</b></p>
                   </div>
                 </div>
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>Number of jobs accepted</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>$jobAcceptedToday <br/> <b>Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'>$adminJobsAcceptTodayCount <br/><b> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' >$jobAccepted7days <br/><b> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' > $adminJobsAccept7daysCount<br/><b> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>$jobAccepted30ays <br/><b> This month</b></p>
-                  </div>
-                </div>
-                <div class=\"statistics-container\" style='border-style: solid;'>
-                    <h3 style='text-align: center'>New jobs created</h3>
-                  <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>$numberOfjobstoday <br/><b> Today</b></p>
-                  </div>
-                  <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' >$numberOfjobs7days <br/><b> This week</b></p>
-                  </div>
-                  <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'>$numberOfjobs30Days <br/><b> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'> $adminJobsAccept30daysCount<br/><b> This month</b></p>
                   </div>
                 </div>
             </div>";

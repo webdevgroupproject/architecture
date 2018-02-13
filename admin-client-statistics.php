@@ -20,15 +20,15 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
         <div class='filterBar'>
             <div class=\"imageThirdContain\">
                 <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
-                <p style='text-align: center'><b>Total number of client users <br/> $totalClients</b></p>
+                <p style='text-align: center'><b>Total number of client users <br/> $clientAllCount</b></p>
               </div>
               <div class=\"imageThirdContain\">
               <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
-                <p style='text-align: center' ><b>Total number of client jobs created <br/> $numClientJobsCreated</b></p>
+                <p style='text-align: center' ><b>Total number of client jobs created <br/> $clientJobsCreatedCount</b></p>
               </div>
               <div class=\"imageThirdContain\">
               <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br>
-                <p style='text-align: center'><b>Total number of premium client users <br/> $proUsersClient</b></p>
+                <p style='text-align: center'><b>Total number of premium client users <br/> $clientProCount</b></p>
               </div>
             <div class='clear'></div>
         </div>"; // end of filter bar
@@ -45,14 +45,14 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
                   </tr>";
 
 
-                $query = "SELECT jobName, jobDesc FROM bp_job_post ";
+                $query = "SELECT jobName, jobDesc FROM bp_job_post LIMIT 4 ";
                 $result = $dbConn->prepare($query);
                 $result->execute();
                 $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
 
                 foreach ($recordSet as $row) {
 
-                echo "<tr>
+                echo "<tr>    
                         <td>$row[jobName]</td>
                         <td>$row[jobDesc]</td>
                       </tr>";
@@ -66,25 +66,25 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>Total number of new client users</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>$numberOfUserstoday <br/> Today</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$clientNumUsersallCount <br/> Today</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' ><b>$numberOfUsers7days <br/> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;' ><b>$clientNumUsers7dayscount <br/> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>$numberOfUsers30Days <br/> This month</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$clientNumUsers30daysCount <br/> This month</b></p>
                   </div>
                 </div>  
                 <div class=\"statistics-container\" style='border-style: solid;'>
                     <h3 style='text-align: center'>Total number of jobs created by clients</h3>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>$numberOfjobs7daysClient <br/> This week</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$clientJobCreatedAllCount <br/> This week</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;' ><b>$numberOfjobs30daysClient <br/> This Month</b></p>
+                    <p style='text-align: center; font-size: 19px;' ><b>$clientJobCreated30daysCount <br/> This Month</b></p>
                   </div>
                   <div class=\"imageThirdContain\">
-                    <p style='text-align: center; font-size: 19px;'><b>$numberOfjobs1yearClient <br/> This Year</b></p>
+                    <p style='text-align: center; font-size: 19px;'><b>$clientJobCreated1yearCount <br/> This Year</b></p>
                   </div>
                 </div>
             </div>";

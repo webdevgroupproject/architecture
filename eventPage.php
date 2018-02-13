@@ -2,7 +2,7 @@
 require_once ('scripts/functions.php');
 echo startSession();
 require_once ('classes/databaseConn.php');
-echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
+echo makePageStart("viewport", "width=device-width, inital-scale=1", "Event page");
 echo makeHeader();
 $eventId = htmlspecialchars($_GET["eventid"]);
 $userType = checkUserType();
@@ -71,20 +71,11 @@ while ($indvEvent = $stmt->fetchObject()) {
             <div class=\"modal-content\">
                 <div class=\"modal-header\">
                     <a href='#' class=\"close\" style='text-decoration: none;'>&times;</a>
-                    <h1>Confirm your place at $name</h1>
+                    <h1>Register for $name</h1>
                 </div>
                 <div class=\"modal-body\">
-                    <p style='font-size: 1.5em;margin-top: 10px;'>Once you have confirmed your place at \"$name\" we will send you an email with your ticket information. Please hold on to this information as you will need it for entry into the event. </p>
-                    <div class='dateAddressBox' style='margin: 10px 0'>
-                        <p style='font-weight: bold; font-size: 1.09em;'>$name</p>
-                        <p>$address1</p>
-                        <p>$address2</p>
-                        <p>$city</p>
-                        <p>$postcode</p>
-                    </div>
-                    <div class='dateAddressBox' style='margin: 10px 0;'>
-                        <p>$formatDate at $formatTime</p>
-                    </div>
+                    <p style='font-size: 1.5em;margin-top: 10px;'>We will send you the ticket information for <strong>$name</strong> via the email you signed up with.</p>
+                    
                 </div>
                 <div class='modal-footer'>
                     <a href='registerAction.php?eventid=$eventId' class='button'>Confirm</a>
@@ -100,10 +91,10 @@ while ($indvEvent = $stmt->fetchObject()) {
             <div class=\"modal-content\">
                 <div class=\"modal-header\">
                     <span class=\"close\">&times;</span>
-                    <h1>Are you sure you want to drop out of $name?</h1>
+                    <h1>Drop out of $name?</h1>
                 </div>
                 <div class=\"modal-body\">
-                    <p style='font-size: 1.5em;margin-top: 10px;'>If you drop out of $name your ticket will no longer be valid, you wont be able to gain entry to this event with your current ticket information. We will send you an email to confirm. </p>
+                    <p style='font-size: 1.5em;margin-top: 10px;'>If you drop out of <strong>$name</strong> your ticket number will no longer be valid, you wont be able to gain entry to this event. We will send an email to confirm</p>
                 </div>
                 <div class='modal-footer'>
                     <a href='dropOutAction.php?eventid=" . $indvEvent->eventId . "' class='button'>Drop out</a>
