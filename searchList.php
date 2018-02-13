@@ -94,18 +94,14 @@ if (isset($searchChoice)){
               <img src=$profilePic/>
               <div class='listing-body'>
                 <span class='heading'>
-                  <h2>$forename $surname</h2>
+                  <a href='profile.php'>$forename $surname</a>
                   <i class=\"material-icons\">$pro</i>
                 </span>
-                <p>Email: $email</p>
-                <p>Organisation: $org</p>
-                <p>Location: $local</p>
-                <p>Description: $oView</p>
+                <p style='width:100%;'>$local</p>
+                <p>$org</p>
+                <p>$oView</p>
               </div>
               <div class='listing-buttons'>
-                <form method='get' action='profile.php?userID=$id'>
-                  <input type='submit' class='button' href='profile.php' value='View'/>
-                </form>
                 <form method='get' style='float: right !important;' action='messaging.php?userID=$id'>
                   <input type='submit' class='button' value='Message'/>
                 </form>
@@ -168,6 +164,7 @@ if (isset($searchChoice)){
 
      if ($snum_rows > 0) {
        foreach ($srows as $listing) {
+         $id = $listing->jobPostID;
          $name = $listing->jobName;
          $desc = $listing->jobDesc;
          $location = $listing->jobLoc;
@@ -176,12 +173,18 @@ if (isset($searchChoice)){
          $date = $listing->dateAdded;
 
          echo "
-           <div class='jSearch'>
-             <img src=''/>
-             <h2>$name</h2>
-             <p>Job description: $desc</p>
-             <p>Location: $location</p>
-             <p>Duration: $duration</p>
+            <div class='jSearch'>
+              <div class='listing-body'>
+                <span class='heading'>
+                  <a href='jobPost.php?jobID=$id;'>$name</a>
+                </span>
+                <div class='jlisting-body'>
+                  <p style='width:100%; margin-bottom:5px;'>$location</p>
+                  <p><b>Length of job:</b> $duration</p>
+                  <p style=margin-left:10px;><b>Budget:</b> £$budget</p>
+                  <p class='listing-desc'>$desc</p>
+                </div>
+              </div>
            </div>
          ";
        }

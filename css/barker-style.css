@@ -299,7 +299,7 @@
 
 .searchFilter {
   width: 20%;
-  margin: 20px 5%;
+  margin: 0 5%;
   height: 300px;
   position: fixed;
   background-color: #FFF;
@@ -375,18 +375,26 @@
   overflow: hidden;
 }
 
-.heading {
-  margin: 10px;
+.listing-body p {
   width: 90%;
-  border-bottom: 1px solid #CCC;
+  margin: 0 10px 5px 10px;
+  overflow: hidden;
+}
+
+.heading {
+  margin: 10px !important;
+  width: 90% !important;
+  border-bottom: 1px solid #2DC3E7;
   display: inline-block;
 }
 
-.heading h2 {
+.heading a {
   font-size: 18px;
   float: left;
   margin: 0 5px 0 5px;
   line-height: 1.4;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .heading i {
@@ -396,12 +404,21 @@
   color: #2DC3E7;
 }
 
-.flSearch p {
+.flSearch p, .jSearch p {
+  font-weight: normal;
   font-size: 14px;
-  margin: 0 5%;
-  width: 90%;
+  float: left;
 }
 
+.listing-desc {
+  width: 90%;
+  margin-top: 10px;
+  overflow: hidden;
+}
+.jlisting-body {
+  height: 100px;
+  margin: 0 10px;
+}
 
 .listing-buttons form {
   width: auto;
@@ -418,8 +435,9 @@
 
 .jSearch {
   width: 80%;
-  height: 200px;
+  height: 150px;
   background-color: #FFF;
   box-shadow: 5px 5px 5px #ccc;
   box-sizing: border-box;
+  border-bottom: 2px solid #ccc;
 }
