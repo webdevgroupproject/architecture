@@ -4,13 +4,16 @@ echo startSession();
 require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Create account");
 echo makeHeader();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $username = $_SESSION['regUsername'];
 $password = $_SESSION['password'];
 $passHint = $_SESSION['passHint'];
 $accType = $_SESSION['accType'];
 $email = $_SESSION['email'];
-$forename = $_SESSION['forename'];
+$forename = $_POST['forename'];
 $surname = $_POST['surname'];
 $location = $_POST['location'];
 $organName = $_POST['organName'];
@@ -33,27 +36,32 @@ $webLink = filter_var($webLink, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QU
 
 trim($forename);
 trim($surname);
-trim($organOverview);
+trim($webLink);
+
 
 $dbConn = databaseConn::getConnection();
 
 $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+foreach ($accType as $value) {
+  $accTypeValue = $value;
+}
+
 $addUserSql = "INSERT INTO bp_user(forename, surname, email, username, password, overview, organisation, websiteLink, userRole)
                 VALUES ('$forename', '$surname', '$email', '$username', '$password', '$organOverview', '$organName', '$webLink', '$accTypeValue')";
 // use exec() because no results are returned
-$dbConn->exec($addJobSql);
+$dbConn->exec($addUserSql);
 
 $getUserID = $dbConn->prepare("SELECT userId FROM bp_user ORDER BY userId DESC LIMIT 1");
 $getUserID->execute();
 $userID = $getUserID->fetchObject();
 
-header ('location: jobPostConfirm.php');
+
 
 echo "<h1>Success!</h1>" .
      "<div id=\"jobConfirmContent\">" .
      "<p>Your job has been successfully posted for others to see. You can now edit and review your posting from your profile page.</p>" .
      "<a href=\"profile.php\" class=\"button\">Return to your profile</a>" .
      "</div>";
-
+     
 echo makePageFooter();

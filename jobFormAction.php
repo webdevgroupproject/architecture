@@ -44,8 +44,8 @@ trim($endDate);
 
 $dbConn = databaseConn::getConnection();
 $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$addJobSql = "INSERT INTO bp_job_post (userID, jobName, jobDesc, jobLoc, payMethod, budget, duration, startDate, endDate)
-                VALUES ('$userID', '$jobName', '$workDesc', '$jobLocation', '$payMethod', '$budgetType', '$jobDuration', '$startDate', '$endDate' )";
+$addJobSql = "INSERT INTO bp_job_post (userID, jobName, jobDesc, jobLoc, payMethod, budget, duration, startDate, endDate, dateAdded)
+                VALUES ('$userID', '$jobName', '$workDesc', '$jobLocation', '$payMethod', '$budgetType', '$jobDuration', '$startDate', '$endDate', NOW() )";
 // use exec() because no results are returned
 $dbConn->exec($addJobSql);
 
