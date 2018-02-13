@@ -38,7 +38,7 @@ function makeHeader(){
 							<a href=\"events.php\">Events</a>
 						</li>
 	          <li>
-							<a href=\"Forum.php\">Forum</a>
+							<a href=\"forum.php\">Forum</a>
 						</li>
 						<li>
 							<a href=\"index.php#howitworks\">How It Works</a>
@@ -117,7 +117,33 @@ function makePageFooter(){
     $makePageFooter = <<<FOOTER
     </main>
 		<footer>
-				<h1>The footer</h1>
+				
+				<ul class="clearfix">
+				    <li>
+					    <a href="index.php">Home</a>
+					</li>
+	                <li>
+					    <a href="events.php">Events</a>
+					</li>
+	                <li>
+					    <a href="Forum.php">Forum</a>
+					</li>
+					<li>
+					    <a href="index.php#howitworks">How It Works</a>
+					</li>
+				</ul>
+				<ul class="clearfix socialMedia">
+				    <li>
+					    <a href="index.php" style="width: 50px; height: 50px;"><img src="images/google.png"></a>
+					</li>
+	                <li>
+					    <a href="events.php"><a href="index.php"><img src="images/facebook2.png"></a>
+					</li>
+	                <li>
+					    <a href="Forum.php"><a href="index.php"><img src="images/twitter2.png"></a>
+					</li>
+				</ul>
+				<p>&copy; Blueprint 2018</p>
 		</footer>
   </div><!--end wrapper -->
 </body>
@@ -129,9 +155,10 @@ FOOTER;
 
 function startSession(){
 
-    ini_set("session.save_path", "/Applications/MAMP/sessionData");
-    //ini_set("session.save_path", "/xampp1/sessionData");
-		//ini_set("session.save_path", "/xampp/sessionData");
+
+    //ini_set("session.save_path", "/Applications/MAMP/sessionData");
+    ini_set("session.save_path", "/xampp1/sessionData");
+
     session_start();
 };
 
@@ -226,3 +253,13 @@ function signupPage1() {
 			return header('Location: http://localhost:8888/architecture/Create-Account-Page-2-Client.php');
 		}
 };
+
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}

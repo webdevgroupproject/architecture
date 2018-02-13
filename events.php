@@ -6,7 +6,7 @@ define("ROW_PER_PAGE",4);
 require_once ('scripts/functions.php');
 echo startSession();
 require_once ('classes/databaseConn.php');
-echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
+echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint events");
 echo makeHeader();
 $dbConn = databaseConn::getConnection();
 $userType = checkUserType();
