@@ -1,4 +1,6 @@
 <?php
+//define the number of rows to return per page
+define("ROW_PER_PAGE", 10);
 require_once('scripts/functions.php');
 echo startSession();
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Admin reported messages");
@@ -11,7 +13,7 @@ error_reporting(E_ALL);
 $dbConn = databaseConn::getConnection();
 ?>
 <style>
-    form.search-box{
+    .search-box {
         position: relative;
         display: inline-block;
         font-size: 14px;
@@ -19,30 +21,22 @@ $dbConn = databaseConn::getConnection();
         width: 340px;
     }
 
-    .refine-box{
+    .refine-box {
         float: right;
-
-    }
-
-    .refine-box span {
-        padding-left:50px;
+        width: 400px;
         display: inline-block;
+        position: relative;
 
-    }
-
-    .refine-box input {
-
-        display: inline-block;
     }
 
     .imageHalfContain {
-        width:45%;
-        margin-left:5%;
+        width: 45%;
+        margin-left: 5%;
     }
 
     #customers {
         width: 85%;
-        margin-left:100px;
+        margin-left: 100px;
     }
 
 </style>
@@ -54,93 +48,96 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
 
 
     echo "<div class='images-container' style='width: 90%; margin-left:5%;'>";
-    if (isset($_POST['searchUser'])) {
-        $searchQuery = isset($_REQUEST["searchQuery"]) ? $_REQUEST["searchQuery"] : null;
-        $query = "SELECT bp_user.userId, messageID, username, message FROM bp_message inner join bp_user on bp_message.userID = bp_user.userId where reported = 1 and username = '$searchQuery' ";
-        $result = $dbConn->prepare($query);
-        $result->execute();
-        $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
-        if (empty($recordSet)) {
-            echo "<p style='text-align: center'>There are no new reported forum posts to address to. </p>";
-        } else {
-            echo "<div class='filterBar'>
 
-        <form class='search-box' action='admin-reported-messages.php' method='post'>
-                <input type='text' name='searchQuery' style='width: 300px;' autocomplete='off' placeholder='Search users...' />
-                <button type='submit' name='searchUser'><i class='material-icons'>search</i></button>
-                <div class='result'></div><br>
-            </form>
-            
-            <div class='clear'></div>
-        </div>";
-            echo"<table id=\"customers\">
+    $userNameSearch = isset($_REQUEST["userNameSearch"]) ? $_REQUEST["userNameSearch"] : null;
 
-        
-          <tr>
-            <th>Reported user</th>
-            <th style=\"width:700px; max - width: 700px;\">Forum message posted</th>
-            <th style=\"width:100px; max - width: 100px;\">View</th>
-            <th style=\"width:100px; max - width: 100px;\">Suspend</th>
-            <th style=\"width:100px; max - width: 100px;\">Ignore</th>
-          </tr>";
-            foreach ($recordSet as $row) {
-                $messageID = $row['messageID'];
-                $userID = $row['userId'];
-                echo "<tr>
-                <td>$row[username]</td>
-                <td>$row[message]</td>
-                <td><a class='button' style='margin: 0;' href='#'>View message</a></td>
-                <td><a class='button' style='margin: 0;'  href='suspend-report-reason.php?userId=$userID&messageID=$messageID' >Suspend user</a></td>
-                <td><a class='button' style='margin: 0;'  href='ignore-messages.php?messageID=$messageID' >Ignore report</a></td>
-              </tr>";
+    $query = "SELECT bp_user.userId, messageID, username, message FROM bp_message inner join bp_user on bp_message.userID = bp_user.userId where 1 and reported = 1 ";
+    $sqlCondition = ' ';
+    if (!empty($userNameSearch)) {
+        $sqlCondition .= " and username LIKE '%$userNameSearch%'";
+    }
+    $per_page_html = '';
+    $page = 1;
+    $start = 0;
+    if (!empty($_POST["page"])) {
+        $page = $_POST["page"];
+        $start = ($page - 1) * ROW_PER_PAGE;
+    }
+    $limit = " limit " . $start . "," . ROW_PER_PAGE;
+    $pagination_statement = $dbConn->prepare($query);
+    $pagination_statement->execute();
+
+    $row_count = $pagination_statement->rowCount();
+//if there are results returned
+    if (!empty($row_count)) {
+        //add html to display the pagination links in a div to a variable
+        $per_page_html .= "<div class='pag-links'>";
+        if ($row_count > ROW_PER_PAGE) {
+            $per_page_html .= "<span style='margin-right: 10px;'>Pg</span>";
+        }
+        //divide the number of rows by the number of rows per page to get the page count
+        $page_count = ceil($row_count / ROW_PER_PAGE);
+        //if the page count is bigger than 1 show the pagination links
+        if ($page_count > 1) {
+            for ($i = 1; $i <= $page_count; $i++) {
+                if ($i == $page) {
+                    $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button pag-button-current" />';
+                } else {
+                    $per_page_html .= '<input type="submit" name="page" value="' . $i . '" class="pag-button" />';
+                }
             }
         }
+        $per_page_html .= "</div>";
+    }
+    $sqlSearch = $query . $sqlCondition . $limit;
+    $result = $dbConn->prepare($sqlSearch);
+    $result->execute();
+    $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
+    if (empty($recordSet)) {
+        echo "<p style='text-align: center'>There are no new reported forum posts to address to. </p>";
     } else {
-        $query = "SELECT bp_user.userId, messageID, username, message FROM bp_message inner join bp_user on bp_message.userID = bp_user.userId where reported = 1 ";
-        $result = $dbConn->prepare($query);
-        $result->execute();
-        $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);
-        if (empty($recordSet)) {
-            echo "<p style='text-align: center'>There are no new reported forum posts to address to. </p>";
-        } else {
-            echo "<div class='filterBar'>
+        echo "<div class='filterBar'>
 
-        <form class='search-box' action='admin-reported-messages.php' method='post'>
-                <input type='text' name='searchQuery' style='width: 300px;' autocomplete='off' placeholder='Search users...' />
-                <button type='submit' name='searchUser'><i class='material-icons'>search</i></button>
-                <div class='result'></div><br>
+         <form action='admin-reported-messages.php' method='post'>
+            <div class='search-box'>
+                <input type=\"text\" name='userNameSearch' style='width: 300px;' autocomplete=\"off\" placeholder=\"Search users...\" />
+                <button type='submit' name='searchUser'><i class=\"material-icons\">search</i></button>
+            </div>
             </form>
             
             <div class='clear'></div>
         </div>";
-            echo"<table id=\"customers\">
+        echo "<table id=\"customers\">
 
         
           <tr>
             <th>Reported user</th>
             <th style=\"width:700px; max - width: 700px;\">Forum message posted</th>
             <th style=\"width:100px; max - width: 100px;\">View</th>
+            <th style=\"width:100px; max - width: 100px;\">Delete message</th>
             <th style=\"width:100px; max - width: 100px;\">Suspend</th>
             <th style=\"width:100px; max - width: 100px;\">Ignore</th>
           </tr>";
-            foreach ($recordSet as $row) {
-                $messageID = $row['messageID'];
-                $userID = $row['userId'];
-                echo "<tr>
+        foreach ($recordSet as $row) {
+            $messageID = $row['messageID'];
+            $userID = $row['userId'];
+            echo "<tr>
                 <td>$row[username]</td>
                 <td>$row[message]</td>
                 <td><a class='button' style='margin: 0;' href='#'>View message</a></td>
-                <td><a class='button' style='margin: 0;'  href='suspend-report-reason.php?userId=$userID&messageID=$messageID' >Suspend user</a></td>
+                <td><a class='button' style='margin: 0;'  href='deleteReportedMessage.php?messageID=$messageID' >Delete message</a></td>
+                <td><a class='button' style='margin: 0;'  href='suspend-report-reason.php?userId=$userID&messageID=$messageID' >Suspend and delete</a></td>
                 <td><a class='button' style='margin: 0;'  href='ignore-messages.php?messageID=$messageID' >Ignore report</a></td>
               </tr>";
-            }
         }
+
+
     }
 
 
-
-
-    echo" </table>
+    echo " </table><br><form name='frmSearch' action='' method='post' class=\"pag-form\">
+        $per_page_html
+    </form>
     </div>";
 
 } else {
@@ -149,28 +146,3 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
 
 echo makePageFooter();
 ?>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('.search-box input[type="text"]').on("keyup input", function(){
-            /* Get input value on change */
-            var inputVal = $(this).val();
-            var resultDropdown = $(this).siblings(".result");
-            if(inputVal.length){
-                $.get("searchUsersReportedMessages.php", {term: inputVal}).done(function(data){
-                    // Display the returned data in browser
-                    resultDropdown.html(data);
-                });
-            } else{
-                resultDropdown.empty();
-            }
-        });
-
-        // Set search input value on click of result item
-        $(document).on("click", ".result p", function(){
-            $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
-            $(this).parent(".result").empty();
-        });
-    });
-</script>
-
-
