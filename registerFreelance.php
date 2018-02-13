@@ -5,43 +5,50 @@ require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Create account");
 echo makeHeader();
 
-$userID = $_SESSION['userId'];
-$username = $_SESSION['username'];
+$username = $_SESSION['regUsername'];
 $password = $_SESSION['password'];
-$passHint = $_SESSION['passHint']
-$email = $_SESSION['Email'];
+$passHint = $_SESSION['passHint'];
+$accType = $_SESSION['accType']; 
+$email = $_SESSION['email'];
 $forename = $_POST['forename'];
 $surname = $_POST['surname'];
 $location = $_POST['location'];
 $proOverview = $_POST['proOverview'];
-
-$skillSets = $_POST['skillsets[]'];
+$skillSets = $_POST['skillsets'];
 
 trim($forename);
 trim($surname);
 trim($proOverview);
 
-$forename = filter_var($forename, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES, FILTER_SANITIZE_SPECIAL_CHARS);
-$surname = filter_var($surname, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES, FILTER_SANITIZE_SPECIAL_CHARS);
-$location = filter_var($location, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES, FILTER_SANITIZE_SPECIAL_CHARS);
-$proOverview = filter_var($proOverview, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES, FILTER_SANITIZE_SPECIAL_CHARS);
-
-$stmt = $dbh->prepare('
-  INSERT INTO bp_user(userID, skillTypeId) VALUES(:id, :skillID)
-');
-
-$stmt->bindValue(':id', $userID);
-$stmt->bindParam(':skillID', $skillTypeId);
-
-foreach($_POST["skillsets"] as $skillTypeId) $stmt->execute();
-
+$forename = filter_var($forename, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+$surname = filter_var($surname, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+$location = filter_var($location, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+$proOverview = filter_var($proOverview, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 $dbConn = databaseConn::getConnection();
+
 $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$addUserSql = "INSERT INTO bp_users (forename, surname, email, username, password, overview)
-                VALUES ('$userID', '$forename', '$surname', '$email', '$username', '$password', '$proOverview')";
+
+foreach($accType as $value) {
+	$accTypeValue = $value; 
+}
+
+$addUserSql = "INSERT INTO bp_user(forename, surname, email, username, password, overview, userRole)
+                VALUES ('$forename', '$surname', '$email', '$username', '$password', '$proOverview', '$accTypeValue')";
 // use exec() because no results are returned
 $dbConn->exec($addUserSql);
+
+$getUserID = $dbConn->prepare("SELECT userId FROM bp_user ORDER BY userId DESC LIMIT 1"); 
+$getUserID->execute();
+$userID = $getUserID->fetchObject();
+
+$stmt = $dbConn->prepare('
+  INSERT INTO bp_skills(userId, skillTypeId) VALUES(:userID, :skillID)
+');
+$stmt->bindValue(':userID', $userID->userId);
+$stmt->bindParam(':skillID', $skillTypeId);
+
+foreach($_POST["skillsets"] as $skillTypeId) $stmt->execute();	
 
 
 
