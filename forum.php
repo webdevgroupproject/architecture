@@ -6,8 +6,12 @@ require_once ('scripts/functions.php');
 echo startSession();
 require_once ('classes/databaseConn.php');
 $userType = checkUserType();
-$userId = $_SESSION['userId'];
-echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint home");
+if (isset($_SESSION['userId'])){
+    $userId = $_SESSION['userId'];
+}else{
+    $userId ="";
+}
+echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint forum");
 echo makeHeader();
 $dbConn = databaseConn::getConnection();
 $sql = 'select *
@@ -114,12 +118,17 @@ if(!empty($result)) {
         echo"
         <div class=\"thread\">      
             <div class='thread-info'>
-                <img style='margin-right: 20px;' src=\"Images/house.png\">
+                <img style='margin-right: 20px;' src=\"images/house.png\">
                 <a href=\"thread.php?threadId=$forumId\">
                     <h2>".$row['threadTitle']."</h2>
                 </a>
-                <p>".$row['threadInfo']."</p> 
-                <span><a href='#'> ".$row['username']."</a> Posted: ".$formatDate ."";
+                <p>".$row['threadInfo']."</p> ";
+if (isset($_SESSION['userId'])){
+    echo "<span><a href='profile.php'> ".$row['username']."</a>";
+}else{
+    echo "<span>".$row['username']." ";
+};echo"
+                 Posted: ".$formatDate ."";
         if ($userType == "admin" || $userId == $row['userId']){
             echo"
                 <a href='deleteThreadAction.php?threadId=$forumId'>Delete</a>";

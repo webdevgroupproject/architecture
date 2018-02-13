@@ -83,6 +83,37 @@ else{
                   WHERE eventId = '$eventId'";
         // use exec() because no results are returned
         $dbConn->exec($updateSql);
+        $eventSQL ="SELECT *
+               FROM bp_events
+               WHERE eventId = '$eventId'";
+        $eventQuery = $dbConn->query($eventSQL);
+        while($eventInfo = $eventQuery->fetchObject()){
+
+            $to = "ross.al.brown92@gmail.com";
+            $subject = "Blueprint ticket info";
+
+            $message = "
+<html>
+<head>
+<title>Event Uptated</title>
+</head>
+<body>
+<h1>".$eventInfo->eventName." has been updated</h1>
+<p>Check your events for details.</p>
+</body>
+</html>
+";
+
+// Always set content-type when sending HTML email
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+// More headers
+            $headers .= 'From: <blueprint@donotreply.com>';
+
+            mail($to,$subject,$message,$headers);
+
+        }
         header("Location: eventPage.php?eventid=".$eventId);
 
     }

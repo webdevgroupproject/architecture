@@ -45,7 +45,25 @@ footer {
 float: left;
 width: 100%;
 color: #efefef;
+    padding: 10px;
+    padding-top: 20px;
 }
+footer p{width: 100%;
+    float: left;
+    text-align: center;
+    font-size: 22px;}
+
+footer a{color: #fff;}
+
+footer .socialMedia{
+    float: right;
+}
+footer .socialMedia li{
+    height:40px;
+    width:40px;
+    float: right;
+}
+
 main {
     overflow: hidden;
     background-color: #f9f9f9;
@@ -227,10 +245,52 @@ ul {
     margin: 10px 0;
 }
 
-.community-events-section, .get-involved-section {
+.features-section, .get-involved-section {
     padding-bottom: 1em;
     background-color: #fff;
     float: left;
+    padding: 0;
+}
+.features-section, .features-section h2{
+    width:100%;
+    text-align: center;
+}
+.features{
+    float: left;
+
+}
+.features:first-child{
+    border-right: 1px solid #CCCCCC;
+}
+.featuresTable{
+    width: 75%;
+    margin: 0 auto;
+    text-align: left;
+}
+.featuresTable td, th{
+    padding: 10px 10px 10px 0;
+}
+.features th{
+    text-align: center;
+}
+.yes{
+    color: #7b9e3f;
+    font-weight: bold;
+    text-align: center;
+
+}
+.yes i{
+    font-weight: bold;
+    font-size: 30px;
+}
+.no{
+    color: #b50021;
+    font-weight: bold;
+    text-align: center;
+}
+.no i{
+    font-weight: bold;
+    font-size: 30px;
 }
 
 .width10 {
@@ -403,6 +463,9 @@ ul {
     position: relative;
     width: 100%
 }
+.steps{
+    width:200px;
+}
 
 .imageFourContain {
     width: 25%;
@@ -411,6 +474,7 @@ ul {
     box-sizing: border-box;
     float: left;
     margin-top: 20px;
+    text-align: center;
 }
 
 .how-it-works-section {
@@ -696,6 +760,9 @@ legend{
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal h1{
+    font-size: 30px;
 }
 
 /* Modal Content */
@@ -1165,6 +1232,7 @@ margin: 0 auto;
 }
 #howitworks h2{
    text-align: center;
+    font-size: 2em;
 }
 .event-contain{
     height: 250px;
@@ -1173,7 +1241,7 @@ margin: 0 auto;
     margin: 0 auto;
     box-shadow: 5px 5px 5px #ccc;
     background-color: #fff;
-    margin-bottom: 100px;
+    margin-bottom: 75px;
 }
 .event-date-contain{
     float: left;
