@@ -11,7 +11,7 @@ error_reporting(E_ALL);
 
 $dbConn = databaseConn::getConnection();
 $userID = $_GET['userId'];
-$messageID = $_GET['messageID'];
+$messageID = $_GET['threadMessId'];
 
 // get date
 $suspendEndDate = isset($_REQUEST["date"]) ? $_REQUEST["date"] : null;
@@ -55,7 +55,7 @@ if (!empty($errors)) {
     trim($suspendEndDate);
     trim($reason);
 
-    $sql = "INSERT INTO bp_suspend (userId, suspendDate, reason) VALUES ('$userID','$suspendEndDate','$reason')";
+    $sql = "INSERT INTO bp_suspend (userId, date, reason) VALUES ('$userID','$suspendEndDate','$reason')";
 
     $query = $dbConn->prepare($sql);
 
@@ -68,13 +68,13 @@ if (!empty($errors)) {
     $query2->execute();
 
 
-    $sqlUpdate2 = "DELETE FROM bp_message WHERE messageID = '$messageID'";
+    $sqlUpdate2 = "DELETE FROM bp_thread_message WHERE threadMessId = '$messageID'";
 
     $query3 = $dbConn->prepare($sqlUpdate2);
 
     $query3->execute();
 
-    echo "User has been suspended. They will receive a email to confirm the reasons for their suspension and when they will be able to use the website again";
+    echo "<p style='margin-left:15%; margin-top: 5%;'>User has been suspended. They will receive a email to confirm the reasons for their suspension and when they will be able to use the website again</p>";
 
     $to = $userEmail;
 

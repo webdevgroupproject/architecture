@@ -1,4 +1,5 @@
 <?php
+//Ross Brown
 //define the number of rows to return per page
 define("ROW_PER_PAGE",4);
 ?>
@@ -8,52 +9,63 @@ echo startSession();
 require_once ('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint events");
 echo makeHeader();
+
 $dbConn = databaseConn::getConnection();
 $userType = checkUserType();
 $pro = checkProStatus();
-
 $eventSQL = 'select *
              from bp_events
              WHERE eventDate > now()
              order by eventDate ASC';
-
 $getCity = $dbConn->prepare('select DISTINCT eventCity From bp_events ORDER BY eventCity');
 $getCity->execute();
 $citys = $getCity->fetchAll();
+
 //main html not related to the result set
 echo "
 <h1>Community events</h1>
 <div class='filterBar'>";
-
+//if the user is admin or has paid
 if ($userType == "admin" || $pro == "1"){
-    echo "<a href='addEventForm.php' class='button' id='addEventButton'>Add an event</a>";
+    //let them add an event
+    echo "
+    <a href='addEventForm.php' class='button' id='addEventButton'>Add an event</a>";
+//if the user is not admin or paid
 }else if (isset($_SESSION['username'])){
-
-    echo"<div style='float: left; width: 20%'>
-            <p><a href='#'>Upgrade to pro</a> to create your own event</p>
-        </div>";
+    //link to upgrade to add events
+    echo"
+    <div style='float: left; width: 20%'>
+        <p><a href='#'>Upgrade to pro</a> to create your own event</p>
+    </div>";
+//if the user is not logged in
 }else{
-    echo "<div style='float: left; width: 20%'>
-            <p><a href='login.php'>log in</a> to register for events</p>
-        </div>";
-
+    //link to log in page
+    echo "
+    <div style='float: left; width: 20%'>
+        <p><a href='login.php'>log in</a> to register for events</p>
+    </div>";
 };
-echo"<form id='orderEventsForm' action='eventSearchResults.php'>
-<select name=\"citySearch\" id=\"cityDropdown\" class='dropdown'>
-<option>Search by city</option>";
+//search by city dropdown
+echo"
+    <form id='orderEventsForm' action='eventSearchResults.php'>
+        <select name=\"citySearch\" id=\"cityDropdown\" class='dropdown'>
+            <option>Search by city</option>";
+//populate dropdown with database values
 foreach ($citys as $city){
-    echo"<option value='".$city["eventCity"]."'>".$city["eventCity"]."</option>";
-}echo"
-</select>
-</form>
-<form class=\"search-box\" action='eventSearchResults.php' method='get'>
-            <input type=\"text\" name='searchQuery' autocomplete=\"off\" placeholder=\"Search events...\" />
-            <button type='submit'><i class=\"material-icons\">search</i></button>
-            <div class=\"result\"></div><br>
-        </form>
-        <div class='clear'></div>
-          </div>";
-
+    echo"
+            <option value='".$city["eventCity"]."'>".$city["eventCity"]."</option>";
+}
+//search box
+echo"
+        </select>
+    </form>
+    <form class=\"search-box\" action='eventSearchResults.php' method='get'>
+        <input type=\"text\" name='searchQuery' autocomplete=\"off\" placeholder=\"Search events...\" />
+        <button type='submit'><i class=\"material-icons\">search</i></button>
+        <div class=\"result\"></div><br>
+    </form>
+    <div class='clear'></div>
+</div>";
 
 // Pagination Code starts
 $per_page_html = '';
@@ -66,7 +78,6 @@ if(!empty($_POST["page"])) {
 $limit=" limit " . $start . "," . ROW_PER_PAGE;
 $pagination_statement = $dbConn->prepare($eventSQL);
 $pagination_statement->execute();
-
 $row_count = $pagination_statement->rowCount();
 //if there are results returned
 if(!empty($row_count)){
@@ -101,6 +112,7 @@ echo"<div class='result-set'>
 if(!empty($result)) {
     foreach($result as $row) {
         $date = $row['eventDate'];
+        $creator = $row['eventCreator'];
         $dateString = strtotime($date);
         $formatMonth = date("M", $dateString);
         $formatDay = date("d", $dateString);
@@ -119,9 +131,12 @@ if(!empty($result)) {
                         <h2>".$row['eventName']."</h2>
                         <p>".$row['eventCity'].", $formatTime</p>
                         <a class=\"button\" href=\"eventPage.php?eventid=" .$row['eventId']. "\"> Find out more </a >";
-        if ($userType == "admin") {
-            echo       "<a style = 'right: 0;' href = 'ManageEventForm.php?eventid=" .$row['eventId']. "' class='button'>Manage</a>";
+        if (isset($_SESSION['username'])){
+            if ($userType == "admin" || $_SESSION['userId']== $creator) {
+                echo       "<a style = 'right: 0;' href = 'ManageEventForm.php?eventid=" .$row['eventId']. "' class='button'>Manage</a>";
+            }
         }
+
         echo"       </div>
             <div class='media-contain'>
                 <a href='#'><div class='media-box'><img src=\"images/facebook.png\"></div></a>

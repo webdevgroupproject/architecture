@@ -4,6 +4,8 @@ require_once('scripts/functions.php');
 require_once ('classes/databaseConn.php');
 echo startSession();
 
+$userId = $_SESSION['userId'];
+
 //Request username and password from the request stream
 $address1 = filter_has_var(INPUT_GET, 'address1') ? $_GET['address1'] : null;
 $address2 = filter_has_var(INPUT_GET, 'address2') ? $_GET['address2'] : null;
@@ -112,8 +114,8 @@ if (!empty($errors)) {
     try {
         $dbConn = databaseConn::getConnection();
         $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $addEventSql = "    INSERT INTO bp_events (eventName, eventDate, eventTime, eventPlace, eventAddress2, eventCity, eventPostcode, eventSpaces, eventImage, eventInfo)
-                        VALUES ('$name', '$date', '$time', '$address1', '$address2', '$city', '$postcode', '$spaces', '$image', '$info' )";
+        $addEventSql = "    INSERT INTO bp_events (eventName, eventCreator, eventDate, eventTime, eventPlace, eventAddress2, eventCity, eventPostcode, eventSpaces, eventImage, eventInfo)
+                        VALUES ('$name', '$userId', '$date', '$time', '$address1', '$address2', '$city', '$postcode', '$spaces', '$image', '$info' )";
         // use exec() because no results are returned
         $dbConn->exec($addEventSql);
         header("location: events.php");
