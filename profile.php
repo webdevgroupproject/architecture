@@ -238,7 +238,7 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
             <div class='clear'></div>
         </div>"; // end of filter bar
 
-    echo "<!-- <div class=\"images-container\" style='width:95%'>
+    echo " <div class=\"images-container\" style='width:95%'>
             <div class=\"imageHalfContain\" style='margin-left:5%; width:45%'>
             <h2>Admin functionality</h2>
                <p style='text-align:justify'>
@@ -298,7 +298,7 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
                     <p style='text-align: center; font-size: 19px;'> $adminJobsAccept30daysCount<br/><b> This month</b></p>
                   </div>
                 </div>
-            </div> -->";
+            </div> ";
 }
 echo makePageFooter();
 
