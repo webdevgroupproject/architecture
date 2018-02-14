@@ -393,6 +393,10 @@
   overflow: hidden;
 }
 
+.jlisting-body p {
+  width: 70% !important;
+}
+
 .heading {
   margin: 10px !important;
   width: 90% !important;

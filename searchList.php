@@ -182,10 +182,18 @@ if (isset($searchChoice)){
                   <a href='jobPost.php?jobID=$id;'>$name</a>
                 </span>
                 <div class='jlisting-body'>
-                  <p style='width:100%; margin-bottom:5px;'>$location</p>
+                  <p style='margin-bottom:5px;'>$location</p>
                   <p><b>Length of job:</b> $duration</p>
                   <p style=margin-left:10px;><b>Budget:</b> £$budget</p>
                   <p class='listing-desc'>$desc</p>
+                  ";
+                  if ($userType == 'freelancer') {
+                    echo "
+                    <div style='float:right;' class='listing-buttons'>
+                      <a style='padding: 5px;' class='button' href='jobApply.php?jobID=$id'>Apply</a>
+                    </div>";
+                  }
+                echo "
                 </div>
               </div>
            </div>
