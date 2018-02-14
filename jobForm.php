@@ -31,11 +31,11 @@ echo makeHeader();
 
                   <label>Describe the work to be done: </label>
                   <input type="text" name="workDesc" class="form-control block" placeholder="Use this area to provide details about your project"
-                         data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+                         data-validation-length="min4 data" data-validation="required">
 
                   <label>Job Location: </label>
                   <input type="text" name="jobLocation" class="form-control block" placeholder="Example: Newcastle upon Tyne"
-                         data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+                         data-validation-length="min4 data" data-validation="required">
 
               </fieldset>
 
@@ -44,18 +44,23 @@ echo makeHeader();
                   <legend><h3>Rates and Availability</h3></legend>
 
                   <label>How would you like to pay: </label>
-                  <input type="text" name="payMethod" class="form-control block" placeholder="Optional: Enter your organisation name"
-                         data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+                  <select name="payMethod">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="quarterly">Quarterly</option>
+                    <option value="yearly">Yearly</option>
+                  </select>
+                  <br>
+                  <br>
 
                   <label>Budget: </label>
-                  <select name="budgetType">
-                    <option value="fixedPrice">Fixed Price</option>
-                    <option value="hourlyProject">Hourly Project</option>
-                  </select>
+                  <input type="text" name="budgetType" class="form-control block" placeholder="Example: £100"
+                         data-validation-length="min2 data" data-validation="required">
 
                   <label>Job Duration: </label>
                   <input type="text" name="jobDuration" class="form-control block" placeholder="Example: 6 Months"
-                         data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+                         data-validation-length="min4 data" data-validation="required">
 
               </fieldset>
 
@@ -65,23 +70,11 @@ echo makeHeader();
 
                   <label>Start Date: </label>
                   <input type="date" name="startDate" class="form-control block" placeholder="Example: 06/11/18"
-                         data-validation="required" min="2018-02-07">
-
-                  <label>Is this date flexible? </label>
-                  <select name="startDateFlex">
-                    <option value="dateFlexYes">Yes</option>
-                    <option value="dateFlexNo">No</option>
-                  </select>
+                         data-validation="required" min="2018-02-15">
 
                   <label>End Date: </label>
                   <input type="date" name="endDate" class="form-control block" placeholder="Example: 20/02/19"
-                         data-validation="required" min="2018-02-07">
-
-                  <label>Is this date flexible? </label>
-                  <select name="endDateFlex">
-                    <option value="dateFlexYes">Yes</option>
-                    <option value="dateFlexNo">No</option>
-                  </select>
+                         data-validation="required" min="2018-02-15">
 
               </fieldset>
 
@@ -103,6 +96,7 @@ echo makeHeader();
     </script>
 </body>
 </html>
+
 <?php
 echo makePageFooter();
 ?>
