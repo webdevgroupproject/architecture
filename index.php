@@ -8,28 +8,29 @@ echo makeHeader();
 
       <div class="home-banner">
         <div class="banner-text">
-          <h2>Join the UK's Leading Arhcitecture Community</h2>
+          <h2>Join the UK's Leading Architecture Community</h2>
           <p class="tagline" style="text-align: left;">Post your projects and search for freelancers or sign up as a freelancer and take on the latest architecture jobs.</p>
           <a href="registerPage1.php" class="button">Get started</a>
         </div>
         <img id="banner"src="images/banner2.jpeg" alt="image of a blue print">
       </div>
       <div id="howitworks" class="how-it-works-section">
+        <h2>How it Works</h2>
         <div class="images-container">
           <div class="imageFourContain">
 
               <img class="steps" src="images/step1.png" alt="test image">
-              <h2>Create an account</h2>
+              <h3 class="howitworksheader">Join</h3>
               <ul>
-                  <li><strong>start by creating an account.</strong> you can sign up as a freelancer or a client.</li>
-                  <li><strong>Choose your package</strong> you can sign up for a standard free account or choose to go pro</li>
+                  <li><strong>Create an account.</strong> You can sign up as a freelancer or a client.</li>
+                  <li><strong>Choose your package</strong> you can sign up for a standard free account or choose to go Pro</li>
               </ul>
 
           </div>
           <div class="imageFourContain">
 
               <img class="steps" src="images/step2.png" alt="test image">
-              <h2>Organise work</h2>
+              <h3 class="howitworksheader">Publish</h3>
 
               <ul>
                   <li><strong>Post a job as a client.</strong> Once you post a job, freelancers can contact you with job offers.</li>
@@ -40,17 +41,18 @@ echo makeHeader();
           <div class="imageFourContain">
 
               <img class="steps" src="images/step3.png" alt="test image">
-              <h2>Get in contact</h2>
+              <h3 class="howitworksheader">Contact</h3>
 
               <ul>
-                 <li><strong>Message each other directly</strong> to arrange the details of your job.</li>
+                 <li><strong>Connect with each other.</strong></li>
+                 <li>Make introductions and establish good working relationships</li>
               </ul>
 
           </div>
           <div class="imageFourContain">
-              
+
               <img class="steps" src="images/step4.png" alt="test image">
-              <h2>Start working</h2>
+              <h3 class="howitworksheader">Work</h3>
 
               <ul>
                   <li><strong>Agree the details</strong> of the job and start the work.</li>
@@ -61,7 +63,7 @@ echo makeHeader();
       </div>
       <div class="features-section">
         <div id="clientFeatures" class="width50 features">
-            <h2>Blueprint for clients</h2>
+            <h2>Blueprint for Clients</h2>
             <table class="featuresTable">
                 <tr>
                     <th></th>
@@ -95,7 +97,7 @@ echo makeHeader();
 
         </div>
         <div id="freelanceFeatures" class="width50 features">
-            <h2>Blueprint for freelancers</h2>
+            <h2>Blueprint for Freelancers</h2>
             <table class="featuresTable">
                 <tr>
                     <th></th>
@@ -124,7 +126,7 @@ echo makeHeader();
                 </tr>
             </table>
             <div style="width: 75%; margin: 0 auto;">
-                <a href="registerPage1.php" class="button" style="float: left; margin-bottom: 10px;">Get started</a>
+                <a href="registerPage1.php" class="button" style="float: left; margin-bottom: 45px;">Get started</a>
             </div>
         </div>
       </div>

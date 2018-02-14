@@ -4,21 +4,18 @@ echo startSession();
 require_once('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint profile");
 echo makeHeader();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 $dbConn = databaseConn::getConnection();
-$userType = checkUserType();
 require_once('scripts/admin-stats-functions.php');
 
-if (isset($_SESSION['username']) && $userType == "client") {
+checkUserType(); 
 
-  $dbConn = databaseConn::getConnection();
+if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
+
   $userId = $_SESSION['userId'];
 
           $profileInfoSQL = "SELECT *
                       FROM bp_user
-                      WHERE userID = '$userId'";
+                      WHERE userID = $userId";
 
           if ($stmt = $dbConn->query($profileInfoSQL)) {
             $row = $stmt->fetch(PDO::FETCH_OBJ); {
@@ -28,6 +25,7 @@ if (isset($_SESSION['username']) && $userType == "client") {
               $organName = $row->organisation;
               $organOverview = $row->overview;
               $webLink = $row->websiteLink;
+              $image = $row->image;
             }
           }
 
@@ -36,7 +34,17 @@ if (isset($_SESSION['username']) && $userType == "client") {
   <div class=\"profilewrapper\">
     <img class='profilebg' src=\"images/newcastlebackground.jpg\">
     <div class=\"profilebgcontent\">
-      <img id=\"profilepicture\" src=\"images/profilepicture.jpg\" />
+  ";
+
+  if ($image=="") {
+    echo "<img id=\"profilepicture\" src=\"images/default_user.png\" />";
+  }
+  else {
+    echo "<img id=\"profilepicture\" src=\"images/$image\" />";
+  }
+
+  echo "
+
       <h2 class=\"profilepagename\">$forename $surname</h2>
       <p class=\"profilepagelocation\">$location</p>
 
@@ -66,6 +74,13 @@ if (isset($_SESSION['username']) && $userType == "client") {
 
   <h2 id=\"activejobtitle\">My Active Job Posts</h2>
   ";
+
+  echo "
+
+  <div class=\"jobBoxContainer\">
+  ";
+
+
   $profileJobSQL = "SELECT *
               FROM bp_job_post
               WHERE userID = '$userId'";
@@ -77,19 +92,133 @@ if (isset($_SESSION['username']) && $userType == "client") {
     if ($num_rows > 0) {
       foreach ($row as $jobs) {
         $jobName = $jobs->jobName;
+        $jobLoc = $jobs->jobLoc;
+        $startDate = $jobs->startDate;
+        $endDate = $jobs->endDate;
+        $jobPostID = $jobs->jobPostID;
 
         echo "
-        <p id=\"rcorners1\">$jobName</p>
-        <p id=\"rcorners2\">EDIT DELETE</p>
+        <div class=\"jobBox\">
+          <img src='Images/event-img-1.jpeg'/>
+          <div class=\"jobBoxBody\">
+            <span class=\"jobBoxHeading\">
+              <h2>$jobName</h2>
+            </span>
+            <p>Location: $jobLoc</p>
+            <p>Start date: $startDate</p>
+            <p>End date: $endDate</p>
+          </div>
+          <div class=\"jobBoxButtons\">
+          <form method='GET' action='editJobForm.php'>
+            <input type='text' style='display:none;' name='jobPostID' value='$jobPostID'/>
+            <input type=\"submit\" class=\"button\" value=\"Edit\"/>
+          </form>
+            <form method='GET' style=\"float: right !important;\"  action='jobDelete.php'>
+              <input type='text' style='display:none;' name='jobPostID' value='$jobPostID'/>
+              <input type=\"submit\" class=\"button\" value=\"Delete\"/>
+            </form>
+          </div>
+        </div>
         ";
       }
     }
+    else {
+      echo "
+      <p id=\"jobPostEcho\">No jobs have been posted yet</p>
+      ";
+    }
+
+    echo "
+      </div>
+    ";
 
   }
 
-} else if ($userType == "freelancer") {
-    # code...
-} else if ($userType == "admin") {
+} else if (isset($_SESSION['username']) && $_SESSION['userType'] == "freelancer") {
+  $userId = $_SESSION['userId'];
+
+          $profileInfoSQL = "SELECT *
+                      FROM bp_user
+                      WHERE userId = $userId";
+
+          if ($stmt = $dbConn->query($profileInfoSQL)) {
+            $row = $stmt->fetch(PDO::FETCH_OBJ); {
+              $forename = $row->forename;
+              $surname = $row->surname;
+              $proOverview = $row->overview;
+              $location = $row->location;
+            }
+          }
+ echo "<div class=\"profilewrapper\">
+    <img class='profilebg' src=\"images/newcastlebackground.jpg\">
+    <div class=\"profilebgcontent\">
+      <img id=\"profilepicture\" src=\"images/profilepicture.jpg\" />
+      <h2 class=\"profilepagename\">$forename $surname</h2>
+      <p class=\"profilepagelocation\">$location</p>
+      <div class=\"form-container-profile\">
+        <a href= \"searchList.php?searchChoice=jobs&searchInput=\" class=\"button\">Find a Job</a>
+        <a href= \"freelanceSettings.php?userID=$userId\" class=\"button\">Settings</a>
+      </div> 
+    </div>
+  </div>
+
+  <div class=\"images-container clientContainer\">
+    <h3 id=\"clientDetails\"></h3>
+    <div class=\"imageThirdContain profileThird\">
+    </div>
+    <div class=\"imageThirdContain profileThird\">
+      <h3 id=\"profileThirdPTitle\">Professional Overview</h3>
+      <p>$proOverview</p>
+    </div>
+    <div class=\"imageThirdContain profileThird\">
+    </div>
+  </div>
+  <div class=\"jobs\">
+  <h3>Job Applications</h3>";
+
+  $getAppsSQL = "SELECT * FROM bp_job_accept AS a INNER JOIN bp_job_post AS b ON a.jobPostID = b.jobPostID WHERE a.userId = $userId";
+
+  if ($stmt = $dbConn->query($getAppsSQL)) {
+    $row = $stmt->fetchAll(PDO::FETCH_OBJ);
+    $num_rows = count($row);
+    if ($num_rows > 0) {
+      foreach ($row as $application) {
+        $acceptID = $application->jobAcceptID;
+        $acceptDate = $application->dateAccepted;
+        $jobName = $application->jobName;
+        $duration = $application->duration; 
+         echo "
+        <span id=\"jobContainer\">Apply Date: $acceptDate | Job Title: $jobName | Duration: $duration</span> 
+        <span id=\"jobActionBtns\"><a class=\"jobActions\" id=\"viewJob\" href=\"searchList.php?searchChoice=jobs&searchInput=$jobName\">View</a></span>
+        <span id=\"jobActionBtns\"><a class=\"jobActions\" id=\"removeApp\" href=\"removeApplication.php?acceptID=$acceptID\">Delete</a></span>
+
+        ";
+      }
+    }
+  }
+
+    echo "</div>
+          <div class=\"images-container skills\">
+          <h3>Skills</h3>
+          ";
+
+    $getSkillsSQL = "SELECT * FROM bp_skills AS s1 INNER JOIN bp_skill_type AS s2 ON s1.skillTypeId = s2.skillTypeId WHERE s1.userId = $userId";
+
+    if ($stmt = $dbConn->query($getSkillsSQL)) {
+      $row = $stmt->fetchAll(PDO::FETCH_OBJ);
+      $num_rows = count($row);
+      if ($num_rows > 0) {
+        foreach ($row as $skills)  {
+          $skillName = $skills->skillType;
+
+          echo "
+          <span class=\"skillContainer\">$skillName</span>
+          ";
+        }
+      }
+    }
+
+} else if (isset($_SESSION['username']) && $_SESSION['userType'] == "admin") {
 
     echo "<br><h1> Admin statistics</h1><br/> ";
     echo "
@@ -109,7 +238,7 @@ if (isset($_SESSION['username']) && $userType == "client") {
             <div class='clear'></div>
         </div>"; // end of filter bar
 
-    echo "<div class=\"images-container\" style='width:95%'>
+    echo "<!-- <div class=\"images-container\" style='width:95%'>
             <div class=\"imageHalfContain\" style='margin-left:5%; width:45%'>
             <h2>Admin functionality</h2>
                <p style='text-align:justify'>
@@ -169,7 +298,7 @@ if (isset($_SESSION['username']) && $userType == "client") {
                     <p style='text-align: center; font-size: 19px;'> $adminJobsAccept30daysCount<br/><b> This month</b></p>
                   </div>
                 </div>
-            </div>";
+            </div> -->";
 }
 echo makePageFooter();
 
