@@ -48,8 +48,8 @@ foreach ($accType as $value) {
   $accTypeValue = $value;
 }
 
-$addUserSql = "INSERT INTO bp_user(forename, surname, email, username, password, overview, organisation, websiteLink, userRole, image)
-                VALUES ('$forename', '$surname', '$email', '$username', '$password', '$organOverview', '$organName', '$webLink', '$accTypeValue', '$image')";
+$addUserSql = "INSERT INTO bp_user(forename, surname, email, username, password, overview, organisation, websiteLink, userRole, image, location)
+                VALUES ('$forename', '$surname', '$email', '$username', '$password', '$organOverview', '$organName', '$webLink', '$accTypeValue', '$image','$location')";
 // use exec() because no results are returned
 $dbConn->exec($addUserSql);
 
