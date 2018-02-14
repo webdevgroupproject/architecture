@@ -18,14 +18,17 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
     echo "
         <div class='filterBar'>
             <div class=\"imageThirdContain\">
+                <!--Iconfinder (2018) Inconfinder available at: https://www.iconfinder.com/icons/2703062/account_profile_user_icon#size=256 Accessed: 14th February 2018-->
                 <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center'><b>Total number of freelancer users: <br/> $freelancerUsers</b></p>
               </div>
               <div class=\"imageThirdContain\">
+              <!--Iconfinder (2018) Inconfinder available at: https://www.iconfinder.com/icons/227593/breifcase_icon#size=256 Accessed: 14th February 2018-->
               <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center' ><b>Total number of jobs accepted by freelancers: <br/> $numFreelancerJobsAccepted</b></p>
               </div>
               <div class=\"imageThirdContain\">
+              <!--Iconfinder (2018) Inconfinder available at: https://www.iconfinder.com/icons/1976054/fav_favorite_favorites_love_star_icon#size=256 Accessed: 14th February 2018-->
               <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center'><b>Total number of premium freelancer users: <br/> $proUsersFreelancer</b></p>
               </div>
@@ -44,7 +47,7 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
                   </tr>";
 
 
-    $query = "SELECT jobName, jobDesc from bp_job_post inner join bp_job_offer on bp_job_post.jobPostID = bp_job_offer.jobPostId inner join bp_job_accept on bp_job_offer.jobOfferId = bp_job_accept.jobOfferID LIMIT 3 ";
+    $query = "SELECT jobName, jobDesc from bp_job_post inner join bp_job_accept on bp_job_post.jobPostID = bp_job_accept.jobPostId  LIMIT 3 ";
     $result = $dbConn->prepare($query);
     $result->execute();
     $recordSet = $result->fetchAll(PDO::FETCH_ASSOC);

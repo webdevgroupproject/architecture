@@ -19,14 +19,17 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
     echo "
         <div class='filterBar'>
             <div class=\"imageThirdContain\">
+             <!--Iconfinder (2018) Inconfinder available at: https://www.iconfinder.com/icons/2703062/account_profile_user_icon#size=256 Accessed: 14th February 2018-->
                 <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center'><b>Total number of client users <br/> $clientAllCount</b></p>
               </div>
               <div class=\"imageThirdContain\">
+              <!--Iconfinder (2018) Inconfinder available at: https://www.iconfinder.com/icons/227593/breifcase_icon#size=256 Accessed: 14th February 2018-->
               <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center' ><b>Total number of client jobs created <br/> $clientJobsCreatedCount</b></p>
               </div>
               <div class=\"imageThirdContain\">
+              <!--Iconfinder (2018) Inconfinder available at: https://www.iconfinder.com/icons/1976054/fav_favorite_favorites_love_star_icon#size=256 Accessed: 14th February 2018-->
               <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center'><b>Total number of premium client users <br/> $clientProCount</b></p>
               </div>

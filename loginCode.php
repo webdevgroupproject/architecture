@@ -1,7 +1,7 @@
 <?php
-//Anthony Wilkinson built using these tutorials for guidance
-//https://www.youtube.com/watch?v=uVdu4war_Uo
-//http://hazardedit.com/
+
+// HazardEdit (2017) Implementing TOTP Google Authenticator with PHP
+// Available at: http://hazardedit.com/2017/11/02/implementing-totp-google-authenticator-php/ (Accessed: 2nd February 2018)
 require_once('scripts/functions.php');
 require_once('classes/databaseConn.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint 2fa code");
