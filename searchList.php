@@ -1,4 +1,4 @@
-<?php
+<?php<?php
 require_once ('scripts/functions.php');
 echo startSession();
 require_once ('classes/databaseConn.php');
