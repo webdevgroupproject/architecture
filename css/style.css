@@ -1310,3 +1310,18 @@ legend h2{
   padding-top: 25px;
   font-size: 30px;
  }
+
+.suspendbutton {
+    background-color: #b50021;
+    border: none;
+    color: #fff;
+    padding: 2.5% 3%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1em;
+    margin: 25px 0 0 0;
+    cursor: pointer;
+    border-radius: 5px;
+}

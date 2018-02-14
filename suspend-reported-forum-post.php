@@ -55,7 +55,7 @@ if (!empty($errors)) {
     trim($suspendEndDate);
     trim($reason);
 
-    $sql = "INSERT INTO bp_suspend (userId, suspendDate, reason) VALUES ('$userID','$suspendEndDate','$reason')";
+    $sql = "INSERT INTO bp_suspend (userId, date, reason) VALUES ('$userID','$suspendEndDate','$reason')";
 
     $query = $dbConn->prepare($sql);
 
