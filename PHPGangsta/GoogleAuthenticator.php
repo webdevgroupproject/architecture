@@ -1,26 +1,11 @@
 <?php
+// HazardEdit (2017) Implementing TOTP Google Authenticator with PHP
+// Available at: http://hazardedit.com/2017/11/02/implementing-totp-google-authenticator-php/ (Accessed: 2nd February 2018)
 
-/**
- * PHP Class for handling Google Authenticator 2-factor authentication.
- *
- * @author Michael Kliewe
- * @copyright 2012 Michael Kliewe
- * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- *
- * @link http://www.phpgangsta.de/
- */
 class PHPGangsta_GoogleAuthenticator
 {
     protected $_codeLength = 6;
 
-    /**
-     * Create new secret.
-     * 16 characters, randomly chosen from the allowed base32 characters.
-     *
-     * @param int $secretLength
-     *
-     * @return string
-     */
     public function createSecret($secretLength = 16)
     {
         $validChars = $this->_getBase32LookupTable();
@@ -52,14 +37,6 @@ class PHPGangsta_GoogleAuthenticator
         return $secret;
     }
 
-    /**
-     * Calculate the code, with given secret and point in time.
-     *
-     * @param string   $secret
-     * @param int|null $timeSlice
-     *
-     * @return string
-     */
     public function getCode($secret, $timeSlice = null)
     {
         if ($timeSlice === null) {
@@ -69,7 +46,7 @@ class PHPGangsta_GoogleAuthenticator
         $secretkey = $this->_base32Decode($secret);
 
         // Pack time into binary string
-        $time = chr(0).chr(0).chr(0).chr(0).pack('N*', $timeSlice);
+        $time = chr(0) . chr(0) . chr(0) . chr(0) . pack('N*', $timeSlice);
         // Hash it with users secret key
         $hm = hash_hmac('SHA1', $time, $secretkey, true);
         // Use last nipple of result as index/offset
@@ -88,40 +65,20 @@ class PHPGangsta_GoogleAuthenticator
         return str_pad($value % $modulo, $this->_codeLength, '0', STR_PAD_LEFT);
     }
 
-    /**
-     * Get QR-Code URL for image, from google charts.
-     *
-     * @param string $name
-     * @param string $secret
-     * @param string $title
-     * @param array  $params
-     *
-     * @return string
-     */
     public function getQRCodeGoogleUrl($name, $secret, $title = null, $params = array())
     {
-        $width = !empty($params['width']) && (int) $params['width'] > 0 ? (int) $params['width'] : 200;
-        $height = !empty($params['height']) && (int) $params['height'] > 0 ? (int) $params['height'] : 200;
+        $width = !empty($params['width']) && (int)$params['width'] > 0 ? (int)$params['width'] : 200;
+        $height = !empty($params['height']) && (int)$params['height'] > 0 ? (int)$params['height'] : 200;
         $level = !empty($params['level']) && array_search($params['level'], array('L', 'M', 'Q', 'H')) !== false ? $params['level'] : 'M';
 
-        $urlencoded = urlencode('otpauth://totp/'.$name.'?secret='.$secret.'');
+        $urlencoded = urlencode('otpauth://totp/' . $name . '?secret=' . $secret . '');
         if (isset($title)) {
-            $urlencoded .= urlencode('&issuer='.urlencode($title));
+            $urlencoded .= urlencode('&issuer=' . urlencode($title));
         }
 
-        return 'https://chart.googleapis.com/chart?chs='.$width.'x'.$height.'&chld='.$level.'|0&cht=qr&chl='.$urlencoded.'';
+        return 'https://chart.googleapis.com/chart?chs=' . $width . 'x' . $height . '&chld=' . $level . '|0&cht=qr&chl=' . $urlencoded . '';
     }
 
-    /**
-     * Check if the code is correct. This will accept codes starting from $discrepancy*30sec ago to $discrepancy*30sec from now.
-     *
-     * @param string   $secret
-     * @param string   $code
-     * @param int      $discrepancy      This is the allowed time drift in 30 second units (8 means 4 minutes before or after)
-     * @param int|null $currentTimeSlice time slice if we want use other that time()
-     *
-     * @return bool
-     */
     public function verifyCode($secret, $code, $discrepancy = 1, $currentTimeSlice = null)
     {
         if ($currentTimeSlice === null) {
@@ -142,13 +99,6 @@ class PHPGangsta_GoogleAuthenticator
         return false;
     }
 
-    /**
-     * Set the code length, should be >=6.
-     *
-     * @param int $length
-     *
-     * @return PHPGangsta_GoogleAuthenticator
-     */
     public function setCodeLength($length)
     {
         $this->_codeLength = $length;
@@ -156,13 +106,6 @@ class PHPGangsta_GoogleAuthenticator
         return $this;
     }
 
-    /**
-     * Helper class to decode base32.
-     *
-     * @param $secret
-     *
-     * @return bool|string
-     */
     protected function _base32Decode($secret)
     {
         if (empty($secret)) {
@@ -179,7 +122,8 @@ class PHPGangsta_GoogleAuthenticator
         }
         for ($i = 0; $i < 4; ++$i) {
             if ($paddingCharCount == $allowedValues[$i] &&
-                substr($secret, -($allowedValues[$i])) != str_repeat($base32chars[32], $allowedValues[$i])) {
+                substr($secret, -($allowedValues[$i])) != str_repeat($base32chars[32], $allowedValues[$i])
+            ) {
                 return false;
             }
         }
@@ -203,11 +147,6 @@ class PHPGangsta_GoogleAuthenticator
         return $binaryString;
     }
 
-    /**
-     * Get array with all 32 characters for decoding from/encoding to base32.
-     *
-     * @return array
-     */
     protected function _getBase32LookupTable()
     {
         return array(
@@ -219,15 +158,6 @@ class PHPGangsta_GoogleAuthenticator
         );
     }
 
-    /**
-     * A timing safe equals comparison
-     * more info here: http://blog.ircmaxell.com/2014/11/its-all-about-time.html.
-     *
-     * @param string $safeString The internal (safe) value to be checked
-     * @param string $userString The user submitted (unsafe) value
-     *
-     * @return bool True if the two strings are identical
-     */
     private function timingSafeEquals($safeString, $userString)
     {
         if (function_exists('hash_equals')) {
@@ -246,7 +176,6 @@ class PHPGangsta_GoogleAuthenticator
             $result |= (ord($safeString[$i]) ^ ord($userString[$i]));
         }
 
-        // They are only identical strings if $result is exactly 0...
         return $result === 0;
     }
 }
