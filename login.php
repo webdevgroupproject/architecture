@@ -77,7 +77,7 @@ if (isset($_POST['loginProcess'])) {
 
                     $_SESSION['username'] = $username;
                     $_SESSION['logged-in'] = true;
-                    header('Location: index.php');
+                    header('Location: loginCode.php');
                     exit();
                 } else {
                     echo '<div class="ErrorMessages">
@@ -88,9 +88,9 @@ if (isset($_POST['loginProcess'])) {
             }
         } else {
             echo '<div class="ErrorMessages">
-                            <p><b>The following errors occurred:</b></p>
-                            <li>We couldnt match the username or email to the password which you have provided. Please try again. </li>
-                           </div>';
+                    <p><b>The following errors occurred:</b></p>
+                    <li>We couldnt match the username or email to the password which you have provided. Please try again. </li>
+                   </div>';
         }
     }
 } ?>
