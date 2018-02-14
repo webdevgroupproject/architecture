@@ -13,7 +13,7 @@ $(function()
 
     function timeCompare(timeString)
     {
-        var maxMinutes  = 30;  //GREATER THEN 1 MIN.
+        var maxMinutes  = 30;
         var currentTime = new Date();
         var pastTime    = new Date(timeString);
         var timeDiff    = currentTime - pastTime;
@@ -22,6 +22,7 @@ $(function()
         if( minPast > maxMinutes)
         {
             sessionStorage.removeItem("lastTimeStamp");
+            window.alert('you have been logged out due to inactivity');
             window.location = "./logout.php";
             return false;
         }

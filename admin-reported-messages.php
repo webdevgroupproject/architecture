@@ -12,34 +12,34 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $dbConn = databaseConn::getConnection();
 ?>
-<style>
-    .search-box {
-        position: relative;
-        display: inline-block;
-        font-size: 14px;
-        float: left;
-        width: 340px;
-    }
+    <style>
+        .search-box {
+            position: relative;
+            display: inline-block;
+            font-size: 14px;
+            float: left;
+            width: 340px;
+        }
 
-    .refine-box {
-        float: right;
-        width: 400px;
-        display: inline-block;
-        position: relative;
+        .refine-box {
+            float: right;
+            width: 400px;
+            display: inline-block;
+            position: relative;
 
-    }
+        }
 
-    .imageHalfContain {
-        width: 45%;
-        margin-left: 5%;
-    }
+        .imageHalfContain {
+            width: 45%;
+            margin-left: 5%;
+        }
 
-    #customers {
-        width: 85%;
-        margin-left: 100px;
-    }
+        #customers {
+            width: 85%;
+            margin-left: 100px;
+        }
 
-</style>
+    </style>
 <?php
 
 if (isset($_SESSION['username']) && ($userType == "admin")) {
@@ -115,7 +115,7 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
             <th style=\"width:700px; max - width: 700px;\">Forum message posted</th>
             <th style=\"width:100px; max - width: 100px;\">View</th>
             <th style=\"width:100px; max - width: 100px;\">Delete message</th>
-            <th style=\"width:100px; max - width: 100px;\">Suspend</th>
+            <th style=\"width:100px; max - width: 100px;\">Suspend and delete</th>
             <th style=\"width:100px; max - width: 100px;\">Ignore</th>
           </tr>";
         foreach ($recordSet as $row) {

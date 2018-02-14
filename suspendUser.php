@@ -54,19 +54,19 @@ if (!empty($errors)) {
     trim($suspendEndDate);
     trim($reason);
 
-    $sql = "INSERT INTO bp_suspend (userId, suspendDate, reason) VALUES ('$userID','$suspendEndDate','$reason')";
+    $sql = "INSERT INTO bp_suspend (userId, date, reason) VALUES ('$userID','$suspendEndDate','$reason')";
 
     $query = $dbConn->prepare($sql);
 
     $query->execute();
 
-    $sqlUpdate = "UPDATE bp_user set suspended = true where userId = $userID')";
+    $sqlUpdate = "UPDATE bp_user set suspended = true where userId = $userID";
 
     $query2 = $dbConn->prepare($sqlUpdate);
 
     $query2->execute();
 
-    echo "User has been suspended. They will receieve a email to confirm the reasons for their suspension and when they will be able to use the website again";
+    echo "<p style='margin-left:13%; margin-top: 5%;'>User has been suspended. They will receieve a email to confirm the reasons for their suspension and when they will be able to use the website again</p>";
 
     $to = $userEmail;
 
