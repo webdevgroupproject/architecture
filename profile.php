@@ -147,21 +147,12 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
               $surname = $row->surname;
               $proOverview = $row->overview;
               $location = $row->location;
-              $image = $row->image;
             }
           }
  echo "<div class=\"profilewrapper\">
     <img class='profilebg' src=\"images/newcastlebackground.jpg\">
     <div class=\"profilebgcontent\">
-    ";
-  if ($image=="") {
-    echo "<img id=\"profilepicture\" src=\"images/default_user.png\" />";
-  }
-  else {
-    echo "<img id=\"profilepicture\" src=\"images/$image\" />";
-  }
-
-  echo "
+      <img id=\"profilepicture\" src=\"images/profilepicture.jpg\" />
       <h2 class=\"profilepagename\">$forename $surname</h2>
       <p class=\"profilepagelocation\">$location</p>
       <div class=\"form-container-profile\">
@@ -172,11 +163,12 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
   </div>
 
   <div class=\"images-container clientContainer\">
+    <h3 id=\"clientDetails\"></h3>
     <div class=\"imageThirdContain profileThird\">
     </div>
     <div class=\"imageThirdContain profileThird\">
       <h3 id=\"profileThirdPTitle\">Professional Overview</h3>
-      <p style='word-break: break-all;'>$proOverview</p>
+      <p>$proOverview</p>
     </div>
     <div class=\"imageThirdContain profileThird\">
     </div>
@@ -201,13 +193,7 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
         <span id=\"jobActionBtns\"><a class=\"jobActions\" id=\"removeApp\" href=\"removeApplication.php?acceptID=$acceptID\">Delete</a></span>
 
         ";
-        } 
-      } else {
-        echo "
-        <span id=\"jobContainer\">You have not applied for any jobs. If you apply for a job it will appear here</span> 
-        <span id=\"jobActionBtns\"><p style=\"color: #D3D3D3;\">View</p></span>
-        <span id=\"jobActionBtns\"><p style=\"color: #D3D3D3;\">Delete</p></span>
-        ";
+      }
     }
   }
 
@@ -238,21 +224,24 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
     echo "
         <div class='filterBar'>
             <div class=\"imageThirdContain\">
+               <!--Iconfinder (2018) Inconfinder available at: https://www.iconfinder.com/icons/2703062/account_profile_user_icon#size=256 Accessed: 14th February 2018-->
                 <img src='images/userIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center'><b>Total website users: <br/> $adminAllUsersCount</b></p>
               </div>
               <div class=\"imageThirdContain\">
+              <!--Iconfinder (2018) Inconfinder available at: https://www.iconfinder.com/icons/227593/breifcase_icon#size=256 Accessed: 14th February 2018-->
               <img src='images/jobIcon.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center' ><b>Total active jobs <br/> $adminNumJobsCount</b></p>
               </div>
               <div class=\"imageThirdContain\">
+              <!--Iconfinder (2018) Inconfinder available at: https://www.iconfinder.com/icons/1976054/fav_favorite_favorites_love_star_icon#size=256 Accessed: 14th February 2018-->
               <img src='images/premium.png' style='width: 60px; margin-left:42%;'> <br><br>
                 <p style='text-align: center'><b>Total premium users <br/> $adminNumProUsersCount</b></p>
               </div>
             <div class='clear'></div>
         </div>"; // end of filter bar
 
-    echo "<!-- <div class=\"images-container\" style='width:95%'>
+    echo " <div class=\"images-container\" style='width:95%'>
             <div class=\"imageHalfContain\" style='margin-left:5%; width:45%'>
             <h2>Admin functionality</h2>
                <p style='text-align:justify'>
@@ -312,7 +301,7 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
                     <p style='text-align: center; font-size: 19px;'> $adminJobsAccept30daysCount<br/><b> This month</b></p>
                   </div>
                 </div>
-            </div> -->";
+            </div> ";
 }
 echo makePageFooter();
 
