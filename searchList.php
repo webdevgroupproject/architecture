@@ -13,6 +13,11 @@ $filter = filter_has_var(INPUT_GET, 'filter') ? $_GET['filter'] : '';
 $dbConn = databaseConn::getConnection();
 $userType = checkUserType();
 $pro = checkProStatus();
+if (isset($_SESSION['userId'])) {
+  $sessID = $_SESSION['userId'];
+} else {
+  $sessID = '';
+}
 if (isset($searchChoice)){
   if ($searchChoice == 'freelancer' || $searchChoice == 'client') {
     if ($filter == '') {
@@ -83,7 +88,7 @@ if (isset($searchChoice)){
           $local = $listing->location;
           $oView = $listing->overview;
 
-          if ($_SESSION['userId'] == $id) {
+          if ($sessID == $id) {
             echo "";
           } else {
 
