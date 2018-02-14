@@ -51,7 +51,7 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
 
     $userNameSearch = isset($_REQUEST["userNameSearch"]) ? $_REQUEST["userNameSearch"] : null;
 
-    $query = "SELECT bp_user.userId, messageID, username, message FROM bp_message inner join bp_user on bp_message.userID = bp_user.userId where 1 and reported = 1 ";
+    $query = "SELECT bp_user.userId, messageID, username, message, conversationID FROM bp_message inner join bp_user on bp_message.userID = bp_user.userId where 1 and reported = 1 ";
     $sqlCondition = ' ';
     if (!empty($userNameSearch)) {
         $sqlCondition .= " and username LIKE '%$userNameSearch%'";
@@ -104,12 +104,12 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
                 <button type='submit' name='searchUser'><i class=\"material-icons\">search</i></button>
             </div>
             </form>
-            
+
             <div class='clear'></div>
         </div>";
         echo "<table id=\"customers\">
 
-        
+
           <tr>
             <th>Reported user</th>
             <th style=\"width:700px; max - width: 700px;\">Forum message posted</th>
@@ -120,12 +120,13 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
           </tr>";
         foreach ($recordSet as $row) {
             $messageID = $row['messageID'];
+            $conversationID = $row['conversationID'];
             $userID = $row['userId'];
             echo "<tr>
                 <td>$row[username]</td>
                 <td>$row[message]</td>
-                <td><a class='button' style='margin: 0;' href='#'>View message</a></td>
-                <td><a class='button' style='margin: 0;'  href='deleteReportedMessage.php?messageID=$messageID' >Delete message</a></td>
+                <td><a class='button' style='margin: 0;' href='admin-view-messages.php?messageID=$messageID&convoID=$conversationID'>View message</a></td>
+                <td><a class='button' style='margin: 0;'  href='deleteReportedMessage.php?messageID=$messageID&convoID=$conversationID' >Delete message</a></td>
                 <td><a class='button' style='margin: 0;'  href='suspend-report-reason.php?userId=$userID&messageID=$messageID' >Suspend and delete</a></td>
                 <td><a class='button' style='margin: 0;'  href='ignore-messages.php?messageID=$messageID' >Ignore report</a></td>
               </tr>";
