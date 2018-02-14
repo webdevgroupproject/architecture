@@ -26,7 +26,7 @@
             $mtime = "$mess->time";
             $mtimeString = strtotime($mtime);
             $mformatTime = date("h:i", $mtimeString);
-            $messID = $mess->messageID;
+            $messID = $mess->messageID; 
             $messUser = $mess->UserID;
             $forename = $mess->forename;
             $surname = $mess->surname;
