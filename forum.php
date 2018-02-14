@@ -125,7 +125,7 @@ if(!empty($result)) {
                 </a>
                 <p>".$row['threadInfo']."</p> ";
 if (isset($_SESSION['userId'])){
-    echo "<span><a href='profile.php'> ".$row['username']."</a>";
+    echo "<span><a href='profileView.php?userId=".$row['userId']."'> ".$row['username']."</a>";
 }else{
     echo "<span>".$row['username']." ";
 };echo"
