@@ -35,6 +35,7 @@ $_SESSION['accType'] = $accType;
 
     <style>
     #skillSets {
+
       width: 160%;
       margin-left: -13%;
       margin-bottom: 20px;
@@ -42,38 +43,40 @@ $_SESSION['accType'] = $accType;
 
     .skillsChk {
       width: 20px;
-      margin-right: 10px;
       vertical-align: bottom;
     }
 
     .skillCont {
-      display: inline-block;
-      width: 31%;
+
+      width: 30%;
       float: left;
       margin-bottom: 10px;
       margin-left: 15px;
       }
 
     .skillCont label {
-      display: block;
-      text-indent: -25px;
+      width: 100%;
+      height: 25px;
+      text-indent: -20px;
+      margin: 0;
       background: linear-gradient(to left, #f9f9f9 51%, #2DC3E7 49%);
-      background-size: 200% 100%;
+      background-size: 250% 100%;
       background-position:right bottom;
       transition:all 2s ease;
-      margin-right: 10px;
+      float: right;
     }
 
     .skillCont input {
-      width: 25px;
+      width: 19.5%;
       height: 25px;
+      left: -5%;
       padding: 0;
       margin: 0;
-      margin-right: 15px;
       vertical-align: bottom;
       position: relative;
       top: -1px;
       *overflow: hidden;
+      float: left;
 
     
 }
@@ -113,6 +116,9 @@ $_SESSION['accType'] = $accType;
         <label>Location: </label>
         <input type="text" name="location" class="form-control block" placeholder="Please enter your current location"
                data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
+
+        <label>Profile Picture: </label>
+        <input style="padding: 0;" type="file" name="image">
         
         <!-- Professional Background Section -->
         <h2>Professional Details</h2>
@@ -127,8 +133,8 @@ $_SESSION['accType'] = $accType;
 
           while ($skills = $stmt->fetchObject()) {
             echo "<div class='skillCont'> 
-                    
-                     <label><input class='skillsChk' name='skillsets[]' type='checkbox' value='$skills->skillTypeId'/>$skills->skillType</label>
+                    <label>$skills->skillType
+                     <input class='skillsChk' name='skillsets[]' type='checkbox' value='$skills->skillTypeId'/></label>
                   </div>
             ";
           };
@@ -136,7 +142,7 @@ $_SESSION['accType'] = $accType;
         ?>
       </div>
       
-      <label>Please write a few words for your professional overview:</label>
+      <label style="font-weight: bold;">Please write a few words for your professional overview:</label>
       <textarea type="text" name="proOverview" id="overview" placeholder="Enter your professional overview" data-validation-length="min10 data" data-validation="required" rows="6" cols="65"></textarea><span id="maxlength">500</span> characters left
       
 
