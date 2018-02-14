@@ -77,7 +77,7 @@ if (isset($_POST['loginProcess'])) {
 
                     $_SESSION['username'] = $username;
                     $_SESSION['logged-in'] = true;
-                    header('Location: index.php');
+                    header('Location: loginCode.php');
                     exit();
                 } else {
                     echo '<div class="ErrorMessages">
