@@ -9,7 +9,7 @@ echo makeHeader();
 echo startSession();
 ?>
 <style>
-    img {
+    .barcode {
         width:10%;
         margin-left: 45%;
     }
@@ -35,7 +35,7 @@ $secret = $ga->createSecret();
 
 echo "<p style='text-align: center'>Using google authenticator mobile application, scan the barcode and enter the generated code into the input field below.</p>";
 $qrCodeUrl = $ga->getQRCodeGoogleUrl($websiteTitle, $secret);
-echo '<br /><img src="'.$qrCodeUrl.'" />';
+echo '<br /><img class="barcode" src="'.$qrCodeUrl.'" />';
 
 $myCode = $ga->getCode($secret);
 
