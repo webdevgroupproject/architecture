@@ -3,6 +3,7 @@ ob_start();
 require_once('scripts/functions.php');
 echo makePageStart("viewport", "width=device-width, inital-scale=1", "Blueprint Login");
 echo makeHeader();
+$userType = checkUserType();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -77,7 +78,16 @@ if (isset($_POST['loginProcess'])) {
 
                     $_SESSION['username'] = $username;
                     $_SESSION['logged-in'] = true;
-                    header('Location: loginCode.php');
+                    $sql3 = "SElECT userRole from bp_user where username = '$username'";
+                    $stmt3 = $dbConn->query($sql3);
+                    $stmt3->execute();
+                    $userRole = $stmt3->fetchColumn();
+                    if ($userRole == "admin"){
+                        header('Location: loginCode.php');
+                    } else {
+                        header('Location: index.php');
+                    }
+
                     exit();
                 } else {
                     echo '<div class="ErrorMessages">
