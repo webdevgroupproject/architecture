@@ -1325,3 +1325,70 @@ legend h2{
     cursor: pointer;
     border-radius: 5px;
 }
+
+/* PROFILE PAGE CSS - FREELANCE */
+#jobContainer {
+  display: block;
+  margin-left: 15%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background: #404040;
+  padding: 15px;
+  width: 45%;
+  text-align: left;
+  float: left;
+  color: white;
+}
+
+#jobs {
+    width: 100%;
+    padding-bottom: 25px;
+    background-color: green;
+    overflow: hidden;
+}
+
+.skills {
+    width: 100%;
+    margin-top: 25px;
+    text-align: center;
+}
+
+#jobActionBtns {
+    margin: 0 auto;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px       ;
+    background: #404040;
+    padding: 15px;
+    width: 5%;
+    text-align: center;
+    float: left;
+    color: white;
+}
+
+.skillContainer {
+    display: inline-block;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #404040;
+    padding: 15px;
+    width: 7%;
+    text-align: center; 
+    color: white;
+}
+
+
+#viewJob {
+    color: #2DC3E7;;
+    text-decoration: none;
+}
+
+#removeApp {
+    color: #FF3333;
+    text-decoration: none;
+}
