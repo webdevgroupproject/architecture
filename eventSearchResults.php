@@ -1,4 +1,5 @@
 <?php
+//Ross Brown
 //define the number of rows to return per page
 define("ROW_PER_PAGE",4);
 ?>
