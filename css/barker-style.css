@@ -450,3 +450,14 @@
   box-sizing: border-box;
   border-bottom: 2px solid #ccc;
 }
+
+.admin-messages {
+  float: left;
+  width: 50%;
+  margin-left: 32%;
+}
+
+.admin-messages h2 {
+  font-size: 16px;
+  margin: 5px;
+}
