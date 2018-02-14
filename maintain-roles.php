@@ -235,7 +235,7 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
     $client = isset($_REQUEST["client"]) ? $_REQUEST["client"] : null;
     $admin = isset($_REQUEST["admin"]) ? $_REQUEST["admin"] : null;
 
-    $query = "SELECT userId, username, userRole FROM bp_user  where 1 ";
+    $query = "SELECT userId, username, userRole, suspended FROM bp_user  where 1 ";
 
     $sqlCondition = '';
     if (!empty($userNameSearch)) {
@@ -293,31 +293,37 @@ if (isset($_SESSION['username']) && ($userType == "admin")) {
     $numRows = $result->rowCount();
 
     if ($numRows > 0) {
-
-
         echo "<table id=\"customers\">
                   <tr>
                     <th>Username</th>
                     <th>User role</th>
                     <th>Delete</th>
                     <th>Suspend</th>
-                   
                   </tr>";
         foreach ($recordSet as $row) {
-            $userID = $row['userId'];
+                $userID = $row['userId'];
+                $suspended = $row['suspended'];
             echo "<tr>
                 <td>$row[username]</td>
                 <td>$row[userRole]</td>
-                <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>
-                <td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>
-              </tr>";
+                <td><a class='button' id='modalButton'  onclick=\"return confirm_delete()\" style='margin: 0;' href='deleteUser.php?userId=$userID'>Delete user</a></td>";
+            if ($suspended == true) {
+                echo " <td><a class='suspendbutton' style='margin: 0;'  href='unsuspendUser.php?userId=$userID' >Unsuspend user</a></td>";
+            } else {
+                echo "<td><a class='button' style='margin: 0;'  href='suspendUserReason.php?userId=$userID' >Suspend user</a></td>";
+            }
+
         }
-    } else {
-        echo "There are no users found";
-    }
 
 
-    echo " </table><br><form name='frmSearch' action='' method='post'>
+        echo "</tr>";
+
+} else {
+    echo "There are no users found";
+}
+
+
+echo " </table><br><form name='frmSearch' action='' method='post'>
         $per_page_html
     </form>
     </div>
