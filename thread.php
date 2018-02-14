@@ -103,7 +103,7 @@ while ($thread = $threadInfo->fetch(PDO::FETCH_ASSOC)) {
                 echo "<img src=\"images/profilepicture.jpg\">
                 </div>
                 <div class='message-info'>
-                    <span><a href='#'>".$row['username']."</a> posted at ".$formatTime." on ".$formatDate."</span>";
+                    <span><a href='profileView.php?userId=".$row['userId']."'>".$row['username']."</a> posted at ".$formatTime." on ".$formatDate."</span>";
 
             }
             echo"

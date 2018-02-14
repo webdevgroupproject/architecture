@@ -12,6 +12,8 @@ $jobLocation = $_POST['jobLocation'];
 $payMethod = $_POST['payMethod'];
 $budgetType = $_POST['budgetType'];
 $jobDuration = $_POST['jobDuration'];
+$startDate = $_POST['startDate'];
+$endDate = $_POST['endDate'];
 
 $jobName = filter_var($jobName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 $workDesc = filter_var($workDesc, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -42,8 +44,8 @@ trim($endDate);
 
 $dbConn = databaseConn::getConnection();
 $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$addJobSql = "INSERT INTO bp_job_post (userID, jobName, jobDesc, jobLoc, payMethod, budget, duration, startDate, endDate)
-                VALUES ('$userID', '$jobName', '$workDesc', '$jobLocation', '$payMethod', '$budgetType', '$jobDuration', '$startDate', '$endDate' )";
+$addJobSql = "INSERT INTO bp_job_post (userID, jobName, jobDesc, jobLoc, payMethod, budget, duration, startDate, endDate, dateAdded)
+                VALUES ('$userID', '$jobName', '$workDesc', '$jobLocation', '$payMethod', '$budgetType', '$jobDuration', '$startDate', '$endDate', NOW() )";
 // use exec() because no results are returned
 $dbConn->exec($addJobSql);
 

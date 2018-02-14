@@ -12,50 +12,21 @@ echo makeHeader();
           rel="stylesheet" type="text/css"/>
   </head>
 <body>
-<h1>Payment Details</h1>
+<h1>Choose your Account Type</h1>
 
 <div class="form-container">
-    <form method="post" action="paymentConfirm.php">
+    <form method="post" action="cardDetails.php">
         <div class="radio-group">
             <input type="radio" id="option-one" name="selector" value="option-one">
-            <label for="option-one">Monthly Subscription <br/>£9.99</label>
+            <label for="option-one">Free</label>
             <input type="radio" id="option-two" name="selector" value="option-two">
-            <label for="option-two" style="float:right;">12 Month Subscription £99.99</label>
+            <label for="option-two" style="float:right;">Blueprint Pro</label>
         </div>
-        <br>
-        <br>
-
-        <label>Name on Card: </label>
-        <input type="text" name="cardName" class="form-control block"
-               data-validation-length="min4 data" data-validation="required">
-
-        <label>Card Number: </label>
-        <input type="text" name="#" class="form-control block"
-               data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
-
-        <label>Sort Code: </label>
-        <input type="text" name="#" class="form-control block"
-               data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
-
-        <div class="test">
-          <label>Expiry Date: </label>
-          <input type="text" name="#" class="form-control block test"
-                 data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required">
-        </div>
-
-        <div class="test">
-          <label style="margin-left:25%;">CCV: </label>
-          <input type="text" name="#" class="form-control block test"
-                 data-validation="length alphanumeric" data-validation-length="min4 data" data-validation="required" style="margin-left:25%;">
-        </div>
-
         <div class="submit-wrap">
-            <input type="submit" value="Confirm Payment" class="button" name="confirmPayment" style="width: 170px;">
+            <input type="submit" value="Next" class="button" name="accountTypeNext" style="width: 170px;">
         </div>
     </form>
 </div>
-
-<!-- STYLE SECTION -->
 
 <style>
 

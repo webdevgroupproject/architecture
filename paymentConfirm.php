@@ -12,9 +12,15 @@ echo makeHeader();
           rel="stylesheet" type="text/css"/>
   </head>
 <body>
-<h1>Account and Profile Settings</h1>
+<h1>You're now a Blueprint<br> Pro Member!</h1>
+<p style="text-align: center; padding-bottom: 20px;">Thank you for signing up for our service. We hope you enjoy being a Pro.</p>
 
 
+<div class="submit-wrap">
+    <form action="profile.php" method="post">
+      <input type="submit" value="Continue to your Account" class="button" name="continueAccount" style="width: 250px;">
+    </form>
+</div>
 
 </body>
 </html>

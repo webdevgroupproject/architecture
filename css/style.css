@@ -481,6 +481,10 @@ ul {
     float: left;
 }
 
+.howitworksheader{
+    font-size: 23px;
+}
+
 .logo-contain {
     float: left;
     width: 163px;
@@ -1311,6 +1315,81 @@ legend h2{
   font-size: 30px;
  }
 
+ /* Job Boxes on Profile Page */
+
+ .jobBox {
+   width: 20%;
+   height: 350px;
+   background-color: #FFF;
+   box-shadow: 5px 5px 5px #ccc;
+   box-sizing: border-box;
+   margin: 20px 5% 5% 0;
+   float: left;
+ }
+
+ .jobBox img {
+   width: 100%;
+   height: 150px;
+   background-color: #CCC;
+   box-sizing: border-box;
+ }
+
+ .jobBoxBody{
+   height: 130px;
+   overflow: hidden;
+ }
+
+ .jobBoxHeading {
+   margin: 10px;
+   width: 90%;
+   border-bottom: 1px solid #CCC;
+   display: inline-block;
+ }
+
+ .jobBoxHeading h2 {
+   font-size: 18px;
+   float: left;
+   margin: 0 5px 0 5px;
+   line-height: 1.4;
+ }
+
+ .jobBoxHeading i {
+   float: left;
+   width: 10%;
+   margin-bottom: 5px;
+   color: #2DC3E7;
+ }
+
+ .jobBox p {
+   font-size: 14px;
+   margin: 0 5%;
+   width: 90%;
+ }
+
+ .jobBoxButtons input[type="submit"] {
+   margin: 0;
+   width: auto;
+   height: auto;
+   padding: 5px 10px;
+ }
+
+ .jobBoxButtons form {
+   width: auto;
+   margin: 10px 5%;
+   float: left;
+ }
+
+.jobBoxContainer {
+   width: 80%;
+   margin: 0 10%;
+   padding-bottom: 20px;
+   float: left;
+}
+
+#jobPostEcho {
+  text-align: center;
+}
+
 .suspendbutton {
     background-color: #b50021;
     border: none;
@@ -1324,4 +1403,71 @@ legend h2{
     margin: 25px 0 0 0;
     cursor: pointer;
     border-radius: 5px;
+}
+
+/* PROFILE PAGE CSS - FREELANCE */
+#jobContainer {
+  display: block;
+  margin-left: 15%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background: #404040;
+  padding: 15px;
+  width: 45%;
+  text-align: left;
+  float: left;
+  color: white;
+}
+
+#jobs {
+    width: 100%;
+    padding-bottom: 25px;
+    background-color: green;
+    overflow: hidden;
+}
+
+.skills {
+    width: 100%;
+    margin-top: 25px;
+    text-align: center;
+}
+
+#jobActionBtns {
+    margin: 0 auto;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px       ;
+    background: #404040;
+    padding: 15px;
+    width: 5%;
+    text-align: center;
+    float: left;
+    color: white;
+}
+
+.skillContainer {
+    display: inline-block;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #404040;
+    padding: 15px;
+    width: 7%;
+    text-align: center; 
+    color: white;
+}
+
+
+#viewJob {
+    color: #2DC3E7;;
+    text-decoration: none;
+}
+
+#removeApp {
+    color: #FF3333;
+    text-decoration: none;
 }
