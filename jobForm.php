@@ -70,11 +70,11 @@ echo makeHeader();
 
                   <label>Start Date: </label>
                   <input type="date" name="startDate" class="form-control block" placeholder="Example: 06/11/18"
-                         data-validation="required" min="2018-02-07">
+                         data-validation="required" min="2018-02-15">
 
                   <label>End Date: </label>
                   <input type="date" name="endDate" class="form-control block" placeholder="Example: 20/02/19"
-                         data-validation="required" min="2018-02-07">
+                         data-validation="required" min="2018-02-15">
 
               </fieldset>
 
@@ -96,6 +96,7 @@ echo makeHeader();
     </script>
 </body>
 </html>
+
 <?php
 echo makePageFooter();
 ?>

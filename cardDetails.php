@@ -12,7 +12,7 @@ echo makeHeader();
           rel="stylesheet" type="text/css"/>
   </head>
 <body>
-<h1>Card Details</h1>
+<h1>Payment Details</h1>
 
 <div class="form-container">
     <form method="post" action="paymentConfirm.php">

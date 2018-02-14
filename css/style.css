@@ -481,6 +481,10 @@ ul {
     float: left;
 }
 
+.howitworksheader{
+    font-size: 23px;
+}
+
 .logo-contain {
     float: left;
     width: 163px;

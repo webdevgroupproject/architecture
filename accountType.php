@@ -12,7 +12,7 @@ echo makeHeader();
           rel="stylesheet" type="text/css"/>
   </head>
 <body>
-<h1>Card Details</h1>
+<h1>Choose your Account Type</h1>
 
 <div class="form-container">
     <form method="post" action="cardDetails.php">

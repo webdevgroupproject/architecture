@@ -28,6 +28,7 @@ if (isset($_SESSION['username']) && $userType == "client") {
               $organName = $row->organisation;
               $organOverview = $row->overview;
               $webLink = $row->websiteLink;
+              $image = $row->image;
             }
           }
 
@@ -36,7 +37,17 @@ if (isset($_SESSION['username']) && $userType == "client") {
   <div class=\"profilewrapper\">
     <img class='profilebg' src=\"images/newcastlebackground.jpg\">
     <div class=\"profilebgcontent\">
-      <img id=\"profilepicture\" src=\"images/profilepicture.jpg\" />
+  ";
+
+  if ($image=="") {
+    echo "<img id=\"profilepicture\" src=\"images/default_user.png\" />";
+  }
+  else {
+    echo "<img id=\"profilepicture\" src=\"images/$image\" />";
+  }
+
+  echo "
+
       <h2 class=\"profilepagename\">$forename $surname</h2>
       <p class=\"profilepagelocation\">$location</p>
 
@@ -90,9 +101,8 @@ if (isset($_SESSION['username']) && $userType == "client") {
         $jobPostID = $jobs->jobPostID;
 
         echo "
-
         <div class=\"jobBox\">
-          <img src=$profilePic/>
+          <img src='Images/event-img-1.jpeg'/>
           <div class=\"jobBoxBody\">
             <span class=\"jobBoxHeading\">
               <h2>$jobName</h2>
@@ -102,7 +112,7 @@ if (isset($_SESSION['username']) && $userType == "client") {
             <p>End date: $endDate</p>
           </div>
           <div class=\"jobBoxButtons\">
-          <form method='GET' action='editJob.php'>
+          <form method='GET' action='editJobForm.php'>
             <input type='text' style='display:none;' name='jobPostID' value='$jobPostID'/>
             <input type=\"submit\" class=\"button\" value=\"Edit\"/>
           </form>

@@ -19,6 +19,7 @@ $location = $_POST['location'];
 $organName = $_POST['organName'];
 $organOverview = $_POST['organOverview'];
 $webLink = $_POST['webLink'];
+$image = $_POST['image'];
 
 $forename = filter_var($forename, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 $surname = filter_var($surname, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -47,8 +48,8 @@ foreach ($accType as $value) {
   $accTypeValue = $value;
 }
 
-$addUserSql = "INSERT INTO bp_user(forename, surname, email, username, password, overview, organisation, websiteLink, userRole)
-                VALUES ('$forename', '$surname', '$email', '$username', '$password', '$organOverview', '$organName', '$webLink', '$accTypeValue')";
+$addUserSql = "INSERT INTO bp_user(forename, surname, email, username, password, overview, organisation, websiteLink, userRole, image)
+                VALUES ('$forename', '$surname', '$email', '$username', '$password', '$organOverview', '$organName', '$webLink', '$accTypeValue', '$image')";
 // use exec() because no results are returned
 $dbConn->exec($addUserSql);
 
@@ -58,8 +59,8 @@ $userID = $getUserID->fetchObject();
 
 echo "<h1>Success!</h1>" .
      "<div id=\"jobConfirmContent\">" .
-     "<p>Your job has been successfully posted for others to see. You can now edit and review your posting from your profile page.</p>" .
-     "<a href=\"profile.php\" class=\"button\">Return to your profile</a>" .
+     "<p>Your account has been successfully created.</p>" .
+     "<a href=\"accountType.php\" class=\"button\">Choose Account Type</a>" .
      "</div>";
 
 echo makePageFooter();
