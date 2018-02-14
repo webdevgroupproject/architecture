@@ -13,10 +13,11 @@ $dbConn = databaseConn::getConnection();
 if (isset($_SESSION['username'])) {
   $userId = $_SESSION['userId'];
   $username = $_SESSION['username'];
+  $activeID = filter_has_var(INPUT_GET, 'activeID') ? $_GET['activeID'] : null;
 
   $convoSQL = "SELECT *
             FROM bp_conversation AS c
-            LEFT JOIN bp_user AS u
+            INNER JOIN bp_user AS u
             ON u.userId = c.startUserID
             WHERE c.startUserID = $userId
             OR c.secUserID = $userId";
@@ -24,6 +25,7 @@ if (isset($_SESSION['username'])) {
   if ($convostmt = $dbConn->query($convoSQL)) {
     $crows = $convostmt->fetchAll(PDO::FETCH_OBJ);
     $cnum_rows = count($crows);
+    $convoID = '';
 
     echo "
     <div class=\"container\">
@@ -43,6 +45,8 @@ if (isset($_SESSION['username'])) {
           $convoUserID = "$convo->startUserID";
         } else {
           $convoUserID = "";
+        } if ($activeID == null) {
+          $activeID = $convo->conversationID;
         }
 
         $convoNameSQL = "SELECT *
@@ -53,32 +57,40 @@ if (isset($_SESSION['username'])) {
           $cnRow = $convoNameStmt->fetch(PDO::FETCH_OBJ);{
           $forename = $cnRow->forename;
           $surname = $cnRow->surname;
+          $profilePic = $cnRow->image;
           }
         }
 
-        if ($cnum_rows == 1) {
+        if ($activeID == $convoID) {
           $active = "convo-selected";
         } else {
           $active = "";
         }
 
         echo "
-          <div class=\"convo-box $active\">
-            <div class=\"convo-box-head\">
-              <img src=\"images/userIcon.png\"/>
-              <h2>$forename $surname</h2>
-              <span>$cformatTime</span>
-              <p>". $convo->lastMessage ."</p>
+            <div class=\"convo-box $active\">
+              <a href='messaging.php?activeID=$convoID'>
+                <div class=\"convo-box-head\">
+                  <img src=\"images/$profilePic\"/>
+                  <h2>$forename $surname</h2>
+                  <span>$cformatTime</span>
+                  <p>". $convo->lastMessage ."</p>
+                </div>
+              </a>
             </div>
-          </div>
         ";
       }
+    } else {
+      echo "<p class='empty'>You have no Converations, search for more people</p>";
+    }
+    if ($activeID == '') {
+      $activeID = '1';
     }
     $mSQL = "SELECT *
             FROM bp_message AS m
             LEFT JOIN bp_conversation AS c
             ON m.conversationID = c.conversationID
-            WHERE m.conversationID = c.conversationID";
+            WHERE m.conversationID = $activeID";
     echo "
       </div>
       <div class=\"options\">
@@ -90,8 +102,7 @@ if (isset($_SESSION['username'])) {
           </form>
         </div>
         <div class=\"options-right\">
-          <a href=\"blockUser.php?conversationID=$convoID\">Block user</a>
-          <a href=\"deleteConvo.php?conversationID=$convoID\">Delete Converation</a>
+          <a href=\"deleteConvo.php?conversationID=$activeID\">Delete Converation</a>
         </div>
       </div>
       <div class=\"messages\">
@@ -106,7 +117,9 @@ if (isset($_SESSION['username'])) {
             $mtime = "$mess->time";
             $mtimeString = strtotime($mtime);
             $mformatTime = date("h:i", $mtimeString);
-            if ($mess->UserID == $userId) {
+            $messID = $mess->messageID;
+            $messUser = $mess->UserID;
+            if ($messUser == $userId) {
               $status = "sent";
             } else {
               $status = "";
@@ -117,26 +130,31 @@ if (isset($_SESSION['username'])) {
                     <p>". $mess->message ."</p>
                   </div>
                 </div>
+                <div class=\"options-right\" style='width:40%;'>
+                  <a style='float:right; margin-right:5%;' href=\"deleteMessage.php?messageID=$messID&convoID=$activeID\">Delete</a>
+                  <a style='float:right; margin-right:5%;' href=\"reportMessage.php?messageID=$messID&convoID=$activeID\">Report</a>
+                </div>
             ";
           }
+      } else {
+        echo "
+          <p class='empty'>You have no messages</p>
+        ";
       }
       echo "
-      </div>
+        </div>
+      ";
+    }
+    echo "
       <form method='get' action='postMessage.php' class=\"type-section\">
           <textarea name=\"message-text\" cols='40' rows='5' onkeyup=\"countChar(this)\" id=\"message-text\" placeholder=\"Write something...\"></textarea>
-          <input type='disabled' style='display:none;' name='messConvoID' value=\"\"/>
+          <input type='disabled' style='display:none;' name='messConvoID' value=\"$activeID\"/>
           <button type='submit'><i class=\"material-icons\">keyboard_return</i></button>
           <div id='charNum' class=\"charaters-remaining\">
           </div>
       </form>
-    </div>.
+    </div>
     ";
-    } else {
-      echo "
-        <p style='text-align: center;'>You have no messages</p>
-      </div>
-      ";
-    }
   } else {
     return notLoggedRedirect();
   }
@@ -178,8 +196,8 @@ if (isset($_SESSION['username'])) {
         });
 
         // Set search input value on click of result item
-        $(document).on("click", ".result select", function(){
-            $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+        $(document).on("click", ".result li", function(){
+            $(this).parents(".search-box").find('input[type="text"]').val($(this).text  ());
             $(this).parent(".result").empty();
         });
     });

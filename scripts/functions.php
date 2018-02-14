@@ -209,18 +209,30 @@ function notLoggedRedirect(){
     header('Location: http://localhost/architecture/index.php');
 };
 
-function addNotification($userID){
+function addNotification($userID, $link, $jobID, $jAcpt, $return){
     require_once ('classes/databaseConn.php');
     $dbConn = databaseConn::getConnection();
 
-    $notifDLT = "INSERT INTO bp_notification (notificationID, userID, link, time, date, markRead, messageID, jobID, jobAcceptID)
-    VALUES ()";
 
-    if ($dbConn->query($notifDLT) === TRUE) {
+		if (!isset($jobID)) {
+			$jobID = null;
+		}
 
-    } else {
-      echo "Error deleting record: " . $conn->error;
-    }
+		if (!isset($jAcpt)) {
+			$jAcpt = null;
+		}
+
+    $notifINST = "INSERT INTO bp_notification (userID, link, time, date, markRead, jobID, jobAcceptID)
+    VALUES ($userID, $link, now(), now(), '0', $jobID, $jAcpt)";
+
+		$queryresult = $dbConn->prepare($notifINST);
+		$queryresult->execute();
+
+		if ($queryresult) {
+		    return addNotification();
+		} else {
+		    echo "failed";
+		}
 };
 
 //----------Sign up Functions----------//

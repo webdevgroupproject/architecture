@@ -74,41 +74,44 @@ if (isset($searchChoice)){
 
      if ($snum_rows > 0) {
        foreach ($srows as $listing) {
-         $id = $listing->userId;
-         $forename = $listing->forename;
-         $surname = $listing->surname;
-         $email = $listing->email;
-         $profilePic = $listing->image;
-         $org = $listing->organisation;
-         $local = $listing->location;
-         $oView = $listing->overview;
+          $id = $listing->userId;
+          $forename = $listing->forename;
+          $surname = $listing->surname;
+          $email = $listing->email;
+          $profilePic = $listing->image;
+          $org = $listing->organisation;
+          $local = $listing->location;
+          $oView = $listing->overview;
 
-         if ($listing->pro == 1) {
-           $pro = "star";
-         } else {
-           $pro = "";
-         }
+          if ($_SESSION['userId'] == $id) {
+            echo "";
+          } else {
 
-         echo "
-            <div class='flSearch'>
-              <img src=$profilePic/>
-              <div class='listing-body'>
-                <span class='heading'>
-                  <a href='profile.php'>$forename $surname</a>
-                  <i class=\"material-icons\">$pro</i>
-                </span>
-                <p style='width:100%;'>$local</p>
-                <p>$org</p>
-                <p>$oView</p>
+            if ($listing->pro == 1) {
+              $proList = "star";
+            } else {
+              $proList = "";
+            }
+
+            echo "
+              <div class='flSearch'>
+                <img src='images/$profilePic'/>
+                <div class='listing-body'>
+                  <span class='heading'>
+                    <a href='profileView.php?userID=$id'>$forename $surname</a>
+                    <i class=\"material-icons\">$proList</i>
+                  </span>
+                  <p style='width:100%;'>$local</p>
+                  <p>$org</p>
+                  <p>$oView</p>
+                </div>
+                <div class='listing-buttons'>
+                  <a class='button' href='newConvo.php?convoListing=$id'>Message</a>
+                </div>
               </div>
-              <div class='listing-buttons'>
-                <form method='get' style='float: right !important;' action='messaging.php?userID=$id'>
-                  <input type='submit' class='button' value='Message'/>
-                </form>
-              </div>
-           </div>
-         ";
-       }
+                ";
+          }
+        }
      }
      echo "
        </div>

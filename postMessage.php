@@ -21,11 +21,12 @@ if (empty($message)) {
                       UPDATE bp_conversation AS c
                       INNER JOIN bp_message as m
                       ON m.conversationID = c.conversationID
-                      SET c.lastMessage = '$message', c.time = now()";
+                      SET c.lastMessage = '$message', c.time = now()
+                      WHERE c.conversationID = $convoID";
 
         // use exec() because no results are returned
         $dbConn->exec($messageSQL);
-        header("location: messaging.php");
+        header("location: messaging.php?activeID=$convoID");
     }
     catch(PDOException $e) {
         echo $messageSQL . "<br>" . $e->getMessage();
