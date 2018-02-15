@@ -63,7 +63,7 @@ else {
               echo "
 
                     <h2 class=\"profilepagename\">$forename $surname</h2>
-                    <p class=\"profilepagelocation\">$location</p>
+                    <p clasos=\"profilepagelocation\">$location</p>
 
                     <div class=\"form-container-profile\">
 
@@ -157,7 +157,75 @@ else {
 
             }
        }else if ($profileUserType=="freelancer") {
-        echo "Olivers Stuff";
+         $profileInfoSQL = "SELECT *
+                      FROM bp_user
+                      WHERE userId = $userId";
+
+          if ($stmt = $dbConn->query($profileInfoSQL)) {
+            $row = $stmt->fetch(PDO::FETCH_OBJ); {
+              $forename = $row->forename;
+              $surname = $row->surname;
+              $proOverview = $row->overview;
+              $location = $row->location;
+              $image = $row->image;
+            }
+          }
+ echo "<div class=\"profilewrapper\">
+    <img class='profilebg' src=\"images/newcastlebackground.jpg\">
+    <div class=\"profilebgcontent\">
+    ";
+  if ($image=="") {
+    echo "<img id=\"profilepicture\" src=\"images/default_user.png\" />";
+  }
+  else {
+    echo "<img id=\"profilepicture\" src=\"images/$image\" />";
+  }
+
+  echo "
+      <h2 class=\"profilepagename\">$forename $surname</h2>
+      <p class=\"profilepagelocation\">$location</p>
+      <div class=\"form-container-profile\">
+        <a href= \"searchList.php?searchChoice=jobs&searchInput=\" class=\"button\">Find a Job</a>
+        <a href= \"freelanceSettings.php?userID=$userId\" class=\"button\">Settings</a>
+      </div> 
+    </div>
+  </div>
+
+  <div class=\"images-container clientContainer\">
+    <div class=\"imageThirdContain profileThird\">
+    </div>
+    <div class=\"imageThirdContain profileThird\">
+      <h3 id=\"profileThirdPTitle\">Professional Overview</h3>
+      <p style='word-break: break-all;'>$proOverview</p>
+    </div>
+    <div class=\"imageThirdContain profileThird\">
+    </div>
+  </div>
+  <div class=\"jobs\">
+  <h3>Job Applications</h3>";
+
+  $getAppsSQL = "SELECT * FROM bp_job_accept AS a INNER JOIN bp_job_post AS b ON a.jobPostID = b.jobPostID WHERE a.userId = $userId";
+
+    echo "</div>
+          <div class=\"images-container skills\">
+          <h3>Skills</h3>
+          ";
+
+    $getSkillsSQL = "SELECT * FROM bp_skills AS s1 INNER JOIN bp_skill_type AS s2 ON s1.skillTypeId = s2.skillTypeId WHERE s1.userId = $userId";
+
+    if ($stmt = $dbConn->query($getSkillsSQL)) {
+      $row = $stmt->fetchAll(PDO::FETCH_OBJ);
+      $num_rows = count($row);
+      if ($num_rows > 0) {
+        foreach ($row as $skills)  {
+          $skillName = $skills->skillType;
+
+          echo "
+          <span class=\"skillContainer\">$skillName</span>
+          ";
+        }
+      }
+    }
        }
 }
 

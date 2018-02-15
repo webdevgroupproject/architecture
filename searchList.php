@@ -103,18 +103,22 @@ if (isset($searchChoice)){
                 <img src='images/$profilePic'/>
                 <div class='listing-body'>
                   <span class='heading'>
-                    <a href='profileView.php?userID=$id'>$forename $surname</a>
+                    <a href='profileView.php?userId=$id'>$forename $surname</a>
                     <i class=\"material-icons\">$proList</i>
                   </span>
                   <p style='width:100%;'>$local</p>
                   <p>$org</p>
                   <p>$oView</p>
                 </div>
+                ";
+              if (isset($_SESSION['userId'])) {
+                  echo "
                 <div class='listing-buttons'>
                   <a class='button' href='newConvo.php?convoListing=$id'>Message</a>
                 </div>
-              </div>
-                ";
+              ";
+              }
+              echo "</div>";
           }
         }
      }
@@ -184,7 +188,7 @@ if (isset($searchChoice)){
             <div class='jSearch'>
               <div class='listing-body'>
                 <span class='heading'>
-                  <a href='jobPost.php?jobID=$id;'>$name</a>
+                  <a href='jobPost.php?jobId=$id;'>$name</a>
                 </span>
                 <div class='jlisting-body'>
                   <p style='margin-bottom:5px;'>$location</p>
@@ -195,7 +199,7 @@ if (isset($searchChoice)){
                   if ($userType == 'freelancer') {
                     echo "
                     <div style='float:right;' class='listing-buttons'>
-                      <a style='padding: 5px;' class='button' href='jobApply.php?jobID=$id'>Apply</a>
+                      <a style='padding: 5px;' class='button' href='jobApply.php?jobId=$id'>Apply</a>
                     </div>";
                   }
                 echo "
