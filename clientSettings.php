@@ -63,11 +63,19 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
 
             <label>Website Link: </label><input type='text' name='organName' value='$webLink'>
 
-            <a class='button' onclick='return confirm_delete()' href='deleteUser.php?userId=$userID'>Delete your Account</a>
-
             <input type='submit' class='button' name='update' value='Update Account' style='float: right; width: 170px'>
-          </form>
+          </form>";
 
+?>
+
+          <div id='settingBtns' style="width: 30%; display:block; margin-top: 60px; margin-right: auto; margin-left: auto; text-align: center; padding-bottom: 50px;">
+              <span style="font-weight: bold; font-size: 1.5em;">Upgrade or Change Your Password</span>
+              <a href="cardDetails.php" class='button' name='upgradeBtn'>Upgrade To Pro</a>
+              <a href="forgotPasswordForm.php" class='button' name='changePassBtn'>Change Password</a>
+          </div>
+
+          <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+          <script src='//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js'></script>
           <script>
             $.validate({
               form : '.login-form'
@@ -75,9 +83,7 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
             });
             $('#overview').restrictLength($('#maxlength'));
           </script>
-          <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-          <script src='//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js'></script>
-          <script>";
+<?php
   }
 }
 

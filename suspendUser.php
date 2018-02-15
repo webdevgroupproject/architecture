@@ -70,7 +70,7 @@ if (!empty($errors)) {
 
     $to = $userEmail;
 
-    $subject = 'Birthday Reminders for August';
+    $subject = 'Account suspended';
 
     $message = "
     <html>
