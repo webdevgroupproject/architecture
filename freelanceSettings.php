@@ -8,7 +8,7 @@ echo makeHeader();
 echo "<link href='//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css' rel='stylesheet' type='text/css' />
       <style>
       .login-form {
-        margin-top: 70px;  
+        margin-top: 70px;
       }
 
       textarea {
@@ -19,11 +19,12 @@ $dbConn = databaseConn::getConnection();
 $userType = checkUserType();
 //require_once('scripts/admin-stats-functions.php');
 
-$userID = isset($_REQUEST['userID']) ? $_REQUEST['userID'] : null; //checks that the eventID is set/has been passed
+//$userID = isset($_REQUEST['userID']) ? $_REQUEST['userID'] : null; //checks that the eventID is set/has been passed
+$userID = $_SESSION['userId'];
 
-if (isset($_SESSION['username']) && $_SESSION['userType'] == "freelancer") {
+if (isset($_SESSION['username'])) {
 
-  $freelanceSQL = "SELECT * FROM bp_user WHERE userId = '$userID'"; 
+  $freelanceSQL = "SELECT * FROM bp_user WHERE userId = '$userID'";
 
   if ($stmt = $dbConn->query($freelanceSQL)) {
     $row = $stmt->fetch(PDO::FETCH_OBJ); {
@@ -34,6 +35,7 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "freelancer") {
       $overview = $row->overview;
     }
 
+    echo"<h1>Profile Settings</h1>";
 
     echo "<form id='fSettings' action='updateUser.php' method='get'>
             <input type='hidden' name='userIdentification' value='$userID'>
@@ -47,9 +49,9 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "freelancer") {
 ?>
 
           <div id='settingBtns' style="width: 30%; display:block; margin-top: 60px; margin-right: auto; margin-left: auto; text-align: center; padding-bottom: 50px;">
-          <span style="font-weight: bold; font-size: 1.5em;">Upgrade or Change your password</span>
+          <span style="font-weight: bold; font-size: 1.5em;">Upgrade</span>
           <a href="cardDetails.php" class='button' name='upgradeBtn'>Upgrade To Pro</a>
-          <a href="forgotPasswordReset.php" class='button' name='changePassBtn'>Change Password</a>
+
           </div>
 
           <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
@@ -61,10 +63,10 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "freelancer") {
             });
             $('#overview').restrictLength($('#maxlength'));
           </script>
-<?php 
+<?php
   }
 }
 
-echo makePageFooter(); 
+echo makePageFooter();
 checkUserType();
 ?>

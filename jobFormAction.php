@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once ('scripts/functions.php');
 echo startSession();
 require_once ('classes/databaseConn.php');
