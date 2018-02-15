@@ -19,8 +19,7 @@ $sql->execute();
 
 $notifINST = "INSERT INTO bp_notification (userID, link, time, date, markRead)
 VALUES ($userID, 'apply', now(), now(), '0')";
-echo "$notifINST";
-echo "$link";
+
 $queryresult = $dbConn->prepare($notifINST);
 $queryresult->execute();
 
