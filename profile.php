@@ -7,7 +7,7 @@ echo makeHeader();
 $dbConn = databaseConn::getConnection();
 require_once('scripts/admin-stats-functions.php');
 
-checkUserType(); 
+checkUserType();
 
 if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
 
@@ -52,6 +52,7 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
         <a href=\"notifications.php\" class=\"button\">Notifications</a>
         <a href= \"jobForm.php\" class=\"button\">Post a Job</a>
         <a href= \"messaging.php\" class=\"button\">Messages</a>
+        <a href= \"clientSettings.php?userID=$userId\" class=\"button\">Settings</a>
       </div>
     </div>
   </div>
@@ -167,7 +168,7 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
       <div class=\"form-container-profile\">
         <a href= \"searchList.php?searchChoice=jobs&searchInput=\" class=\"button\">Find a Job</a>
         <a href= \"freelanceSettings.php?userID=$userId\" class=\"button\">Settings</a>
-      </div> 
+      </div>
     </div>
   </div>
 
@@ -194,9 +195,9 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
         $acceptID = $application->jobAcceptID;
         $acceptDate = $application->dateAccepted;
         $jobName = $application->jobName;
-        $duration = $application->duration; 
+        $duration = $application->duration;
          echo "
-        <span id=\"jobContainer\">Apply Date: $acceptDate | Job Title: $jobName | Duration: $duration</span> 
+        <span id=\"jobContainer\">Apply Date: $acceptDate | Job Title: $jobName | Duration: $duration</span>
         <span id=\"jobActionBtns\"><a class=\"jobActions\" id=\"viewJob\" href=\"searchList.php?searchChoice=jobs&searchInput=$jobName\">View</a></span>
         <span id=\"jobActionBtns\"><a class=\"jobActions\" id=\"removeApp\" href=\"removeApplication.php?acceptID=$acceptID\">Delete</a></span>
 
