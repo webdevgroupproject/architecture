@@ -110,11 +110,15 @@ if (isset($searchChoice)){
                   <p>$org</p>
                   <p>$oView</p>
                 </div>
+                ";
+              if (isset($_SESSION['userId'])) {
+                  echo "
                 <div class='listing-buttons'>
                   <a class='button' href='newConvo.php?convoListing=$id'>Message</a>
                 </div>
-              </div>
-                ";
+              ";
+              }
+              echo "</div>";
           }
         }
      }
