@@ -22,6 +22,7 @@
                   if ($num_rows > 0) {
                     foreach ($rows as $notif) {
                       $time = "$notif->time";
+                      $link = "$notif->link";
                       $timeString = strtotime($time);
                       $formatTime = date("h:i", $timeString);
                       if ($notif->markRead == 0) {
@@ -37,7 +38,7 @@
                             </div>
                             <div class=\"notif-box-content\">
                               <h2 class=\"notif-box-header\">Bob Jones has sent you a job offer</h2>
-                              <a href=\"". $notif->link ."\">Click here to see the offer</a>
+                              <a href='notifLink.php?link=$link'>Click here to see the offer</a>
                             </div>
                             <form class=\"notif-box-dismiss\" method='get' action='deleteNotif.php'>
                               <input type='disabled' name='deleteNotification' value=\"$notif->notificationID\" style='display:none;'/>
