@@ -10,13 +10,13 @@ $forename = isset($_REQUEST['forename']) ? $_REQUEST['forename']:null;
 $surname = isset($_REQUEST['surname']) ? $_REQUEST['surname']:null;
 $location = isset($_REQUEST['location']) ? $_REQUEST['location']:null;
 $email = isset($_REQUEST['email']) ? $_REQUEST['email']:null;
-$overview = isset($_REQUEST['proOverview']) ? $_REQUEST['proOverview']:null;
+$overview = isset($_REQUEST['organOverview']) ? $_REQUEST['organOverview']:null;
 
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 $forename = filter_var($forename, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 $surname = filter_var($surname, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 $location = filter_var($location, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-$proOverview = filter_var($proOverview, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+$overview = filter_var($overview, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 trim($forename);
 trim($surname);

@@ -17,14 +17,17 @@ echo "<link href='//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/
       }
       </style>";
 $dbConn = databaseConn::getConnection();
-checkUserType();
+
 //require_once('scripts/admin-stats-functions.php');
 
-$userID = isset($_REQUEST['userID']) ? $_REQUEST['userID'] : null; //checks that the eventID is set/has been passed
+// $userID = isset($_REQUEST['userID']) ? $_REQUEST['userID'] : null; //checks that the eventID is set/has been passed
+$userID = $_SESSION['userId'];
 
-if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
+
+if (isset($_SESSION['username'])) {
 
   $clientSQL = "SELECT * FROM bp_user WHERE userId = '$userID'";
+
 
   if ($stmt = $dbConn->query($clientSQL)) {
     $row = $stmt->fetch(PDO::FETCH_OBJ); {
@@ -35,9 +38,11 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
       $organOverview = $row->overview;
       $webLink = $row->websiteLink;
       $image = $row->image;
+      $email = $row->email;
+
     }
 
-    echo "<form class='login-form' action='updateUser.php' method='get'>
+    echo "<form class='login-form' action='updateUserClient.php' method='get'>
             <input type='hidden' name='userIdentification' value='$userID'>
 
             <h1>Profile Settings</h1>
@@ -48,17 +53,17 @@ if (isset($_SESSION['username']) && $_SESSION['userType'] == "client") {
             <label>Surname: </label><input type='text' name='surname' value='$surname' data-validation='length alphanumeric'
              data-validation-length='min4 data' data-validation='required'>
 
-            <label>Location: </label><input type='text' name='location' value='$location' data-validation='length alphanumeric'
+            <label>Location: </label><input type='text' name='location' value='$location'
              data-validation-length='min4 data' data-validation='required'>
 
-            <label>Email: </label><input type='text' name='email' value='$webLink' data-validation='length alphanumeric'
-             data-validation-length='min4 data' data-validation='required'>
+            <label>Email: </label><input type='text' name='email' value='$email'
+             data-validation='required'>
 
             <label>Website Link: </label><input style='padding: 0;' type='file' name='image' value='$image'>
 
-            <label>Organisation Name: </label><input type='text' name='organName' value='$organName' data-validation='length alphanumeric'>
+            <label>Organisation Name: </label><input type='text' name='organName' value='$organName'>
 
-            <label>Organisation Overview: </label><textarea type='text' name='organName' value='$organOverview' data-validation='length alphanumeric'
+            <label>Organisation Overview: </label><textarea type='text' name='organOverview' value='$organOverview'
              rows='7' cols='66' placeholder='$organOverview'></textarea>
 
             <label>Website Link: </label><input type='text' name='organName' value='$webLink'>

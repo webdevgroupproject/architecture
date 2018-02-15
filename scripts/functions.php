@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 //function to set up the html and the start of the page
 function makePageStart($metaName, $metaContent, $pageTitle) {
 	$pageStartContent = <<<PAGESTART
@@ -73,6 +75,8 @@ function makeHeader(){
 						//</nav>
         		if (isset($_SESSION['username'])) {
           		$username = $_SESSION['username'];
+							$userType =  $_SESSION['userType'];
+							$userID = $_SESSION['userId'];
           		$headerContent .= "
           			<div class=\"header-nav\" id='user-nav' style='float: right; width: 30%;'>
           				<ul class=\"clearfix\" style='float: right; width: auto;'>
@@ -80,9 +84,16 @@ function makeHeader(){
 											<a href='profile.php'>$username<span class=\"arrow\"> &#9660;</span></a>
                     	<ul class=\"dropdown\">
                        <li><a href=\"notifications.php\">Notifications</a></li>
-                       <li><a href=\"messaging.php\">Messages</a></li>
-                       <li><a href=\"profileSettings.php\">Profile Settings</a></li>
-                     	</ul>
+                       <li><a href=\"messaging.php\">Messages</a></li>";
+											 if ($userType == 'client') {
+												 $headerContent.= "<li><a href='clientSettings.php?userId=$userID'>Profile Settings</a></li>";
+											 } else if ($userType == 'freelancer') {
+												 $headerContent.= "<li><a href='freelanceSettings.php'>Profile Settings</a></li>";
+											 } else {
+												 $headerContent.= "<li><a href='#'>Profile Settings</a></li>";
+											 }
+
+                     	$headerContent.="</ul>
                   	</li>
 										<li>
 											<a href=\"logout.php\">Log out</a>
@@ -155,9 +166,9 @@ FOOTER;
 
 function startSession(){
 
-    //ini_set("session.save_path", "/Applications/MAMP/sessionData");
+    ini_set("session.save_path", "/Applications/MAMP/sessionData");
     //ini_set("session.save_path", "/xampp1/sessionData");
-		ini_set("session.save_path", "/xampp/sessionData");
+		//ini_set("session.save_path", "/xampp/sessionData");
     session_start();
 };
 
